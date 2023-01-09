@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AllotjamentController;
+use App\Http\Controllers\TraduccioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,13 @@ Route::group(["prefix"=>"allotjament"], function() {
     Route::post("/", [AllotjamentController::class, "insertAllotjament"]);
     Route::put("/", [AllotjamentController::class, "updateAllotjament"]);
     Route::delete("/", [AllotjamentController::class, "deleteAllotjament"]);
+});
+
+
+Route::group(["prefix"=>"traduccio"], function() {
+    Route::get("/", [TraduccioController::class, "getTraduccions"]);
+    Route::get("/{id}", [TraduccioController::class, "getTraduccio"]);
+    Route::post("/", [TraduccioController::class, "insertTraduccio"]);
+    Route::put("/", [TraduccioController::class, "updateTraduccio"]);
+    Route::delete("/", [TraduccioController::class, "deleteTraduccio"]);
 });

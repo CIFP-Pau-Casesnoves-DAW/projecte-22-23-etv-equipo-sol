@@ -22,7 +22,7 @@ class AllotjamentController extends Controller
     public function insertAllotjament(Request $request){
         $allotjament = new Allotjament();
 
-        $validator = $this->createValidators();
+        $validator = $this->createValidator();
         $messages = ControllersHelper::createValidatorMessages();
 
         $isValid = Validator::make($request->all(), $validator, $messages);
@@ -57,7 +57,7 @@ class AllotjamentController extends Controller
         }
 
         $allotjament=Allotjament::findOrFail($request->ID);
-        $validator = $this->createValidators();
+        $validator = $this->createValidator();
         $messages = ControllersHelper::createValidatorMessages();
 
         $isValid = Validator::make($request->all(), $validator, $messages);
@@ -102,7 +102,7 @@ class AllotjamentController extends Controller
         }
     }
 
-    public function createValidators(): array
+    public function createValidator(): array
     {
         return [
             "NumeroRegistre" => ["required", "max:14","min:14"],
