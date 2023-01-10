@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AllotjamentController;
 use App\Http\Controllers\ComentariController;
+use App\Http\Controllers\IdiomaController;
+use App\Http\Controllers\TipusServeiController;
 use App\Http\Controllers\TraduccioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -46,4 +48,14 @@ Route::group(["prefix"=>"comentari"], function() {
     Route::post("/", [ComentariController::class, "insertComentari"]);
     Route::put("/", [ComentariController::class, "updateComentari"]);
     Route::delete("/", [ComentariController::class, "deleteComentari"]);
+});
+
+Route::group(["prefix"=>"tipusservei"], function() {
+    Route::get("/", [TipusServeiController::class, "getTipusServeis"]);
+    Route::get("/{id}", [TipusServeiController::class, "getTipusServei"]);
+});
+
+Route::group(["prefix"=>"idioma"], function() {
+    Route::get("/", [IdiomaController::class, "getIdiomes"]);
+    Route::get("/{id}", [IdiomaController::class, "getIdioma"]);
 });
