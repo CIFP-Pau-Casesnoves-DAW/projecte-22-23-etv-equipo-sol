@@ -9,6 +9,17 @@ use Illuminate\Support\Facades\Validator;
 
 class AllotjamentController extends Controller
 {
+    /**
+     * @OA\Get(
+     * path="/api/allotjament",
+     * tags={"Allotjaments"},
+     * summary="Mostrar tots els allotjaments.",
+     * @OA\Response(
+     * response=200,
+     * description="Mostrar tots els allotjaments."
+     * ),
+     * )
+     */
     public function getAllotjaments(){
         $allotjmanets = Allotjament::all();
         return response()->json(["Status" => "Success","Result" => $allotjmanets], 200);
