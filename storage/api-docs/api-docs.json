@@ -1,0 +1,207 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Projecte Allotjaments Sol",
+        "description": "REST API. Projecte Allotjaments Sol. DAW Client i servidor.",
+        "contact": {
+            "name": "Equip Sol",
+            "email": "jaumefullana@paucasesnovescifp.cat"
+        },
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1/laravel_Biel/projecte-22-23-etv-equipo-sol/public/"
+        }
+    ],
+    "paths": {
+        "/api/allotjament": {
+            "get": {
+                "tags": [
+                    "Allotjaments"
+                ],
+                "summary": "Mostrar tots els allotjaments.",
+                "operationId": "1add0ed8eea62f5417aa47f81e1a0b6a",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar tots els allotjaments."
+                    }
+                }
+            }
+        },
+        "/api/tarifa": {
+            "get": {
+                "tags": [
+                    "Tarifes"
+                ],
+                "summary": "Mostrar totes les tarifes.",
+                "operationId": "a146d33343c8fe90accc540a78cce2af",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar totes les tarifes."
+                    },
+                    "400": {
+                        "description": "Hi ha un error."
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Tarifes"
+                ],
+                "summary": "Crea una tarifa",
+                "description": "Crea una nova tarifa. Sols administradors.",
+                "operationId": "71ce60423ef6f7244de031d5c66f7ff1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "01"
+                                    },
+                                    "PreuTemporadaAlta": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "1000"
+                                    },
+                                    "PreuTemporadaBaixa": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "800"
+                                    },
+                                    "IniciTemporadaAlta": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "01/06/23"
+                                    },
+                                    "FiTemporadaAlta": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "01/10/23"
+                                    },
+                                    "TipusCategoriesID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Atribut categoria requerit"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/tarifa/{id}": {
+            "get": {
+                "tags": [
+                    "Tarifes"
+                ],
+                "summary": "Mostrar una tarifa",
+                "operationId": "57f51d4f2ac0e535983ea32b63c604a4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id de la tarifa",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informació de la tarifa.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hi ha un error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "tarifa no trobada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
