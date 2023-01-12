@@ -54,6 +54,55 @@ class ReservaController extends Controller
         }
     }
 
+    //UPDATE
+
+    public function updateReserva(Request $request)
+    {
+        if ($request->ID == null || $request->ID < 0) {
+            return response()->json(["Status" => "Error", "Result" => "Incorrect ID"], 400);
+        }
+
+        $reserva = Reserva::findOrFail($request->ID);
+        $validator = $this->createValidator();
+        $messages = ControllersHelper::createValidatorMessages();
+
+        $isValid = Validator::make($request->all(), $validator, $messages);
+
+        if ($isValid->fails()) {
+            return response()->json(["Status" => "Error", "Result" => $isValid->errors()], 400);
+        }
+
+        $reserva->DataCheckIn = $request->DataCheckIn;
+        $reserva->DataCheckOut = $request->DataCheckOut;
+        $reserva->Preu = $request->Preu;
+        $reserva->EstatsReservesID = $request->EstatsReservesID;
+        //DESCOMENTAR PER PODER CANVIAR A NOM DE QUI ESTA LA RESERVA
+        // $reserva->UsuarisID = $request->UsuarisID; 
+
+        if ($reserva->save()) {
+            return response()->json(['Status' => 'Success', 'Result' => $reserva], 200);
+        } else {
+            return response()->json(['Status' => 'Error', 'Result' => 'Error actualitzant'], 400);
+        }
+    }
+
+    //DELETE
+
+    public function deleteReserva(Request $request)
+    {
+        if ($request->ID == null || $request->ID < 0) {
+            return response()->json(["Status" => "Error", "Result" => "Incorrect ID"], 400);
+        }
+
+        $reserva = Reserva::findOrFail($request->ID);
+
+        if ($isDeleted = $reserva->delete()) {
+            return response()->json(['Status' => 'Success', 'Result' => $isDeleted], 200);
+        } else {
+            return response()->json(['Status' => 'Error', 'Result' => 'Error borrant'], 400);
+        }
+    }
+
     //VALIDADOR
 
     public function createValidator(): array
@@ -61,8 +110,8 @@ class ReservaController extends Controller
         $avui = date("Y-m-d");
         return [
             // "DataReserva" => ["required","date_equals:$avui"],
-            "DataCheckIn" => ["required", "after_or_equal:$avui"],
-            "DataCheckOut" => ["required", "after_or_equal:DatacheckIn"],
+            "DataCheckIn" => ["required", "date", "after_or_equal:$avui"],
+            "DataCheckOut" => ["required", "date", "after_or_equal:DataCheckIn"],
             "Preu" => ["required", "min:0"],
             "EstatsReservesID" => ["required"],
             "AllotjamentsID" => ["required"],
