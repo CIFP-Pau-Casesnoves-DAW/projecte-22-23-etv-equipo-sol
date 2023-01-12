@@ -5,6 +5,7 @@ use App\Http\Controllers\ComentariController;
 use App\Http\Controllers\IdiomaController;
 use App\Http\Controllers\TipusServeiController;
 use App\Http\Controllers\TraduccioController;
+use App\Http\Controllers\TarifaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -58,4 +59,12 @@ Route::group(["prefix"=>"tipusservei"], function() {
 Route::group(["prefix"=>"idioma"], function() {
     Route::get("/", [IdiomaController::class, "getIdiomes"]);
     Route::get("/{id}", [IdiomaController::class, "getIdioma"]);
+});
+
+Route::group(["prefix"=>"tarifa"], function() {
+    Route::get("/", [TarifaController::class, "getTarifes"]);
+    Route::get("/{id}", [TarifaController::class, "getTarifa"]);
+    Route::post("/", [TarifaController::class, "insertTarifa"]);
+    Route::put("/", [TarifaController::class, "updateTarifa"]);
+    Route::delete("/", [TarifaController::class, "deleteTarifa"]);
 });
