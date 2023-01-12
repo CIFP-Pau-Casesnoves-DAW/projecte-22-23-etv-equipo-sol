@@ -4,6 +4,7 @@ use App\Http\Controllers\AllotjamentController;
 use App\Http\Controllers\ComentariController;
 use App\Http\Controllers\IdiomaController;
 use App\Http\Controllers\TipusServeiController;
+use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\TraduccioController;
 use App\Http\Controllers\TarifaController;
 use Illuminate\Http\Request;
@@ -67,4 +68,13 @@ Route::group(["prefix"=>"tarifa"], function() {
     Route::post("/", [TarifaController::class, "insertTarifa"]);
     Route::put("/", [TarifaController::class, "updateTarifa"]);
     Route::delete("/", [TarifaController::class, "deleteTarifa"]);
+});
+
+
+Route::group(["prefix"=>"reserva"], function() {
+    Route::get("/", [ReservaController::class, "getReserves"]);
+    Route::get("/{id}", [ReservaController::class, "getReserva"]);
+    Route::post("/", [ReservaController::class, "insertReserva"]);
+    Route::put("/", [ReservaController::class, "updateReserva"]);
+    Route::delete("/", [ReservaController::class, "deleteReserva"]);
 });
