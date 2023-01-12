@@ -9,6 +9,17 @@ use Illuminate\Support\Facades\Validator;
 
 class AllotjamentController extends Controller
 {
+    /**
+     * @OA\Get(
+     * path="/api/allotjament",
+     * tags={"Allotjaments"},
+     * summary="Mostrar tots els allotjaments.",
+     * @OA\Response(
+     * response=200,
+     * description="Mostrar tots els allotjaments."
+     * ),
+     * )
+     */
     public function getAllotjaments(){
         $allotjmanets = Allotjament::all();
         return response()->json(["Status" => "Success","Result" => $allotjmanets], 200);
@@ -52,7 +63,7 @@ class AllotjamentController extends Controller
     }
 
     public function updateAllotjament(Request $request){
-        if ($request->ID == null || $request->ID < 0) {
+        if ($request->ID == null || $request->ID < 1) {
             return response()->json(["Status" => "Error","Result"=>"Incorrect ID"], 400);
         }
 
@@ -89,7 +100,7 @@ class AllotjamentController extends Controller
     }
 
     public function deleteAllotjament(Request $request){
-        if ($request->ID == null || $request->ID < 0) {
+        if ($request->ID == null || $request->ID < 1) {
             return response()->json(["Status" => "Error","Result"=>"Incorrect ID"], 400);
         }
 
