@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AllotjamentController;
 use App\Http\Controllers\TraduccioController;
+use App\Http\Controllers\TarifaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,4 +39,12 @@ Route::group(["prefix"=>"traduccio"], function() {
     Route::post("/", [TraduccioController::class, "insertTraduccio"]);
     Route::put("/", [TraduccioController::class, "updateTraduccio"]);
     Route::delete("/", [TraduccioController::class, "deleteTraduccio"]);
+});
+
+Route::group(["prefix"=>"tarifa"], function() {
+    Route::get("/", [TarifaController::class, "getTarifes"]);
+    Route::get("/{id}", [TarifaController::class, "getTarifa"]);
+    Route::post("/", [TarifaController::class, "insertTarifa"]);
+    Route::put("/", [TarifaController::class, "updateTarifa"]);
+    Route::delete("/", [TarifaController::class, "deleteTarifa"]);
 });
