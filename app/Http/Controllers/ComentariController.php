@@ -45,7 +45,7 @@ class ComentariController extends Controller
     }
 
     public function updateComentari(Request $request){
-        if ($request->ID == null || $request->ID < 0) {
+        if ($request->ID == null || $request->ID < 1) {
             return response()->json(["Status" => "Error","Result"=>"Incorrect ID"], 400);
         }
 
@@ -70,7 +70,7 @@ class ComentariController extends Controller
     }
 
     public function deleteComentari(Request $request){
-        if ($request->ID == null || $request->ID < 0) {
+        if ($request->ID == null || $request->ID < 1) {
             return response()->json(["Status" => "Error","Result"=>"Incorrect ID"], 400);
         }
 

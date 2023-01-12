@@ -63,7 +63,7 @@ class AllotjamentController extends Controller
     }
 
     public function updateAllotjament(Request $request){
-        if ($request->ID == null || $request->ID < 0) {
+        if ($request->ID == null || $request->ID < 1) {
             return response()->json(["Status" => "Error","Result"=>"Incorrect ID"], 400);
         }
 
@@ -100,7 +100,7 @@ class AllotjamentController extends Controller
     }
 
     public function deleteAllotjament(Request $request){
-        if ($request->ID == null || $request->ID < 0) {
+        if ($request->ID == null || $request->ID < 1) {
             return response()->json(["Status" => "Error","Result"=>"Incorrect ID"], 400);
         }
 

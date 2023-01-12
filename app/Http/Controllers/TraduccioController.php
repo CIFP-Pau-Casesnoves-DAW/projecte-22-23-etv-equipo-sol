@@ -45,7 +45,7 @@ class TraduccioController extends Controller
 
     //hauria de ser de un altre manera, identificant via nomIdentificatiu + idioma, mira com
     public function updateTraduccio(Request $request){
-        if ($request->ID == null || $request->ID < 0) {
+        if ($request->ID == null || $request->ID < 1) {
             return response()->json(["Status" => "Error","Result"=>"Incorrect ID"], 400);
         }
 
@@ -69,7 +69,7 @@ class TraduccioController extends Controller
     }
 
     public function deleteTraduccio(Request $request){
-        if ($request->ID == null || $request->ID < 0) {
+        if ($request->ID == null || $request->ID < 1) {
             return response()->json(["Status" => "Error","Result"=>"Incorrect ID"], 400);
         }
 
