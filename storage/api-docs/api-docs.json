@@ -45,13 +45,13 @@
                     }
                 }
             },
-            "post": {
+            "put": {
                 "tags": [
                     "Tarifes"
                 ],
-                "summary": "Crea una tarifa",
-                "description": "Crea una nova tarifa. Sols administradors.",
-                "operationId": "71ce60423ef6f7244de031d5c66f7ff1",
+                "summary": "Modifica una tarifa",
+                "description": "Modifica una tarifa.",
+                "operationId": "d22f50a499741aa97bfff39abbf6cb0e",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -59,10 +59,101 @@
                             "schema": {
                                 "properties": {
                                     "ID": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "01"
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "2"
                                     },
+                                    "PreuTemporadaAlta": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "1000"
+                                    },
+                                    "PreuTemporadaBaixa": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "800"
+                                    },
+                                    "IniciTemporadaAlta": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "01/06/23"
+                                    },
+                                    "FiTemporadaAlta": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "01/10/23"
+                                    },
+                                    "TipusCategoriesID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Atribut tarifa requerit"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Tarifes"
+                ],
+                "summary": "Crea una tarifa",
+                "description": "Crea una nova tarifa.",
+                "operationId": "71ce60423ef6f7244de031d5c66f7ff1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
                                     "PreuTemporadaAlta": {
                                         "type": "number",
                                         "format": "number",
@@ -140,6 +231,77 @@
                         "bearerAuth": []
                     }
                 ]
+            },
+            "delete": {
+                "tags": [
+                    "Tarifes"
+                ],
+                "summary": "Esborra una tarifa",
+                "description": "Esborra una tarifa.",
+                "operationId": "91f7cc3f5e800c2fb141c86d0462e58b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "5"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Tupla no trobada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/tarifa/{id}": {
@@ -193,6 +355,240 @@
                                         "data": {
                                             "type": "string",
                                             "example": "tarifa no trobada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tipusallotjament": {
+            "get": {
+                "tags": [
+                    "Tipus Allotjament"
+                ],
+                "summary": "Mostrar tots els tipus de allotjaments.",
+                "operationId": "5d5490123f113feb0c6ca806d28fcb77",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar tots els tipus de allotjaments."
+                    },
+                    "400": {
+                        "description": "Hi ha un error."
+                    }
+                }
+            }
+        },
+        "/api/tipusallotjament/{id}": {
+            "get": {
+                "tags": [
+                    "Tipus Allotjament"
+                ],
+                "summary": "Mostrar un tipus d'allotjament",
+                "operationId": "a4c6d84ed4645792cb03b573beab374f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id del tipus d'allotjament",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informació del tipus d'allotjament.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hi ha un error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "tipus d'allotjament no trobada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tipuscategoria": {
+            "get": {
+                "tags": [
+                    "Tipus Categoria"
+                ],
+                "summary": "Mostrar tots els tipus de categoria.",
+                "operationId": "59026e3577696e643a290d6c4e2a6ef3",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar tots els tipus de categoria."
+                    },
+                    "400": {
+                        "description": "Hi ha un error."
+                    }
+                }
+            }
+        },
+        "/api/tipuscategoria/{id}": {
+            "get": {
+                "tags": [
+                    "Tipus Categoria"
+                ],
+                "summary": "Mostrar un tipus de categoria",
+                "operationId": "76bcca7be0457eac554d88f0a727387f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id del tipus de categoria",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informació del tipus de categoria.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hi ha un error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "tipus de categoria no trobada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tipustarifa": {
+            "get": {
+                "tags": [
+                    "Tipus Tarifa"
+                ],
+                "summary": "Mostrar tots els tipus de tarifes.",
+                "operationId": "1f161c09deed909d2623a9a7d085acdf",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar tots els tipus de tarifes."
+                    },
+                    "400": {
+                        "description": "Hi ha un error."
+                    }
+                }
+            }
+        },
+        "/api/tipustarifa/{id}": {
+            "get": {
+                "tags": [
+                    "Tipus Tarifa"
+                ],
+                "summary": "Mostrar un tipus de tarifa",
+                "operationId": "34886018de4d36d2eb30f98b1c416c4b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id del tipus de tarifa",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informació del tipus de tarifa.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hi ha un error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "tipus de tarifa no trobada"
                                         }
                                     },
                                     "type": "object"

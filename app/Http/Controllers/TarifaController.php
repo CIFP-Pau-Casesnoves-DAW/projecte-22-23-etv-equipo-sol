@@ -133,19 +133,17 @@ class TarifaController extends Controller
         }
     }
 
-        /**
-     * Modifica una categoria.
+    /**
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      * @OA\Put(
      *    path="/api/tarifa",
-     *    tags={"Categories"},
-     *    summary="Modifica una categoria",
-     *    description="Modifica una categoria.",
+     *    tags={"Tarifes"},
+     *    summary="Modifica una tarifa",
+     *    description="Modifica una tarifa.",
      *    security={{"bearerAuth":{}}},
-     *    ),
-     *     @OA\RequestBody(
+     *    @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(
      *           @OA\Property(property="ID", type="number", format="number", example="2"),
@@ -163,18 +161,17 @@ class TarifaController extends Controller
      *         @OA\Property(property="status", type="integer", example="success"),
      *         @OA\Property(property="data",type="object")
      *          ),
-     *       ),
+     *     ),
      *    @OA\Response(
      *         response=400,
      *         description="Error",
      *         @OA\JsonContent(
      *         @OA\Property(property="status", type="integer", example="error"),
-     *         @OA\Property(property="data",type="string", example="Atribut categoria requerit")
-     *          ),
-     *       )
+     *         @OA\Property(property="data",type="string", example="Atribut tarifa requerit")
+     *         ),
+     *      )
      *  )
-     */ 
-
+     */
     public function updateTarifa(Request $request){
         if ($request->ID == null || $request->ID < 1) {
             return response()->json(["Status" => "Error","Result"=>"Incorrect ID"], 400);
@@ -201,6 +198,40 @@ class TarifaController extends Controller
         }
     }
 
+     /**
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     * @OA\Delete(
+     *    path="/api/tarifa",
+     *    tags={"Tarifes"},
+     *    summary="Esborra una tarifa",
+     *    description="Esborra una tarifa.",
+     *    security={{"bearerAuth":{}}},
+     *    @OA\RequestBody(
+     *        required=true,
+     *        @OA\JsonContent(
+     *           @OA\Property(property="ID", type="number", format="number", example="5"),
+     *        ),
+     *     ),
+     *    @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(
+     *         @OA\Property(property="status", type="integer", example="success"),
+     *         @OA\Property(property="data",type="object")
+     *          ),
+     *       ),
+     *    @OA\Response(
+     *         response=400,
+     *         description="Error",
+     *         @OA\JsonContent(
+     *         @OA\Property(property="status", type="integer", example="error"),
+     *         @OA\Property(property="data",type="string", example="Tupla no trobada")
+     *          ),
+     *       )
+     *      )
+     *  )
+     */
     public function deleteTarifa(Request $request){
         if ($request->ID == null || $request->ID < 0) {
             return response()->json(["Status" => "Error","Result"=>"Incorrect ID"], 400);
