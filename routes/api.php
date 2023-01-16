@@ -4,6 +4,7 @@ use App\Http\Controllers\AllotjamentController;
 use App\Http\Controllers\ComentariController;
 use App\Http\Controllers\IdiomaController;
 use App\Http\Controllers\TipusServeiController;
+use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\TraduccioController;
 use App\Http\Controllers\TarifaController;
 use App\Http\Controllers\TipusCategoriaController;
@@ -79,4 +80,13 @@ Route::group(["prefix"=>"tipuscategoria"], function() {
 Route::group(["prefix"=>"tipusallotjament"], function() {
     Route::get("/", [TipusAllotjamentController::class, "getTipusAllotjaments"]);
     Route::get("/{id}", [TipusAllotjamentController::class, "getTipusAllotjament"]);
+});
+
+
+Route::group(["prefix"=>"reserva"], function() {
+    Route::get("/", [ReservaController::class, "getReserves"]);
+    Route::get("/{id}", [ReservaController::class, "getReserva"]);
+    Route::post("/", [ReservaController::class, "insertReserva"]);
+    Route::put("/", [ReservaController::class, "updateReserva"]);
+    Route::delete("/", [ReservaController::class, "deleteReserva"]);
 });
