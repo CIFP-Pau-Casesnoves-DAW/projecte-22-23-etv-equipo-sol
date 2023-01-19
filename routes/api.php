@@ -7,6 +7,9 @@ use App\Http\Controllers\TipusServeiController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\TraduccioController;
 use App\Http\Controllers\TarifaController;
+use App\Http\Controllers\RolController;
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -77,4 +80,12 @@ Route::group(["prefix"=>"reserva"], function() {
     Route::post("/", [ReservaController::class, "insertReserva"]);
     Route::put("/", [ReservaController::class, "updateReserva"]);
     Route::delete("/", [ReservaController::class, "deleteReserva"]);
+});
+
+Route::group(["prefix"=>"rol"], function() {
+    Route::get("/", [RolController::class, "getRols"]);
+    Route::get("/{id}", [RolController::class, "getRol"]);
+    Route::post("/", [RolController::class, "insertRol"]);
+    Route::put("/", [RolController::class, "updateRol"]);
+    Route::delete("/", [RolController::class, "deleteRol"]);
 });
