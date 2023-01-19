@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Usuari;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -10,14 +11,16 @@ class LoginController extends Controller
 {
     public function login(Request $request)
     {
-        $user = User::where('Email', $request->input('Email'))->first();
-        if($user && Hash::check($request->input('Password'), $user->password)){
-            $apikey = base64_encode(Str::random(40));
-            $user["api_token"]=$apikey;
-            $user->save();
-            return response()->json(['status' => 'Login OK','result' => $apikey]);
+        $usuari = Usuari::where("CorreuElectronic",$request->input("CorreuElectronic"))->first();
+        //Utilitzar es comentat si hasheam ses contrasenyes
+        //if($usuari && Hash::check($request->input("Contrasenya"), $usuari->Contrasenya)){
+        if($usuari && $request->input("Contrasenya") == $usuari->Contrasenya){
+            $apiKey = base64_encode(Str::random(40));
+            $usuari["Token"]=$apiKey;
+            $usuari->save();
+            return response()->json(["Status" => "Success","Result" => $apiKey]);
         }else{
-            return response()->json(['status' => 'fail'],401);
+            return response()->json(["Status" => "Error","Result" => "Les teves credencials son incorrectes"],401);
         }
     }
 }
