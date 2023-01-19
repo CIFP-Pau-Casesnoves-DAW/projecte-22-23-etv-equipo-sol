@@ -77,11 +77,6 @@ Route::group(["prefix"=>"tarifa"], function() {
     Route::delete("/", [TarifaController::class, "deleteTarifa"])->middleware('token');
 });
 
-    Route::post("/", [TarifaController::class, "insertTarifa"]);
-    Route::put("/", [TarifaController::class, "updateTarifa"]);
-    Route::delete("/", [TarifaController::class, "deleteTarifa"]);
-});
-
 Route::group(["prefix"=>"tipuscategoria"], function() {
     Route::get("/", [TipusCategoriaController::class, "getTipusCategories"]);
     Route::get("/{id}", [TipusCategoriaController::class, "getTipusCategoria"]);
@@ -91,7 +86,6 @@ Route::group(["prefix"=>"tipusallotjament"], function() {
     Route::get("/", [TipusAllotjamentController::class, "getTipusAllotjaments"]);
     Route::get("/{id}", [TipusAllotjamentController::class, "getTipusAllotjament"]);
 });
-
 
 Route::group(["prefix"=>"reserva"], function() {
     Route::get("/", [ReservaController::class, "getReserves"])->middleware('token');
@@ -103,11 +97,6 @@ Route::group(["prefix"=>"reserva"], function() {
 
 Route::group(["prefix"=>"login"], function() {
     Route::post('', [LoginController::class, "login"]);
-    Route::get("/", [ReservaController::class, "getReserves"]);
-    Route::get("/{id}", [ReservaController::class, "getReserva"]);
-    Route::post("/", [ReservaController::class, "insertReserva"]);
-    Route::put("/", [ReservaController::class, "updateReserva"]);
-    Route::delete("/", [ReservaController::class, "deleteReserva"]);
 });
 
 Route::group(["prefix"=>"EstatsReserva"], function() {
