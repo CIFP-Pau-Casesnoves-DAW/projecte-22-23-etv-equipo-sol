@@ -7,6 +7,7 @@ use App\Http\Controllers\TipusServeiController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\TraduccioController;
 use App\Http\Controllers\TarifaController;
+use App\Http\Controllers\UsuariController;
 use App\Http\Controllers\TipusCategoriaController;
 use App\Http\Controllers\TipusAllotjamentController;
 use Illuminate\Http\Request;
@@ -89,4 +90,12 @@ Route::group(["prefix"=>"reserva"], function() {
     Route::post("/", [ReservaController::class, "insertReserva"]);
     Route::put("/", [ReservaController::class, "updateReserva"]);
     Route::delete("/", [ReservaController::class, "deleteReserva"]);
+});
+
+Route::group(["prefix"=>"usuari"], function() {
+    Route::get("/", [UsuariController::class, "getUsuaris"]);
+    Route::get("/{id}", [UsuariController::class, "getUsuari"]);
+    Route::post("/", [UsuariController::class, "insertUsuari"]);
+    Route::put("/", [UsuariController::class, "updateUsuari"]);
+    Route::delete("/", [UsuariController::class, "deleteUsuari"]);
 });

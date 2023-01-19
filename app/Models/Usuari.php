@@ -9,7 +9,7 @@ class Usuari extends Model
 {
     use HasFactory;
 
-    protected $table = 'Usuaris';
+    protected $table = 'usuaris';
     protected $primaryKey = 'ID';
     public $timestamps = false;
 }
