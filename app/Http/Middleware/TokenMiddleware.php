@@ -17,6 +17,12 @@ class TokenMiddleware
             }
 
             $token=$key[1]; // key[0]->Bearer key[1]->token
+
+            if ($token === null || trim($token) === "")
+            {
+                return response()->json(["Error" => "Acces no autoritzat"], 401); // token incorrecta
+            }
+
             $usuari = Usuari::where("Token", $token)->first();
 
             if(!empty($usuari)){
