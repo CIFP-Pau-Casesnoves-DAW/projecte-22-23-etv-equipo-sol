@@ -8,8 +8,9 @@ use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\TraduccioController;
 use App\Http\Controllers\TarifaController;
 use App\Http\Controllers\RolController;
-
-
+use App\Http\Controllers\UsuariController;
+use App\Http\Controllers\TipusCategoriaController;
+use App\Http\Controllers\TipusAllotjamentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -73,6 +74,16 @@ Route::group(["prefix"=>"tarifa"], function() {
     Route::delete("/", [TarifaController::class, "deleteTarifa"]);
 });
 
+Route::group(["prefix"=>"tipuscategoria"], function() {
+    Route::get("/", [TipusCategoriaController::class, "getTipusCategories"]);
+    Route::get("/{id}", [TipusCategoriaController::class, "getTipusCategoria"]);
+});
+
+Route::group(["prefix"=>"tipusallotjament"], function() {
+    Route::get("/", [TipusAllotjamentController::class, "getTipusAllotjaments"]);
+    Route::get("/{id}", [TipusAllotjamentController::class, "getTipusAllotjament"]);
+});
+
 
 Route::group(["prefix"=>"reserva"], function() {
     Route::get("/", [ReservaController::class, "getReserves"]);
@@ -82,6 +93,7 @@ Route::group(["prefix"=>"reserva"], function() {
     Route::delete("/", [ReservaController::class, "deleteReserva"]);
 });
 
+
 Route::group(["prefix"=>"rol"], function() {
     Route::get("/", [RolController::class, "getRols"]);
     Route::get("/{id}", [RolController::class, "getRol"]);
@@ -89,3 +101,12 @@ Route::group(["prefix"=>"rol"], function() {
     Route::put("/", [RolController::class, "updateRol"]);
     Route::delete("/", [RolController::class, "deleteRol"]);
 });
+
+Route::group(["prefix"=>"usuari"], function() {
+    Route::get("/", [UsuariController::class, "getUsuaris"]);
+    Route::get("/{id}", [UsuariController::class, "getUsuari"]);
+    Route::post("/", [UsuariController::class, "insertUsuari"]);
+    Route::put("/", [UsuariController::class, "updateUsuari"]);
+    Route::delete("/", [UsuariController::class, "deleteUsuari"]);
+});
+
