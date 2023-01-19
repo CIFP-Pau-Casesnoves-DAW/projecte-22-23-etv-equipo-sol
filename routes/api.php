@@ -7,6 +7,7 @@ use App\Http\Controllers\TipusServeiController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\TraduccioController;
 use App\Http\Controllers\TarifaController;
+use App\Http\Controllers\EstatsReservaController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuariController;
 use App\Http\Controllers\TipusCategoriaController;
@@ -93,6 +94,10 @@ Route::group(["prefix"=>"reserva"], function() {
     Route::delete("/", [ReservaController::class, "deleteReserva"]);
 });
 
+Route::group(["prefix"=>"EstatsReserva"], function() {
+    Route::get("/", [EstatsReservaController::class, "getEstatsReserves"]);
+    Route::get("/{id}", [EstatsReservaController::class, "getEstatsReserva"]);
+});
 
 Route::group(["prefix"=>"rol"], function() {
     Route::get("/", [RolController::class, "getRols"]);
