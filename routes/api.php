@@ -8,6 +8,8 @@ use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\TraduccioController;
 use App\Http\Controllers\TarifaController;
 use App\Http\Controllers\UsuariController;
+use App\Http\Controllers\TipusCategoriaController;
+use App\Http\Controllers\TipusAllotjamentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -69,6 +71,16 @@ Route::group(["prefix"=>"tarifa"], function() {
     Route::post("/", [TarifaController::class, "insertTarifa"]);
     Route::put("/", [TarifaController::class, "updateTarifa"]);
     Route::delete("/", [TarifaController::class, "deleteTarifa"]);
+});
+
+Route::group(["prefix"=>"tipuscategoria"], function() {
+    Route::get("/", [TipusCategoriaController::class, "getTipusCategories"]);
+    Route::get("/{id}", [TipusCategoriaController::class, "getTipusCategoria"]);
+});
+
+Route::group(["prefix"=>"tipusallotjament"], function() {
+    Route::get("/", [TipusAllotjamentController::class, "getTipusAllotjaments"]);
+    Route::get("/{id}", [TipusAllotjamentController::class, "getTipusAllotjament"]);
 });
 
 
