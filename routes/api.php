@@ -7,6 +7,8 @@ use App\Http\Controllers\TipusServeiController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\TraduccioController;
 use App\Http\Controllers\TarifaController;
+use App\Http\Controllers\EstatsReservaController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -77,4 +79,9 @@ Route::group(["prefix"=>"reserva"], function() {
     Route::post("/", [ReservaController::class, "insertReserva"]);
     Route::put("/", [ReservaController::class, "updateReserva"]);
     Route::delete("/", [ReservaController::class, "deleteReserva"]);
+});
+
+Route::group(["prefix"=>"EstatsReserva"], function() {
+    Route::get("/", [EstatsReservaController::class, "getEstatsReserves"]);
+    Route::get("/{id}", [EstatsReservaController::class, "getEstatsReserva"]);
 });
