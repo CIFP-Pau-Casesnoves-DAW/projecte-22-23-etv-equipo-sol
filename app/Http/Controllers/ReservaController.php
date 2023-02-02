@@ -39,7 +39,6 @@ class ReservaController extends Controller
             return response()->json(["Status" => "Error", "Result" => $isValid->errors()], 400);
         }
         $reserva->DataReserva = date("Y-m-d");
-        // $reserva->DataReserva = $request->DataReserva;
         $reserva->DataCheckIn = $request->DataCheckIn;
         $reserva->DataCheckOut = $request->DataCheckOut;
         $reserva->Preu = $request->Preu;
@@ -58,7 +57,7 @@ class ReservaController extends Controller
 
     public function updateReserva(Request $request)
     {
-        if ($request->ID == null || $request->ID < 0) {
+        if ($request->ID == null || $request->ID < 1) {
             return response()->json(["Status" => "Error", "Result" => "Incorrect ID"], 400);
         }
 
@@ -90,7 +89,7 @@ class ReservaController extends Controller
 
     public function deleteReserva(Request $request)
     {
-        if ($request->ID == null || $request->ID < 0) {
+        if ($request->ID == null || $request->ID < 1) {
             return response()->json(["Status" => "Error", "Result" => "Incorrect ID"], 400);
         }
 
@@ -109,7 +108,6 @@ class ReservaController extends Controller
     {
         $avui = date("Y-m-d");
         return [
-            // "DataReserva" => ["required","date_equals:$avui"],
             "DataCheckIn" => ["required", "date", "after_or_equal:$avui"],
             "DataCheckOut" => ["required", "date", "after_or_equal:DataCheckIn"],
             "Preu" => ["required", "min:0"],
