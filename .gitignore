@@ -17,3 +17,5 @@ yarn-error.log
 /.idea
 /.vscode
 public/.htaccess
+app/Http/Controllers/Controller.php
+public/.htaccess

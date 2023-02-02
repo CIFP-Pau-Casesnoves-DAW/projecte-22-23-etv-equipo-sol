@@ -14,7 +14,7 @@ use Illuminate\Routing\Controller as BaseController;
  * @OA\Contact( name="Equip Sol",email="jaumefullana@paucasesnovescifp.cat")
  * )
  *
- * @OA\Server(url="http://localhost:81/allotjamentssol/public")
+ * @OA\Server(url="http://127.0.0.1/laravel/projecte-22-23-etv-equipo-sol/public/")
  *
  * @OAS\SecurityScheme(
  * type="http",
