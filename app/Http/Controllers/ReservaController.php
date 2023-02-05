@@ -11,6 +11,22 @@ use Illuminate\Support\Facades\Validator;
 class ReservaController extends Controller
 {
     //GET de tot
+
+    /**
+     * @OA\Get(
+     * path="/api/reserva",
+     * tags={"Reserves"},
+     * summary="Mostrar totes les reserves.",
+     * @OA\Response(
+     * response=200,
+     * description="Mostrar totes les reserves."
+     * ),
+     * @OA\Response(
+     * response=400,
+     * description="Hi ha un error."
+     * ),
+     * )
+     */
     public function getReserves()
     {
         $reserves = Reserva::all();
@@ -19,6 +35,42 @@ class ReservaController extends Controller
 
 
     //GET de una ID
+
+    /**
+     *
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/api/reserva/{id}",
+     *     tags={"Reserves"},
+     *     summary="Mostrar una reserva",
+     *     @OA\Parameter(
+     *         description="Id de la reserva",
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="string"),
+     *
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Informació de la reserva.",
+     *          @OA\JsonContent(
+     *          @OA\Property(property="status", type="string", example="Success"),
+     *          @OA\Property(property="data",type="object")
+     *           ),
+     *      ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Hi ha un error.",
+     *         @OA\JsonContent(
+     *          @OA\Property(property="status", type="string", example="Error"),
+     *          @OA\Property(property="data",type="string", example="reserva no trobada")
+     *           ),
+     *     )
+     * )
+     */
     public function getReserva($id)
     {
         $reserva = Reserva::findOrFail($id);
@@ -26,6 +78,48 @@ class ReservaController extends Controller
     }
 
     //INSERT
+
+    /**
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     * @OA\Post(
+     *    path="/api/reserva",
+     *    tags={"Reserves"},
+     *    summary="Crea una reserva",
+     *    description="Crea una nova reserva.",
+     *    security={{"bearerAuth":{}}},
+     *     @OA\RequestBody(
+     *        required=true,
+     *        @OA\JsonContent(
+     *           @OA\Property(property="DataReserva", type="date", format="date", example="01/01/23"),
+     *           @OA\Property(property="DataCheckIn", type="date", format="date", example="05/01/23"),
+     *           @OA\Property(property="DataCheckOut", type="date", format="date", example="10/01/23"),
+     *           @OA\Property(property="Preu", type="number", format="number", example="20"),
+     *           @OA\Property(property="EstatsReservesID", type="number", format="number", example="2"),
+     *           @OA\Property(property="AllotjamentsID", type="number", format="number", example="3"),
+     *           @OA\Property(property="UsuarisID", type="number", format="number", example="10"),
+     *
+     *        ),
+     *     ),
+     *    @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(
+     *         @OA\Property(property="status", type="integer", example="success"),
+     *         @OA\Property(property="data",type="object")
+     *          ),
+     *       ),
+     *    @OA\Response(
+     *         response=400,
+     *         description="Error",
+     *         @OA\JsonContent(
+     *         @OA\Property(property="status", type="integer", example="error"),
+     *         @OA\Property(property="data",type="string", example="Atribut DataCheckIn requerit")
+     *          ),
+     *       )
+     *  )
+     */
     public function insertReserva(Request $request)
     {
         $reserva = new Reserva();
@@ -55,6 +149,43 @@ class ReservaController extends Controller
 
     //UPDATE
 
+    /**
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     * @OA\Put(
+     *    path="/api/reserva",
+     *    tags={"Reserves"},
+     *    summary="Modifica una reserva",
+     *    description="Modifica una reserva.",
+     *    security={{"bearerAuth":{}}},
+     *    @OA\RequestBody(
+     *        required=true,
+     *        @OA\JsonContent(
+     *           @OA\Property(property="DataCheckIn", type="date", format="date", example="05/01/23"),
+     *           @OA\Property(property="DataCheckOut", type="date", format="date", example="10/01/23"),
+     *           @OA\Property(property="Preu", type="number", format="number", example="20"),
+     *           @OA\Property(property="EstatsReservesID", type="number", format="number", example="2"),
+     *        ),
+     *     ),
+     *    @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(
+     *         @OA\Property(property="status", type="integer", example="success"),
+     *         @OA\Property(property="data",type="object")
+     *          ),
+     *     ),
+     *    @OA\Response(
+     *         response=400,
+     *         description="Error",
+     *         @OA\JsonContent(
+     *         @OA\Property(property="status", type="integer", example="error"),
+     *         @OA\Property(property="data",type="string", example="Atribut Preu requerit")
+     *         ),
+     *      )
+     *  )
+     */
     public function updateReserva(Request $request)
     {
         if ($request->ID == null || $request->ID < 1) {
@@ -87,6 +218,40 @@ class ReservaController extends Controller
 
     //DELETE
 
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     * @OA\Delete(
+     *    path="/api/reserva",
+     *    tags={"Reserves"},
+     *    summary="Esborra una reserva",
+     *    description="Esborra una reserva.",
+     *    security={{"bearerAuth":{}}},
+     *    @OA\RequestBody(
+     *        required=true,
+     *        @OA\JsonContent(
+     *           @OA\Property(property="ID", type="number", format="number", example="5"),
+     *        ),
+     *     ),
+     *    @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(
+     *         @OA\Property(property="status", type="integer", example="success"),
+     *         @OA\Property(property="data",type="object")
+     *          ),
+     *       ),
+     *    @OA\Response(
+     *         response=400,
+     *         description="Error",
+     *         @OA\JsonContent(
+     *         @OA\Property(property="status", type="integer", example="error"),
+     *         @OA\Property(property="data",type="string", example="Tupla no trobada")
+     *          ),
+     *       )
+     *      )
+     *  )
+     */
     public function deleteReserva(Request $request)
     {
         if ($request->ID == null || $request->ID < 1) {

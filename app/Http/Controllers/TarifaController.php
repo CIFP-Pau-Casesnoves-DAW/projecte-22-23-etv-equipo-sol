@@ -43,15 +43,15 @@ class TarifaController extends Controller
      *         name="id",
      *         required=true,
      *         @OA\Schema(type="string"),
-     *         
+     *
      *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Informació de la tarifa.",
      *          @OA\JsonContent(
-     *          @OA\Property(property="status", type="string", example="200"),
+     *          @OA\Property(property="status", type="string", example="Success"),
      *          @OA\Property(property="data",type="object")
-     *           ),    
+     *           ),
      *      ),
      *     @OA\Response(
      *         response=400,
@@ -68,7 +68,7 @@ class TarifaController extends Controller
         return response()->json(["Status" => "Success","Result" => $tarifa], 200);
     }
 
-    
+
     /**
      *
      * @param  \Illuminate\Http\Request  $request
@@ -87,7 +87,7 @@ class TarifaController extends Controller
      *           @OA\Property(property="IniciTemporadaAlta", type="date", format="date", example="01/06/23"),
      *           @OA\Property(property="FiTemporadaAlta", type="date", format="date", example="01/10/23"),
      *           @OA\Property(property="TipusCategoriesID", type="number", format="number", example="2"),
-     * 
+     *
      *        ),
      *     ),
      *    @OA\Response(

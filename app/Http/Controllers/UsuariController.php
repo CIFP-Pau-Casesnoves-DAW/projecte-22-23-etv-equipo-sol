@@ -10,6 +10,22 @@ use Illuminate\Support\Facades\Validator;
 class UsuariController extends Controller
 {
     //GET de tot
+
+    /**
+     * @OA\Get(
+     * path="/api/usuari",
+     * tags={"Usuaris"},
+     * summary="Mostrar tots els usuaris.",
+     * @OA\Response(
+     * response=200,
+     * description="Mostrar tots els usuari."
+     * ),
+     * @OA\Response(
+     * response=400,
+     * description="Hi ha un error."
+     * ),
+     * )
+     */
     public function getUsuaris()
     {
         $usuaris = Usuari::all();
@@ -18,6 +34,42 @@ class UsuariController extends Controller
 
 
     //GET de una ID
+
+    /**
+     *
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/api/usuari/{id}",
+     *     tags={"Usuaris"},
+     *     summary="Mostrar un usuari",
+     *     @OA\Parameter(
+     *         description="Id de l'usuari",
+     *         in="path",
+     *         name="id",
+     *         required=true,
+     *         @OA\Schema(type="string"),
+     *
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Informació de l'usuari.",
+     *          @OA\JsonContent(
+     *          @OA\Property(property="status", type="string", example="Success"),
+     *          @OA\Property(property="data",type="object")
+     *           ),
+     *      ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Hi ha un error.",
+     *         @OA\JsonContent(
+     *          @OA\Property(property="status", type="string", example="Error"),
+     *          @OA\Property(property="data",type="string", example="Usuari no trobat")
+     *           ),
+     *     )
+     * )
+     */
     public function getUsuari($id)
     {
         $usuari = Usuari::findOrFail($id);
@@ -25,6 +77,49 @@ class UsuariController extends Controller
     }
 
     //INSERT
+
+    /**
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     * @OA\Post(
+     *    path="/api/usuari",
+     *    tags={"Usuaris"},
+     *    summary="Crea un usuari",
+     *    description="Crea una nou usuari.",
+     *    security={{"bearerAuth":{}}},
+     *     @OA\RequestBody(
+     *        required=true,
+     *        @OA\JsonContent(
+     *           @OA\Property(property="Nom", type="string", format="string", example="Pedro"),
+     *           @OA\Property(property="Llinatges", type="string", format="string", example="Gimenez Santos"),
+     *           @OA\Property(property="Contrasenya", type="string", format="string", example="abcd1234"),
+     *           @OA\Property(property="CorreuElectronic", type="string", format="string", example="pedro@gmail.com"),
+     *           @OA\Property(property="DNI", type="string", format="string", example="12341234Q"),
+     *           @OA\Property(property="Telefon", type="string", format="string", example="971123123"),
+     *           @OA\Property(property="RolsID", type="number", format="number", example="1"),
+     *           @OA\Property(property="Token", type="string", format="string", example="exempleDeToken"),
+     *           @OA\Property(property="ExpiracioToken", type="date", format="date", example="01/10/23"),
+     *        ),
+     *     ),
+     *    @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(
+     *         @OA\Property(property="status", type="integer", example="success"),
+     *         @OA\Property(property="data",type="object")
+     *          ),
+     *       ),
+     *    @OA\Response(
+     *         response=400,
+     *         description="Error",
+     *         @OA\JsonContent(
+     *         @OA\Property(property="status", type="integer", example="error"),
+     *         @OA\Property(property="data",type="string", example="Atribut Llinatges requerit")
+     *          ),
+     *       )
+     *  )
+     */
     public function insertUsuari(Request $request)
     {
         $usuari = new Usuari();
@@ -56,6 +151,46 @@ class UsuariController extends Controller
     }
 
     //UPDATE
+
+    /**
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     * @OA\Put(
+     *    path="/api/usuari",
+     *    tags={"Usuaris"},
+     *    summary="Modifica un usuari",
+     *    description="Modifica un usuari.",
+     *    security={{"bearerAuth":{}}},
+     *    @OA\RequestBody(
+     *        required=true,
+     *        @OA\JsonContent(
+     *           @OA\Property(property="Contrasenya", type="string", format="string", example="abcd1234"),
+     *           @OA\Property(property="CorreuElectronic", type="string", format="string", example="pedro@gmail.com"),
+     *           @OA\Property(property="DNI", type="string", format="string", example="12341234Q"),
+     *           @OA\Property(property="Telefon", type="string", format="string", example="971123123"),
+     *           @OA\Property(property="RolsID", type="number", format="number", example="1"),
+     *           @OA\Property(property="Token", type="string", format="string", example="exempleDeToken"),
+     *        ),
+     *     ),
+     *    @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(
+     *         @OA\Property(property="status", type="integer", example="success"),
+     *         @OA\Property(property="data",type="object")
+     *          ),
+     *     ),
+     *    @OA\Response(
+     *         response=400,
+     *         description="Error",
+     *         @OA\JsonContent(
+     *         @OA\Property(property="status", type="integer", example="error"),
+     *         @OA\Property(property="data",type="string", example="Atribut DNI requerit")
+     *         ),
+     *      )
+     *  )
+     */
     public function updateUsuari(Request $request)
     {
         if ($request->ID == null || $request->ID < 1) {
@@ -81,7 +216,7 @@ class UsuariController extends Controller
         $usuari->RolsID = $request->RolsID;
         $usuari->Token = $request->Token;
         //$usuari->ExpiracioToken = $request->ExpiracioToken;
- 
+
         if ($usuari->save()) {
             return response()->json(['Status' => 'Success', 'Result' => $usuari], 200);
         } else {
@@ -90,7 +225,40 @@ class UsuariController extends Controller
     }
 
     //DELETE
-
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     * @OA\Delete(
+     *    path="/api/usuari",
+     *    tags={"Usuaris"},
+     *    summary="Esborra un usuari",
+     *    description="Esborra un usuari.",
+     *    security={{"bearerAuth":{}}},
+     *    @OA\RequestBody(
+     *        required=true,
+     *        @OA\JsonContent(
+     *           @OA\Property(property="ID", type="number", format="number", example="5"),
+     *        ),
+     *     ),
+     *    @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *         @OA\JsonContent(
+     *         @OA\Property(property="status", type="integer", example="success"),
+     *         @OA\Property(property="data",type="object")
+     *          ),
+     *       ),
+     *    @OA\Response(
+     *         response=400,
+     *         description="Error",
+     *         @OA\JsonContent(
+     *         @OA\Property(property="status", type="integer", example="error"),
+     *         @OA\Property(property="data",type="string", example="Tupla no trobada")
+     *          ),
+     *       )
+     *      )
+     *  )
+     */
     public function deleteUsuari(Request $request)
     {
         if ($request->ID == null || $request->ID < 1) {

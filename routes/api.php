@@ -13,7 +13,6 @@ use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuariController;
 use App\Http\Controllers\TipusCategoriaController;
 use App\Http\Controllers\TipusAllotjamentController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,7 +31,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 */
-
 
 Route::group(["prefix"=>"allotjament"], function() {
     Route::get("/", [AllotjamentController::class, "getAllotjaments"]);
@@ -99,7 +97,7 @@ Route::group(["prefix"=>"login"], function() {
     Route::post('', [LoginController::class, "login"]);
 });
 
-Route::group(["prefix"=>"EstatsReserva"], function() {
+Route::group(["prefix"=>"estatsReserva"], function() {
     Route::get("/", [EstatsReservaController::class, "getEstatsReserves"]);
     Route::get("/{id}", [EstatsReservaController::class, "getEstatsReserva"]);
 });
