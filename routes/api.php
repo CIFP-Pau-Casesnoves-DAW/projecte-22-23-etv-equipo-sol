@@ -97,7 +97,7 @@ Route::group(["prefix"=>"login"], function() {
     Route::post('', [LoginController::class, "login"]);
 });
 
-Route::group(["prefix"=>"EstatsReserva"], function() {
+Route::group(["prefix"=>"estatsReserva"], function() {
     Route::get("/", [EstatsReservaController::class, "getEstatsReserves"]);
     Route::get("/{id}", [EstatsReservaController::class, "getEstatsReserva"]);
 });
