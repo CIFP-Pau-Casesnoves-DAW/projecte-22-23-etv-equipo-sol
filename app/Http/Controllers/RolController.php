@@ -7,7 +7,7 @@ use App\Models\Rol;
 class RolController extends Controller
 {
     //GET de tot
-    public function getReserves()
+    public function getRols()
     {
         $Rols = Rol::all();
         return response()->json(["Status" => "Success", "Result" => $Rols], 200);
@@ -15,7 +15,7 @@ class RolController extends Controller
 
 
     //GET de una ID
-    public function getReserva($id)
+    public function getRol($id)
     {
         $Rol = Rol::findOrFail($id);
         return response()->json(["Status" => "Success", "Result" => $Rol], 200);

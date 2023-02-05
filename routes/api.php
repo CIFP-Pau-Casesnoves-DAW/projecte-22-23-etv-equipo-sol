@@ -109,25 +109,22 @@ Route::group(["prefix"=>"estatsreserva"], function() {
 Route::group(["prefix"=>"rol"], function() {
     Route::get("/", [RolController::class, "getRols"]);
     Route::get("/{id}", [RolController::class, "getRol"]);
-    Route::post("/", [RolController::class, "insertRol"]);
-    Route::put("/", [RolController::class, "updateRol"]);
-    Route::delete("/", [RolController::class, "deleteRol"]);
 });
 
 Route::group(["prefix"=>"usuari"], function() {
     Route::get("/", [UsuariController::class, "getUsuaris"]);
     Route::get("/{id}", [UsuariController::class, "getUsuari"]);
-    Route::post("/", [UsuariController::class, "insertUsuari"]);
-    Route::put("/", [UsuariController::class, "updateUsuari"]);
-    Route::delete("/", [UsuariController::class, "deleteUsuari"]);
+    Route::post("/", [UsuariController::class, "insertUsuari"])->middleware('token');
+    Route::put("/", [UsuariController::class, "updateUsuari"])->middleware('token');
+    Route::delete("/", [UsuariController::class, "deleteUsuari"])->middleware('token');
 });
 
 Route::group(["prefix"=>"imatge"], function() {
     Route::get("/", [ImatgeController::class, "getImatges"]);
     Route::get("/{id}", [ImatgeController::class, "getImatge"]);
-    Route::post("/", [ImatgeController::class, "insertImatge"]);
-    Route::put("/", [ImatgeController::class, "updateImatge"]);
-    Route::delete("/", [ImatgeController::class, "deleteImatge"]);
+    Route::post("/", [ImatgeController::class, "insertImatge"])->middleware('token');
+    Route::put("/", [ImatgeController::class, "updateImatge"])->middleware('token');
+    Route::delete("/", [ImatgeController::class, "deleteImatge"])->middleware('token');
 });
 
 Route::group(["prefix"=>"municipi"], function() {
@@ -143,6 +140,6 @@ Route::group(["prefix"=>"tipusvacances"], function() {
 Route::group(["prefix"=>"serveisallotjament"], function() {
     Route::get("/", [ServeisAllotjamentController::class, "getServeisAllotjament"]);
     Route::get("/{id}", [ServeisAllotjamentController::class, "getServeiAllotjament"]);
-    Route::post("/", [ServeisAllotjamentController::class, "insertServeiAllotjament"]);
-    Route::delete("/", [ServeisAllotjamentController::class, "deleteServeiAllotjament"]);
+    Route::post("/", [ServeisAllotjamentController::class, "insertServeiAllotjament"])->middleware('token');
+    Route::delete("/", [ServeisAllotjamentController::class, "deleteServeiAllotjament"])->middleware('token');
 });
