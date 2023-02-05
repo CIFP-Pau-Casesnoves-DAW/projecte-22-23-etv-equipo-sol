@@ -17,7 +17,7 @@ class LoginController extends Controller
      *    path="/api/login",
      *    tags={"Login"},
      *    summary="Login per obtenir token de autoritzacio",
-     *    description="Utilitza el login per tal de entrar amb les teves credencials i obtenir el token de autoritzacio",
+     *    description="Utilitza el login per tal de entrar amb les teves credencials i obtenir el token de autoritzacio. Es pot enviar la informacio com a JSON o com a x-www-form-urlencoded.",
      *     @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(

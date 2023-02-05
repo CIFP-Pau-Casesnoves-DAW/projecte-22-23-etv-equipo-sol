@@ -3,9 +3,13 @@
 use App\Http\Controllers\AllotjamentController;
 use App\Http\Controllers\ComentariController;
 use App\Http\Controllers\IdiomaController;
+use App\Http\Controllers\ImatgeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MunicipiController;
+use App\Http\Controllers\ServeisAllotjamentController;
 use App\Http\Controllers\TipusServeiController;
 use App\Http\Controllers\ReservaController;
+use App\Http\Controllers\TipusVacancesController;
 use App\Http\Controllers\TraduccioController;
 use App\Http\Controllers\TarifaController;
 use App\Http\Controllers\EstatsReservaController;
@@ -97,7 +101,7 @@ Route::group(["prefix"=>"login"], function() {
     Route::post('', [LoginController::class, "login"]);
 });
 
-Route::group(["prefix"=>"EstatsReserva"], function() {
+Route::group(["prefix"=>"estatsreserva"], function() {
     Route::get("/", [EstatsReservaController::class, "getEstatsReserves"]);
     Route::get("/{id}", [EstatsReservaController::class, "getEstatsReserva"]);
 });
@@ -118,3 +122,27 @@ Route::group(["prefix"=>"usuari"], function() {
     Route::delete("/", [UsuariController::class, "deleteUsuari"]);
 });
 
+Route::group(["prefix"=>"imatge"], function() {
+    Route::get("/", [ImatgeController::class, "getImatges"]);
+    Route::get("/{id}", [ImatgeController::class, "getImatge"]);
+    Route::post("/", [ImatgeController::class, "insertImatge"]);
+    Route::put("/", [ImatgeController::class, "updateImatge"]);
+    Route::delete("/", [ImatgeController::class, "deleteImatge"]);
+});
+
+Route::group(["prefix"=>"municipi"], function() {
+    Route::get("/", [MunicipiController::class, "getMunicipis"]);
+    Route::get("/{id}", [MunicipiController::class, "getMunicipi"]);
+});
+
+Route::group(["prefix"=>"tipusvacances"], function() {
+    Route::get("/", [TipusVacancesController::class, "getTipusVacances"]);
+    Route::get("/{id}", [TipusVacancesController::class, "getTipusVacance"]);
+});
+
+Route::group(["prefix"=>"serveisallotjament"], function() {
+    Route::get("/", [ServeisAllotjamentController::class, "getServeisAllotjament"]);
+    Route::get("/{id}", [ServeisAllotjamentController::class, "getServeiAllotjament"]);
+    Route::post("/", [ServeisAllotjamentController::class, "insertServeiAllotjament"]);
+    Route::delete("/", [ServeisAllotjamentController::class, "deleteServeiAllotjament"]);
+});

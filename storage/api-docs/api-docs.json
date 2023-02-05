@@ -791,13 +791,336 @@
                 }
             }
         },
+        "/api/imatge": {
+            "get": {
+                "tags": [
+                    "Imatges"
+                ],
+                "summary": "Mostrar totes les imatges.",
+                "operationId": "89784ce491c06e3cedb3718cb8ea7720",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar totes les imatges.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Imatges"
+                ],
+                "summary": "Modifica una imatge",
+                "description": "Modifica una imatge.",
+                "operationId": "0cea142ef056fe47589e08dc6c888c42",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "2"
+                                    },
+                                    "URL": {
+                                        "type": "varchar",
+                                        "example": "https://rutaimatge/"
+                                    },
+                                    "EsPrincipal": {
+                                        "type": "boolean",
+                                        "example": "false"
+                                    },
+                                    "Descripcio": {
+                                        "type": "varchar",
+                                        "example": "casa rural amb vistea a muntanya"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "integer",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "integer",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Atribut imatge requerit"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Imatges"
+                ],
+                "summary": "Crea una imatge",
+                "description": "Crea una nova imatge.",
+                "operationId": "f3db4a977c5eb000d936123352312e41",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "URL": {
+                                        "type": "varchar",
+                                        "example": "https://rutaimatge/"
+                                    },
+                                    "EsPrincipal": {
+                                        "type": "boolean",
+                                        "example": "false"
+                                    },
+                                    "Descripcio": {
+                                        "type": "varchar",
+                                        "example": "casa rural amb vistea a muntanya"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "integer",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "integer",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Atribut URL requerit"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Imatges"
+                ],
+                "summary": "Esborra una imatge",
+                "description": "Esborra una imatge.",
+                "operationId": "ba306feb8ba9d55261c1e5f10008beb7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "5"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "integer",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "integer",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Tupla no trobada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/imatge/{id}": {
+            "get": {
+                "tags": [
+                    "Imatges"
+                ],
+                "summary": "Mostrar una imatge",
+                "operationId": "0440729015c12541cd1fe803d0acbe36",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id de la imatge",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informació de la imatge.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hi ha un error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "imatge no trobada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/login": {
             "post": {
                 "tags": [
                     "Login"
                 ],
                 "summary": "Login per obtenir token de autoritzacio",
-                "description": "Utilitza el login per tal de entrar amb les teves credencials i obtenir el token de autoritzacio",
+                "description": "Utilitza el login per tal de entrar amb les teves credencials i obtenir el token de autoritzacio. Es pot enviar la informacio com a JSON o com a x-www-form-urlencoded.",
                 "operationId": "c5e838284c7f343f0e5e5fd589161c96",
                 "requestBody": {
                     "required": true,
@@ -855,6 +1178,314 @@
                                         "Result": {
                                             "type": "string",
                                             "example": "Les teves credencials son incorrectes"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/municipis": {
+            "get": {
+                "tags": [
+                    "Municipis"
+                ],
+                "summary": "Mostrar tots els municipis.",
+                "operationId": "9cbca1c87ebfab0b8405b3cb082a88bf",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar tots els municipis.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/municipi/{id}": {
+            "get": {
+                "tags": [
+                    "Municipi"
+                ],
+                "summary": "Mostrar un municipi",
+                "operationId": "154e7d7868d7bc46c86c0019c549c285",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id del municipi",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informació del municipi.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hi ha un error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Tipus de municipi no trobat"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/serveisallotjament": {
+            "get": {
+                "tags": [
+                    "Serveis Allotjament"
+                ],
+                "summary": "Mostrar tots els serveis d'allotjament.",
+                "operationId": "4e62c6118a5ac0d92aeac8a47e6697e0",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Tarifes"
+                ],
+                "summary": "Crea un servei d'allotjament",
+                "description": "Crea un servei d'allotjament.",
+                "operationId": "538d83374c2c598fd2f5ba263380e77e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "TipusServeisID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "1234"
+                                    },
+                                    "AllotjamentsID": {
+                                        "type": "varchar",
+                                        "example": "Nom del servei"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "integer",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "integer",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Atribut numero de registre requerit"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Serveis Allotjament"
+                ],
+                "summary": "Esborra un servei d'allotjament",
+                "description": "Esborra un servei d'allotjament.",
+                "operationId": "7fcad1be40cf4c3d46a86d4fe2c766f6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "5"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "integer",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "integer",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Tupla no trobada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/serveisallotjament/{id}": {
+            "get": {
+                "tags": [
+                    "Tarifes"
+                ],
+                "summary": "Mostrar un servei d'allotjament",
+                "operationId": "06bef5255ed56a7f953502891f8c0768",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id del servei d'allotjament",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informació del servei d'allotjament.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "Result": {
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -1418,6 +2049,97 @@
                                         },
                                         "Result": {
                                             "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tipusvacances": {
+            "get": {
+                "tags": [
+                    "Tipus Vacances"
+                ],
+                "summary": "Mostrar tots els tipus de vacances.",
+                "operationId": "810d7fc446c5b494824b77652ed7fd63",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar tots els tipus de vacances.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tipusvacances/{id}": {
+            "get": {
+                "tags": [
+                    "Tipus Vacances"
+                ],
+                "summary": "Mostrar un tipus de vacances",
+                "operationId": "c6aeb296f99143d2f6a208e0add3f4be",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id del tipus de vacances",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informació del tipus de vacances.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hi ha un error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Tipus de vacances no trobada"
                                         }
                                     },
                                     "type": "object"
