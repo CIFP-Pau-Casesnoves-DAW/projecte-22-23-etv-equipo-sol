@@ -10,14 +10,20 @@ use Illuminate\Routing\Controller as BaseController;
 /**
  * @OA\Info(
  * title="Projecte Allotjaments Sol", version="1.0",
- * description="REST API. Projecte Allotjaments Sol. DAW Client i servidor.",
+ * description="REST API. Projecte Allotjaments Sol. DAW Client i servidor. Per utilitzar les cridades que necesiten token primer
+  s'haura de fer login amb un usuari per obtenir el token i despres utilitzar aquest token a la part on posa Authorize. Per
+  mes informacio, obtenir un usuari o altres peticions utilitzar el link de Contact Equip Sol o mandar un mail a jaumefullana@paucasesnovescifp.cat",
  * @OA\Contact( name="Equip Sol",email="jaumefullana@paucasesnovescifp.cat")
  * )
  *
- * @OA\Server(url="http://127.0.0.1/laravel_Biel/projecte-22-23-etv-equipo-sol/public/")
+ * @OA\Server(url="http://www.allotjamentsol.com/public/")
  *
- * @OAS\SecurityScheme(
+ * @OA\SecurityScheme(
+ * securityScheme="bearerAuth",
+ * in="header",
+ * name="bearerAuth",
  * type="http",
+ * scheme="bearer"
  * )
  */
 class Controller extends BaseController

@@ -4,7 +4,6 @@
     </IfModule>
 
     RewriteEngine On
-    RewriteBase /laravel/projecte-22-23-etv-equipo-sol/public/
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
