@@ -11,7 +11,7 @@
     },
     "servers": [
         {
-            "url": "http://127.0.0.1/laravel_Biel/projecte-22-23-etv-equipo-sol/public/"
+            "url": "http://localhost:81/allotjamentssol/public/"
         }
     ],
     "paths": {
@@ -24,7 +24,843 @@
                 "operationId": "1add0ed8eea62f5417aa47f81e1a0b6a",
                 "responses": {
                     "200": {
-                        "description": "Mostrar tots els allotjaments."
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Allotjaments"
+                ],
+                "summary": "Modifica un allotjament",
+                "description": "Modifica un allotjament.",
+                "operationId": "6a0ab1ad7937df8328c58ecc5162b396",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "1"
+                                    },
+                                    "NumeroRegistre": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "A1112223334444"
+                                    },
+                                    "NomComercial": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Can Tomeu Llarg"
+                                    },
+                                    "Direccio": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "C\\ Gran 35"
+                                    },
+                                    "NumeroLlits": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "3"
+                                    },
+                                    "NumeroPersones": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "3"
+                                    },
+                                    "NumeroHabitacions": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "7"
+                                    },
+                                    "NumeroBanys": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "2"
+                                    },
+                                    "UsuarisID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "1"
+                                    },
+                                    "MunicipisID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "7"
+                                    },
+                                    "TipusVacancesID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "9"
+                                    },
+                                    "TipusAllotjamentsID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Allotjaments"
+                ],
+                "summary": "Crea un nou allotjament",
+                "description": "Crea un nou allotjament.",
+                "operationId": "f79a7117b3ed9e9664bc4152f15015b3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "NumeroRegistre": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "A1112223334444"
+                                    },
+                                    "NomComercial": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Can Tomeu Llarg"
+                                    },
+                                    "Direccio": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "C\\ Gran 35"
+                                    },
+                                    "NumeroLlits": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "3"
+                                    },
+                                    "NumeroPersones": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "3"
+                                    },
+                                    "NumeroHabitacions": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "7"
+                                    },
+                                    "NumeroBanys": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "2"
+                                    },
+                                    "UsuarisID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "1"
+                                    },
+                                    "MunicipisID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "7"
+                                    },
+                                    "TipusVacancesID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "9"
+                                    },
+                                    "TipusAllotjamentsID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Allotjaments"
+                ],
+                "summary": "Esborra un allotjament",
+                "description": "Esborra un allotjament.",
+                "operationId": "458feb8dec4d7e990097f89a0055ab03",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "5"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/allotjament/{id}": {
+            "get": {
+                "tags": [
+                    "Allotjaments"
+                ],
+                "summary": "Mostrar l'allotjament al qual correspon la id passada per la url",
+                "operationId": "9ed73a121b82970eff4eb19cbbb59a19",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id de l'allotjament",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/comentari": {
+            "get": {
+                "tags": [
+                    "Comentaris"
+                ],
+                "summary": "Mostrar tots els comentaris.",
+                "operationId": "51606adb66776f1e2b3f9f14e28ff926",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Comentaris"
+                ],
+                "summary": "Modifica un comentari",
+                "description": "Modifica un comentari.",
+                "operationId": "0a7d50a61bae7dca1706d7eed56776f5",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "1"
+                                    },
+                                    "Comentari": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Aquest allotjament no es per tant"
+                                    },
+                                    "Valoracio": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "3"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Comentaris"
+                ],
+                "summary": "Crea un nou comentari",
+                "description": "Crea un nou comentari.",
+                "operationId": "998f855d6b60172566e09b5ad33bc708",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "Comentari": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Aquest allotjament es un 10"
+                                    },
+                                    "Valoracio": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "5"
+                                    },
+                                    "DataCreacio": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2022-03-21"
+                                    },
+                                    "AllotjamentsID ": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "1"
+                                    },
+                                    "UsuarisID ": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Comentaris"
+                ],
+                "summary": "Esborra un comentari",
+                "description": "Esborra un comentari.",
+                "operationId": "f0a9d6c4b91583082c2ecddb1c8dc57c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "3"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/comentari/{id}": {
+            "get": {
+                "tags": [
+                    "Comentaris"
+                ],
+                "summary": "Mostrar el comentari al qual correspon la id passada per la url",
+                "operationId": "d78adb10af484ae252284dd4348df414",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id del comentari",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/idioma": {
+            "get": {
+                "tags": [
+                    "Idiomes"
+                ],
+                "summary": "Mostrar tots els idiomes.",
+                "operationId": "3472d5806ad42ce2063a7b6d4c187643",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/idioma/{id}": {
+            "get": {
+                "tags": [
+                    "Idiomes"
+                ],
+                "summary": "Mostrar l'idioma al qual correspon la id passada per a la url",
+                "operationId": "204fd403c04fff7db1d8b981daf2a735",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id del idioma",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Login per obtenir token de autoritzacio",
+                "description": "Utilitza el login per tal de entrar amb les teves credencials i obtenir el token de autoritzacio",
+                "operationId": "c5e838284c7f343f0e5e5fd589161c96",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "CorreuElectronic": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "joan@gmail.com"
+                                    },
+                                    "Contrasenya": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "AghT6j7!saL*"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "apiKey"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Les teves credencials son incorrectes"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -331,7 +1167,7 @@
                                     "properties": {
                                         "status": {
                                             "type": "string",
-                                            "example": "200"
+                                            "example": "Success"
                                         },
                                         "data": {
                                             "type": "object"
@@ -521,53 +1357,147 @@
                 }
             }
         },
-        "/api/tipustarifa": {
+        "/api/tipusservei": {
             "get": {
                 "tags": [
-                    "Tipus Tarifa"
+                    "Tipus Servei"
                 ],
-                "summary": "Mostrar tots els tipus de tarifes.",
-                "operationId": "1f161c09deed909d2623a9a7d085acdf",
+                "summary": "Mostrar tots els tipus de serveis.",
+                "operationId": "b5951a64b9f8a9c1e5c53bf464331274",
                 "responses": {
                     "200": {
-                        "description": "Mostrar tots els tipus de tarifes."
-                    },
-                    "400": {
-                        "description": "Hi ha un error."
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
-        "/api/tipustarifa/{id}": {
+        "/api/tipusservei/{id}": {
             "get": {
                 "tags": [
-                    "Tipus Tarifa"
+                    "Tipus Servei"
                 ],
-                "summary": "Mostrar un tipus de tarifa",
-                "operationId": "34886018de4d36d2eb30f98b1c416c4b",
+                "summary": "Mostrar el tipus de servei al qual correspon la id passada per a la url",
+                "operationId": "c391b2c78ad07f207217f1192128557d",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Id del tipus de tarifa",
+                        "description": "Id del comentari",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "number"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Informació del tipus de tarifa.",
+                        "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "status": {
+                                        "Status": {
                                             "type": "string",
-                                            "example": "200"
+                                            "example": "Success"
                                         },
-                                        "data": {
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/traduccio": {
+            "get": {
+                "tags": [
+                    "Traduccions"
+                ],
+                "summary": "Mostrar totes les traduccions.",
+                "operationId": "d68f92f33de58dfbe3c92dd8a2999d79",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Traduccions"
+                ],
+                "summary": "Modifica el texte de una traduccio",
+                "description": "Modifica el texte de una traduccio.",
+                "operationId": "565e8f3f940ce7a9299c9002de6502c1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "1"
+                                    },
+                                    "Traduccio": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Traduccio modificada.."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
                                             "type": "object"
                                         }
                                     },
@@ -577,18 +1507,222 @@
                         }
                     },
                     "400": {
-                        "description": "Hi ha un error.",
+                        "description": "Error",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "status": {
+                                        "Status": {
                                             "type": "string",
                                             "example": "Error"
                                         },
-                                        "data": {
+                                        "Result": {
                                             "type": "string",
-                                            "example": "tipus de tarifa no trobada"
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Traduccions"
+                ],
+                "summary": "Crea una nova traduccio per als 3 idiomes",
+                "description": "Crea una nova traduccio per als 3 idiomes",
+                "operationId": "2b3a17a0efaa21de50e2bcf0b8ff279f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "TraduccioEspanyol": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Lista de alojamientos"
+                                    },
+                                    "TraduccioCatala": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Llista d'allotjaments"
+                                    },
+                                    "TraduccioAngles": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Accommodations list"
+                                    },
+                                    "NomIdentificatiu": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "llista_allotjaments"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Traduccions"
+                ],
+                "summary": "Esborra una traduccio",
+                "description": "Esborra una traduccio.",
+                "operationId": "b10536491e6f299e6515e9e60af78c2e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "3"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/traduccio/{id}": {
+            "get": {
+                "tags": [
+                    "Traduccions"
+                ],
+                "summary": "Mostrar la traduccio a la qual correspon la id passada per la url",
+                "operationId": "b1e6467ed5326bf4d50b47b9f29b73a4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id de la traduccio",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
@@ -597,6 +1731,16 @@
                         }
                     }
                 }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "scheme": "bearer"
             }
         }
     }

@@ -14,10 +14,14 @@ use Illuminate\Routing\Controller as BaseController;
  * @OA\Contact( name="Equip Sol",email="jaumefullana@paucasesnovescifp.cat")
  * )
  *
- * @OA\Server(url="http://127.0.0.1/laravel_Biel/projecte-22-23-etv-equipo-sol/public/")
+ * @OA\Server(url="http://localhost:81/allotjamentssol/public/")
  *
- * @OAS\SecurityScheme(
+ * @OA\SecurityScheme(
+ * securityScheme="bearerAuth",
+ * in="header",
+ * name="bearerAuth",
  * type="http",
+ * scheme="bearer"
  * )
  */
 class Controller extends BaseController
