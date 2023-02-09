@@ -16,6 +16,7 @@ class UsuariController extends Controller
      * path="/api/usuari",
      * tags={"Usuaris"},
      * summary="Mostrar tots els usuaris.",
+     * security={{"bearerAuth":{}}},
      * @OA\Response(
      * response=200,
      * description="Mostrar tots els usuari."
@@ -44,6 +45,7 @@ class UsuariController extends Controller
      *     path="/api/usuari/{id}",
      *     tags={"Usuaris"},
      *     summary="Mostrar un usuari",
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         description="Id de l'usuari",
      *         in="path",
