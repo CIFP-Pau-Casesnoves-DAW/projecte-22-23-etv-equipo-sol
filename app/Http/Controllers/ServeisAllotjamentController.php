@@ -36,7 +36,7 @@ class ServeisAllotjamentController extends Controller
      * @return \Illuminate\Http\Response
      * @OA\Get(
      *     path="/api/serveisallotjament/{id}",
-     *     tags={"Tarifes"},
+     *     tags={"Serveis Allotjament"},
      *     summary="Mostrar un servei d'allotjament",
      *     @OA\Parameter(
      *         description="Id del servei d'allotjament",
@@ -68,7 +68,7 @@ class ServeisAllotjamentController extends Controller
      * @return \Illuminate\Http\Response
      * @OA\Post(
      *    path="/api/serveisallotjament",
-     *    tags={"Tarifes"},
+     *    tags={"Serveis Allotjament"},
      *    summary="Crea un servei d'allotjament",
      *    description="Crea un servei d'allotjament.",
      *    security={{"bearerAuth":{}}},

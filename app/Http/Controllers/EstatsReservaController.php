@@ -12,7 +12,7 @@ class EstatsReservaController extends Controller
     //GET de tot
     /**
      * @OA\Get(
-     * path="/api/estatsReserva",
+     * path="/api/estatsreserva",
      * tags={"EstatsReserva"},
      * summary="Mostrar tots els estats de reserva.",
      * @OA\Response(
@@ -38,7 +38,7 @@ class EstatsReservaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      * @OA\Get(
-     *     path="/api/estatsReserva/{id}",
+     *     path="/api/estatsreserva/{id}",
      *     tags={"EstatsReserva"},
      *     summary="Mostrar l'estat d'una reserva",
      *     @OA\Parameter(

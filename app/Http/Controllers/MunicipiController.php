@@ -9,7 +9,7 @@ class MunicipiController extends Controller
 {
     /**
     * @OA\Get(
-    * path="/api/municipis",
+    * path="/api/municipi",
     * tags={"Municipis"},
     * summary="Mostrar tots els municipis.",
     * @OA\Response(
@@ -34,7 +34,7 @@ class MunicipiController extends Controller
      * @return \Illuminate\Http\Response
      * @OA\Get(
      *     path="/api/municipi/{id}",
-     *     tags={"Municipi"},
+     *     tags={"Municipis"},
      *     summary="Mostrar un municipi",
      *     @OA\Parameter(
      *         description="Id del municipi",
