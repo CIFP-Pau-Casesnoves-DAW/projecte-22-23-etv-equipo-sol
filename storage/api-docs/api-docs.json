@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Projecte Allotjaments Sol",
-        "description": "REST API. Projecte Allotjaments Sol. DAW Client i servidor.",
+        "description": "REST API. Projecte Allotjaments Sol. DAW Client i servidor. Per utilitzar les cridades que necesiten token primer\r\n  s'haura de fer login amb un usuari per obtenir el token i despres utilitzar aquest token a la part on posa Authorize. Per\r\n  mes informacio, obtenir un usuari o altres peticions utilitzar el link de Contact Equip Sol o mandar un mail a jaumefullana@paucasesnovescifp.cat",
         "contact": {
             "name": "Equip Sol",
             "email": "jaumefullana@paucasesnovescifp.cat"
@@ -11,7 +11,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost:81/allotjamentssol/public/"
+            "url": "http://www.allotjamentsol.com/public/"
         }
     ],
     "paths": {
@@ -720,6 +720,84 @@
                 }
             }
         },
+        "/api/estatsreserva": {
+            "get": {
+                "tags": [
+                    "EstatsReserva"
+                ],
+                "summary": "Mostrar tots els estats de reserva.",
+                "operationId": "edc7c7d298f280005818c07aa44cc5c3",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar tots els estats de reserva."
+                    },
+                    "400": {
+                        "description": "Hi ha un error."
+                    }
+                }
+            }
+        },
+        "/api/estatsreserva/{id}": {
+            "get": {
+                "tags": [
+                    "EstatsReserva"
+                ],
+                "summary": "Mostrar l'estat d'una reserva",
+                "operationId": "ac4cd9437ece34457de9a4f037aadc8c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id del estat de la reserva",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informació del estat de la reserva.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hi ha un error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Estat de la reserva no trobat"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/idioma": {
             "get": {
                 "tags": [
@@ -1188,13 +1266,13 @@
                 }
             }
         },
-        "/api/municipis": {
+        "/api/municipi": {
             "get": {
                 "tags": [
                     "Municipis"
                 ],
                 "summary": "Mostrar tots els municipis.",
-                "operationId": "9cbca1c87ebfab0b8405b3cb082a88bf",
+                "operationId": "a93b71794a66fc7d227d9d2dad219f9a",
                 "responses": {
                     "200": {
                         "description": "Mostrar tots els municipis.",
@@ -1221,7 +1299,7 @@
         "/api/municipi/{id}": {
             "get": {
                 "tags": [
-                    "Municipi"
+                    "Municipis"
                 ],
                 "summary": "Mostrar un municipi",
                 "operationId": "154e7d7868d7bc46c86c0019c549c285",
@@ -1279,6 +1357,430 @@
                 }
             }
         },
+        "/api/reserva": {
+            "get": {
+                "tags": [
+                    "Reserves"
+                ],
+                "summary": "Mostrar totes les reserves.",
+                "operationId": "ac7c29c354ca87e037fd0cc271a53a14",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar totes les reserves."
+                    },
+                    "400": {
+                        "description": "Hi ha un error."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Reserves"
+                ],
+                "summary": "Modifica una reserva",
+                "description": "Modifica una reserva.",
+                "operationId": "c6ab45d80cf20b6145dc35f93e7bad4e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "DataCheckIn": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "05/01/23"
+                                    },
+                                    "DataCheckOut": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "10/01/23"
+                                    },
+                                    "Preu": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "20"
+                                    },
+                                    "EstatsReservesID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Atribut Preu requerit"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Reserves"
+                ],
+                "summary": "Crea una reserva",
+                "description": "Crea una nova reserva.",
+                "operationId": "95cd36fee71a3e4069c75871c0e7474b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "DataReserva": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "01/01/23"
+                                    },
+                                    "DataCheckIn": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "05/01/23"
+                                    },
+                                    "DataCheckOut": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "10/01/23"
+                                    },
+                                    "Preu": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "20"
+                                    },
+                                    "EstatsReservesID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "2"
+                                    },
+                                    "AllotjamentsID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "3"
+                                    },
+                                    "UsuarisID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "10"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Atribut DataCheckIn requerit"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Reserves"
+                ],
+                "summary": "Esborra una reserva",
+                "description": "Esborra una reserva.",
+                "operationId": "437a13b26f8a2b9bd5b01f38ac0f4425",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "5"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Tupla no trobada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/reserva/{id}": {
+            "get": {
+                "tags": [
+                    "Reserves"
+                ],
+                "summary": "Mostrar una reserva",
+                "operationId": "6881f5e3ed053b0529b74c5b3e78459f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id de la reserva",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informació de la reserva.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hi ha un error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "reserva no trobada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/rol": {
+            "get": {
+                "tags": [
+                    "Rols"
+                ],
+                "summary": "Mostrar tots els rols",
+                "operationId": "7ae8b69d954dd0388859b134199f564f",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar tots els rols."
+                    },
+                    "400": {
+                        "description": "Hi ha un error."
+                    }
+                }
+            }
+        },
+        "/api/rol/{id}": {
+            "get": {
+                "tags": [
+                    "Rols"
+                ],
+                "summary": "Mostrar un rol",
+                "operationId": "ef5f83b3a677ee045e1b953f2ac25e07",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id del rol",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informació del rol",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hi ha un error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Rol no trobat"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/serveisallotjament": {
             "get": {
                 "tags": [
@@ -1310,7 +1812,7 @@
             },
             "post": {
                 "tags": [
-                    "Tarifes"
+                    "Serveis Allotjament"
                 ],
                 "summary": "Crea un servei d'allotjament",
                 "description": "Crea un servei d'allotjament.",
@@ -1458,7 +1960,7 @@
         "/api/serveisallotjament/{id}": {
             "get": {
                 "tags": [
-                    "Tarifes"
+                    "Serveis Allotjament"
                 ],
                 "summary": "Mostrar un servei d'allotjament",
                 "operationId": "06bef5255ed56a7f953502891f8c0768",
@@ -2445,6 +2947,362 @@
                                         },
                                         "Result": {
                                             "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/usuari": {
+            "get": {
+                "tags": [
+                    "Usuaris"
+                ],
+                "summary": "Mostrar tots els usuaris.",
+                "operationId": "ba97209ecb91dec36b7f480f4dfdd524",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar tots els usuari."
+                    },
+                    "400": {
+                        "description": "Hi ha un error."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Usuaris"
+                ],
+                "summary": "Modifica un usuari",
+                "description": "Modifica un usuari.",
+                "operationId": "981ac761a1db7074a73150489d7bd527",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "Contrasenya": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "abcd1234"
+                                    },
+                                    "CorreuElectronic": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "pedro@gmail.com"
+                                    },
+                                    "DNI": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "12341234Q"
+                                    },
+                                    "Telefon": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "971123123"
+                                    },
+                                    "RolsID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "1"
+                                    },
+                                    "Token": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "exempleDeToken"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Atribut DNI requerit"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Usuaris"
+                ],
+                "summary": "Crea un usuari",
+                "description": "Crea una nou usuari.",
+                "operationId": "1ca7629f432c8b7302834289e1f21f14",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "Nom": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Pedro"
+                                    },
+                                    "Llinatges": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Gimenez Santos"
+                                    },
+                                    "Contrasenya": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "abcd1234"
+                                    },
+                                    "CorreuElectronic": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "pedro@gmail.com"
+                                    },
+                                    "DNI": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "12341234Q"
+                                    },
+                                    "Telefon": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "971123123"
+                                    },
+                                    "RolsID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "1"
+                                    },
+                                    "Token": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "exempleDeToken"
+                                    },
+                                    "ExpiracioToken": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "01/10/23"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Atribut Llinatges requerit"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Usuaris"
+                ],
+                "summary": "Esborra un usuari",
+                "description": "Esborra un usuari.",
+                "operationId": "aef5ae7067ae03aa90dbb8d8f1013d24",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "5"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Tupla no trobada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/usuari/{id}": {
+            "get": {
+                "tags": [
+                    "Usuaris"
+                ],
+                "summary": "Mostrar un usuari",
+                "operationId": "e89a2378971a8080eb1baa3597843274",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id de l'usuari",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informació de l'usuari.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hi ha un error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Usuari no trobat"
                                         }
                                     },
                                     "type": "object"

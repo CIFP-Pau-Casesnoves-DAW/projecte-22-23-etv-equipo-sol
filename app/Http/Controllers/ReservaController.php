@@ -17,6 +17,7 @@ class ReservaController extends Controller
      * path="/api/reserva",
      * tags={"Reserves"},
      * summary="Mostrar totes les reserves.",
+     * security={{"bearerAuth":{}}},
      * @OA\Response(
      * response=200,
      * description="Mostrar totes les reserves."
@@ -45,6 +46,7 @@ class ReservaController extends Controller
      *     path="/api/reserva/{id}",
      *     tags={"Reserves"},
      *     summary="Mostrar una reserva",
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         description="Id de la reserva",
      *         in="path",
@@ -207,7 +209,7 @@ class ReservaController extends Controller
         $reserva->Preu = $request->Preu;
         $reserva->EstatsReservesID = $request->EstatsReservesID;
         //DESCOMENTAR PER PODER CANVIAR A NOM DE QUI ESTA LA RESERVA
-        // $reserva->UsuarisID = $request->UsuarisID; 
+        // $reserva->UsuarisID = $request->UsuarisID;
 
         if ($reserva->save()) {
             return response()->json(['Status' => 'Success', 'Result' => $reserva], 200);
