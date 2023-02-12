@@ -27,8 +27,12 @@ class UsuariController extends Controller
      * ),
      * )
      */
-    public function getUsuaris()
+    public function getUsuaris(Request $request)
     {
+        if ($request->DadesUsuari->RolsID != 3) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+        }
+
         $usuaris = Usuari::all();
         return response()->json(["Status" => "Success", "Result" => $usuaris], 200);
     }
@@ -72,8 +76,12 @@ class UsuariController extends Controller
      *     )
      * )
      */
-    public function getUsuari($id)
+    public function getUsuari($id, Request $request)
     {
+        if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $id) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+        }
+
         $usuari = Usuari::findOrFail($id);
         return response()->json(["Status" => "Success", "Result" => $usuari], 200);
     }
@@ -89,7 +97,6 @@ class UsuariController extends Controller
      *    tags={"Usuaris"},
      *    summary="Crea un usuari",
      *    description="Crea una nou usuari.",
-     *    security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(
@@ -99,9 +106,6 @@ class UsuariController extends Controller
      *           @OA\Property(property="CorreuElectronic", type="string", format="string", example="pedro@gmail.com"),
      *           @OA\Property(property="DNI", type="string", format="string", example="12341234Q"),
      *           @OA\Property(property="Telefon", type="string", format="string", example="971123123"),
-     *           @OA\Property(property="RolsID", type="number", format="number", example="1"),
-     *           @OA\Property(property="Token", type="string", format="string", example="exempleDeToken"),
-     *           @OA\Property(property="ExpiracioToken", type="date", format="date", example="01/10/23"),
      *        ),
      *     ),
      *    @OA\Response(
@@ -140,9 +144,7 @@ class UsuariController extends Controller
         $usuari->CorreuElectronic = $request->CorreuElectronic;
         $usuari->DNI = $request->DNI;
         $usuari->Telefon = $request->Telefon;
-        $usuari->RolsID = $request->RolsID;
-        $usuari->Token = $request->Token;
-        $usuari->ExpiracioToken = $request->ExpiracioToken;
+        $usuari->RolsID = 2;
 
 
         if ($usuari->save()) {
@@ -167,12 +169,12 @@ class UsuariController extends Controller
      *    @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(
+     *           @OA\Property(property="Nom", type="string", format="string", example="Pedro"),
+     *           @OA\Property(property="Llinatges", type="string", format="string", example="Gimenez Santos"),
      *           @OA\Property(property="Contrasenya", type="string", format="string", example="abcd1234"),
      *           @OA\Property(property="CorreuElectronic", type="string", format="string", example="pedro@gmail.com"),
      *           @OA\Property(property="DNI", type="string", format="string", example="12341234Q"),
      *           @OA\Property(property="Telefon", type="string", format="string", example="971123123"),
-     *           @OA\Property(property="RolsID", type="number", format="number", example="1"),
-     *           @OA\Property(property="Token", type="string", format="string", example="exempleDeToken"),
      *        ),
      *     ),
      *    @OA\Response(
@@ -199,6 +201,10 @@ class UsuariController extends Controller
             return response()->json(["Status" => "Error", "Result" => "Incorrect ID"], 400);
         }
 
+        if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $request->ID) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+        }
+
         $usuari = Usuari::findOrFail($request->ID);
         $validator = $this->createValidator();
         $messages = ControllersHelper::createValidatorMessages();
@@ -209,15 +215,12 @@ class UsuariController extends Controller
             return response()->json(["Status" => "Error", "Result" => $isValid->errors()], 400);
         }
 
-        //$usuari->Nom = $request->Nom;
-        //$usuari->Llinatges = $request->Llinatges;
+        $usuari->Nom = $request->Nom;
+        $usuari->Llinatges = $request->Llinatges;
         $usuari->Contrasenya = $request->Contrasenya;
         $usuari->CorreuElectronic = $request->CorreuElectronic;
         $usuari->DNI = $request->DNI;
         $usuari->Telefon = $request->Telefon;
-        $usuari->RolsID = $request->RolsID;
-        $usuari->Token = $request->Token;
-        //$usuari->ExpiracioToken = $request->ExpiracioToken;
 
         if ($usuari->save()) {
             return response()->json(['Status' => 'Success', 'Result' => $usuari], 200);
@@ -267,6 +270,10 @@ class UsuariController extends Controller
             return response()->json(["Status" => "Error", "Result" => "Incorrect ID"], 400);
         }
 
+        if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $request->ID) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+        }
+
         $usuari = Usuari::findOrFail($request->ID);
 
         if ($isDeleted = $usuari->delete()) {
@@ -286,10 +293,7 @@ class UsuariController extends Controller
             "Contrasenya" => ["required"],
             "CorreuElectronic" => ["required"],
             "DNI" => ["required"],
-            "Telefon" => ["required"],
-            "RolsID" => ["required"],
-            // "Token" => ["required"],
-            // "ExpiracioToken" => ["required"],
+            "Telefon" => ["required"]
         ];
     }
 }

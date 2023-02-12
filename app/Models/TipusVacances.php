@@ -12,4 +12,10 @@ class TipusVacances extends Model
     protected $table = 'TipusVacances';
     protected $primaryKey = 'ID';
     public $timestamps = false;
+    protected $with = ["traduccions"];
+
+    public function traduccions()
+    {
+        return $this->hasMany(Traduccio::class,"TipusVacancesID", "ID");
+    }
 }

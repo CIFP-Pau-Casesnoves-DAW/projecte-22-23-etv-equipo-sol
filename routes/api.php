@@ -114,7 +114,7 @@ Route::group(["prefix"=>"rol"], function() {
 Route::group(["prefix"=>"usuari"], function() {
     Route::get("/", [UsuariController::class, "getUsuaris"])->middleware('token');
     Route::get("/{id}", [UsuariController::class, "getUsuari"])->middleware('token');
-    Route::post("/", [UsuariController::class, "insertUsuari"])->middleware('token');
+    Route::post("/", [UsuariController::class, "insertUsuari"]);
     Route::put("/", [UsuariController::class, "updateUsuari"])->middleware('token');
     Route::delete("/", [UsuariController::class, "deleteUsuari"])->middleware('token');
 });

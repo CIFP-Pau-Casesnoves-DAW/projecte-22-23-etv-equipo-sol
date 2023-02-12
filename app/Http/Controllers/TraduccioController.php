@@ -35,15 +35,15 @@ class TraduccioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      * @OA\Get(
-     *     path="/api/traduccio/{id}",
+     *     path="/api/traduccio/{nomIdentificatiu}",
      *     tags={"Traduccions"},
-     *     summary="Mostrar la traduccio a la qual correspon la id passada per la url",
+     *     summary="Mostrar les traduccions a la qual correspon el nom identificatiu pasat per la url",
      *     @OA\Parameter(
-     *         description="Id de la traduccio",
+     *         description="nom identificatiu de la traduccio",
      *         in="path",
-     *         name="id",
+     *         name="nomIdentificatiu",
      *         required=true,
-     *         @OA\Schema(type="number"),
+     *         @OA\Schema(type="string"),
      *
      *     ),
      *     @OA\Response(
@@ -56,9 +56,9 @@ class TraduccioController extends Controller
      *     ),
      * )
      */
-    public function getTraduccio($id){
-        $traduccio = Traduccio::findOrFail($id);
-        return response()->json(["Status" => "Success","Result" => $traduccio], 200);
+    public function getTraduccio($nomIdentificatiu){
+        $traduccions = Traduccio::where("NomIdentificatiu","=",$nomIdentificatiu)->get();
+        return response()->json(["Status" => "Success","Result" => $traduccions], 200);
     }
 
     /**
@@ -176,6 +176,10 @@ class TraduccioController extends Controller
      *  )
      */
     public function updateTraduccio(Request $request){
+        if ($request->DadesUsuari->RolsID != 3) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+        }
+
         if ($request->ID == null || $request->ID < 1) {
             return response()->json(["Status" => "Error","Result"=>"Incorrect ID"], 400);
         }
@@ -234,6 +238,10 @@ class TraduccioController extends Controller
      *  )
      */
     public function deleteTraduccio(Request $request){
+        if ($request->DadesUsuari->RolsID != 3) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+        }
+
         if ($request->ID == null || $request->ID < 1) {
             return response()->json(["Status" => "Error","Result"=>"Incorrect ID"], 400);
         }

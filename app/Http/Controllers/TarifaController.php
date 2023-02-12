@@ -109,6 +109,11 @@ class TarifaController extends Controller
      *  )
      */
     public function insertTarifa(Request $request){
+
+        if ($request->DadesUsuari->RolsID != 3) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+        }
+
         $tarifa = new Tarifa();
 
         $validator = $this->createValidator();
@@ -173,6 +178,10 @@ class TarifaController extends Controller
      *  )
      */
     public function updateTarifa(Request $request){
+        if ($request->DadesUsuari->RolsID != 3) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+        }
+
         if ($request->ID == null || $request->ID < 1) {
             return response()->json(["Status" => "Error","Result"=>"Incorrect ID"], 400);
         }
@@ -233,6 +242,10 @@ class TarifaController extends Controller
      *  )
      */
     public function deleteTarifa(Request $request){
+        if ($request->DadesUsuari->RolsID != 3) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+        }
+
         if ($request->ID == null || $request->ID < 0) {
             return response()->json(["Status" => "Error","Result"=>"Incorrect ID"], 400);
         }

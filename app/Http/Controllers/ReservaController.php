@@ -28,8 +28,12 @@ class ReservaController extends Controller
      * ),
      * )
      */
-    public function getReserves()
+    public function getReserves(Request $request)
     {
+        if ($request->DadesUsuari->RolsID != 3) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+        }
+
         $reserves = Reserva::all();
         return response()->json(["Status" => "Success", "Result" => $reserves], 200);
     }
@@ -73,9 +77,14 @@ class ReservaController extends Controller
      *     )
      * )
      */
-    public function getReserva($id)
+    public function getReserva($id, Request $request)
     {
         $reserva = Reserva::findOrFail($id);
+
+        if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $reserva->UsuarisID) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+        }
+
         return response()->json(["Status" => "Success", "Result" => $reserva], 200);
     }
 
@@ -94,14 +103,10 @@ class ReservaController extends Controller
      *     @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(
-     *           @OA\Property(property="DataReserva", type="date", format="date", example="01/01/23"),
      *           @OA\Property(property="DataCheckIn", type="date", format="date", example="05/01/23"),
      *           @OA\Property(property="DataCheckOut", type="date", format="date", example="10/01/23"),
      *           @OA\Property(property="Preu", type="number", format="number", example="20"),
-     *           @OA\Property(property="EstatsReservesID", type="number", format="number", example="2"),
      *           @OA\Property(property="AllotjamentsID", type="number", format="number", example="3"),
-     *           @OA\Property(property="UsuarisID", type="number", format="number", example="10"),
-     *
      *        ),
      *     ),
      *    @OA\Response(
@@ -138,9 +143,9 @@ class ReservaController extends Controller
         $reserva->DataCheckIn = $request->DataCheckIn;
         $reserva->DataCheckOut = $request->DataCheckOut;
         $reserva->Preu = $request->Preu;
-        $reserva->EstatsReservesID = $request->EstatsReservesID;
+        $reserva->EstatsReservesID = 1;
         $reserva->AllotjamentsID = $request->AllotjamentsID;
-        $reserva->UsuarisID = $request->UsuarisID;
+        $reserva->UsuarisID = $request->DadesUsuari->ID;
 
         if ($reserva->save()) {
             return response()->json(['Status' => 'Success', 'Result' => $reserva], 200);
@@ -195,7 +200,12 @@ class ReservaController extends Controller
         }
 
         $reserva = Reserva::findOrFail($request->ID);
-        $validator = $this->createValidator();
+
+        if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $reserva->UsuarisID) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+        }
+
+        $validator = $this->updateValidator();
         $messages = ControllersHelper::createValidatorMessages();
 
         $isValid = Validator::make($request->all(), $validator, $messages);
@@ -208,8 +218,6 @@ class ReservaController extends Controller
         $reserva->DataCheckOut = $request->DataCheckOut;
         $reserva->Preu = $request->Preu;
         $reserva->EstatsReservesID = $request->EstatsReservesID;
-        //DESCOMENTAR PER PODER CANVIAR A NOM DE QUI ESTA LA RESERVA
-        // $reserva->UsuarisID = $request->UsuarisID;
 
         if ($reserva->save()) {
             return response()->json(['Status' => 'Success', 'Result' => $reserva], 200);
@@ -262,6 +270,10 @@ class ReservaController extends Controller
 
         $reserva = Reserva::findOrFail($request->ID);
 
+        if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $reserva->UsuarisID) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+        }
+
         if ($isDeleted = $reserva->delete()) {
             return response()->json(['Status' => 'Success', 'Result' => $isDeleted], 200);
         } else {
@@ -278,9 +290,17 @@ class ReservaController extends Controller
             "DataCheckIn" => ["required", "date", "after_or_equal:$avui"],
             "DataCheckOut" => ["required", "date", "after_or_equal:DataCheckIn"],
             "Preu" => ["required", "min:0"],
-            "EstatsReservesID" => ["required"],
-            "AllotjamentsID" => ["required"],
-            "UsuarisID" => ["required"]
+            "AllotjamentsID" => ["required"]
+        ];
+    }
+
+    public function updateValidator(): array
+    {
+        $avui = date("Y-m-d");
+        return [
+            "DataCheckIn" => ["required", "date", "after_or_equal:$avui"],
+            "DataCheckOut" => ["required", "date", "after_or_equal:DataCheckIn"],
+            "Preu" => ["required", "min:0"]
         ];
     }
 }

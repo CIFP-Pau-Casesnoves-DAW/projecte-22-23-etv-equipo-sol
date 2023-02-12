@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Projecte Allotjaments Sol",
-        "description": "REST API. Projecte Allotjaments Sol. DAW Client i servidor. Per utilitzar les cridades que necesiten token primer\r\n  s'haura de fer login amb un usuari per obtenir el token i despres utilitzar aquest token a la part on posa Authorize. Per\r\n  mes informacio, obtenir un usuari o altres peticions utilitzar el link de Contact Equip Sol o mandar un mail a jaumefullana@paucasesnovescifp.cat",
+        "description": "REST API. Projecte Allotjaments Sol. DAW Client i servidor. Per utilitzar les cridades que necesiten token primer\n  s'haura de fer login amb un usuari per obtenir el token i despres utilitzar aquest token a la part on posa Authorize. Per\n  mes informacio, obtenir un usuari o altres peticions utilitzar el link de Contact Equip Sol o mandar un mail a jaumefullana@paucasesnovescifp.cat",
         "contact": {
             "name": "Equip Sol",
             "email": "jaumefullana@paucasesnovescifp.cat"
@@ -96,11 +96,6 @@
                                         "type": "number",
                                         "format": "number",
                                         "example": "2"
-                                    },
-                                    "UsuarisID": {
-                                        "type": "number",
-                                        "format": "number",
-                                        "example": "1"
                                     },
                                     "MunicipisID": {
                                         "type": "number",
@@ -217,11 +212,6 @@
                                         "type": "number",
                                         "format": "number",
                                         "example": "2"
-                                    },
-                                    "UsuarisID": {
-                                        "type": "number",
-                                        "format": "number",
-                                        "example": "1"
                                     },
                                     "MunicipisID": {
                                         "type": "number",
@@ -544,11 +534,6 @@
                                         "example": "2022-03-21"
                                     },
                                     "AllotjamentsID ": {
-                                        "type": "number",
-                                        "format": "number",
-                                        "example": "1"
-                                    },
-                                    "UsuarisID ": {
                                         "type": "number",
                                         "format": "number",
                                         "example": "1"
@@ -1477,11 +1462,6 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "DataReserva": {
-                                        "type": "string",
-                                        "format": "date",
-                                        "example": "01/01/23"
-                                    },
                                     "DataCheckIn": {
                                         "type": "string",
                                         "format": "date",
@@ -1497,20 +1477,10 @@
                                         "format": "number",
                                         "example": "20"
                                     },
-                                    "EstatsReservesID": {
-                                        "type": "number",
-                                        "format": "number",
-                                        "example": "2"
-                                    },
                                     "AllotjamentsID": {
                                         "type": "number",
                                         "format": "number",
                                         "example": "3"
-                                    },
-                                    "UsuarisID": {
-                                        "type": "number",
-                                        "format": "number",
-                                        "example": "10"
                                     }
                                 },
                                 "type": "object"
@@ -1962,13 +1932,13 @@
                 "tags": [
                     "Serveis Allotjament"
                 ],
-                "summary": "Mostrar un servei d'allotjament",
+                "summary": "Mostrar els serveis d'un allotjament",
                 "operationId": "06bef5255ed56a7f953502891f8c0768",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Id del servei d'allotjament",
+                        "description": "Id de l'allotjament",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -1977,7 +1947,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Informació del servei d'allotjament.",
+                        "description": "Tots els serveis d'un allotjament.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2916,21 +2886,21 @@
                 ]
             }
         },
-        "/api/traduccio/{id}": {
+        "/api/traduccio/{nomIdentificatiu}": {
             "get": {
                 "tags": [
                     "Traduccions"
                 ],
-                "summary": "Mostrar la traduccio a la qual correspon la id passada per la url",
-                "operationId": "b1e6467ed5326bf4d50b47b9f29b73a4",
+                "summary": "Mostrar les traduccions a la qual correspon el nom identificatiu pasat per la url",
+                "operationId": "c2d2731e96f8248ade7d2996dbfd7a88",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "nomIdentificatiu",
                         "in": "path",
-                        "description": "Id de la traduccio",
+                        "description": "nom identificatiu de la traduccio",
                         "required": true,
                         "schema": {
-                            "type": "number"
+                            "type": "string"
                         }
                     }
                 ],
@@ -2971,7 +2941,12 @@
                     "400": {
                         "description": "Hi ha un error."
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -2986,6 +2961,16 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
+                                    "Nom": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Pedro"
+                                    },
+                                    "Llinatges": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Gimenez Santos"
+                                    },
                                     "Contrasenya": {
                                         "type": "string",
                                         "format": "string",
@@ -3005,16 +2990,6 @@
                                         "type": "string",
                                         "format": "string",
                                         "example": "971123123"
-                                    },
-                                    "RolsID": {
-                                        "type": "number",
-                                        "format": "number",
-                                        "example": "1"
-                                    },
-                                    "Token": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "exempleDeToken"
                                     }
                                 },
                                 "type": "object"
@@ -3111,21 +3086,6 @@
                                         "type": "string",
                                         "format": "string",
                                         "example": "971123123"
-                                    },
-                                    "RolsID": {
-                                        "type": "number",
-                                        "format": "number",
-                                        "example": "1"
-                                    },
-                                    "Token": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "exempleDeToken"
-                                    },
-                                    "ExpiracioToken": {
-                                        "type": "string",
-                                        "format": "date",
-                                        "example": "01/10/23"
                                     }
                                 },
                                 "type": "object"
@@ -3173,12 +3133,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                }
             },
             "delete": {
                 "tags": [
@@ -3310,7 +3265,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         }
     },

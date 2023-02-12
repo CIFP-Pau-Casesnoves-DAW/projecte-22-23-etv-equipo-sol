@@ -75,8 +75,7 @@ class ComentariController extends Controller
      *           @OA\Property(property="Comentari", type="string", format="string", example="Aquest allotjament es un 10"),
      *           @OA\Property(property="Valoracio", type="number", format="number", example="5"),
      *           @OA\Property(property="DataCreacio", type="date", format="date", example="2022-03-21"),
-     *           @OA\Property(property="AllotjamentsID ", type="number", format="number", example="1"),
-     *           @OA\Property(property="UsuarisID ", type="number", format="number", example="1")
+     *           @OA\Property(property="AllotjamentsID ", type="number", format="number", example="1")
      *        ),
      *     ),
      *    @OA\Response(
@@ -113,7 +112,7 @@ class ComentariController extends Controller
         $comentari->Valoracio = $request->Valoracio;
         $comentari->DataCreacio = $request->DataCreacio;
         $comentari->AllotjamentsID = $request->AllotjamentsID;
-        $comentari->UsuarisID = $request->UsuarisID;
+        $comentari->UsuarisID = $request->DadesUsuari->ID;
 
         if ($comentari->save()) {
             return response()->json(['Status' => 'Success','Result' => $comentari], 200);
@@ -164,6 +163,11 @@ class ComentariController extends Controller
         }
 
         $comentari=Comentari::findOrFail($request->ID);
+
+        if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $comentari->UsuarisID) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+        }
+
         $validator = $this->createUpdateValidator();
         $messages = ControllersHelper::createValidatorMessages();
 
@@ -223,6 +227,10 @@ class ComentariController extends Controller
 
         $comentari=Comentari::findOrFail($request->ID);
 
+        if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $comentari->UsuarisID) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+        }
+
         if ($isDeleted = $comentari->delete()) {
             return response()->json(['Status' => 'Success','Result' => $isDeleted], 200);
         } else {
@@ -236,8 +244,7 @@ class ComentariController extends Controller
             "Comentari" => ["required", "max:500"],
             "Valoracio" => ["required"],
             "DataCreacio" => ["required"],
-            "AllotjamentsID" => ["required"],
-            "UsuarisID" => ["required"]];
+            "AllotjamentsID" => ["required"]];
     }
 
     public function createUpdateValidator(): array

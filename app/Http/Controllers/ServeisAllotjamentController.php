@@ -37,9 +37,9 @@ class ServeisAllotjamentController extends Controller
      * @OA\Get(
      *     path="/api/serveisallotjament/{id}",
      *     tags={"Serveis Allotjament"},
-     *     summary="Mostrar un servei d'allotjament",
+     *     summary="Mostrar els serveis d'un allotjament",
      *     @OA\Parameter(
-     *         description="Id del servei d'allotjament",
+     *         description="Id de l'allotjament",
      *         in="path",
      *         name="id",
      *         required=true,
@@ -48,7 +48,7 @@ class ServeisAllotjamentController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="Informació del servei d'allotjament.",
+     *         description="Tots els serveis d'un allotjament.",
      *          @OA\JsonContent(
      *          @OA\Property(property="Status", type="string", example="200"),
      *          @OA\Property(property="Result",type="object")
@@ -57,7 +57,7 @@ class ServeisAllotjamentController extends Controller
      * )
      */
     public function getServeiAllotjament($id){
-        $serveisAllotjament = ServeisAllotjament::findOrFail($id);
+        $serveisAllotjament = ServeisAllotjament::where("AllotjamentsID","=",$id)->get();
         return response()->json(["Status" => "Success","Result" => $serveisAllotjament], 200);
     }
 
@@ -108,6 +108,12 @@ class ServeisAllotjamentController extends Controller
 
         if ($isValid->fails()){
             return response()->json(["Status" => "Error","Result"=>$isValid->errors()], 400);
+        }
+
+        $allotjament=Allotjament::findOrFail($request->AllotjamentsID);
+
+        if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $allotjament->UsuarisID) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
         }
 
         $serveiAllotjament->TipusServeisID = $request->TipusServeisID;
@@ -161,6 +167,11 @@ class ServeisAllotjamentController extends Controller
         }
 
         $serveiAllotjament=ServeisAllotjament::findOrFail($request->ID);
+        $allotjament=Allotjament::findOrFail($serveiAllotjament->AllotjamentsID);
+
+        if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $allotjament->UsuarisID) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+        }
 
         if ($isDeleted = $serveiAllotjament->delete()) {
             return response()->json(['Status' => 'Success','Result' => $isDeleted], 200);

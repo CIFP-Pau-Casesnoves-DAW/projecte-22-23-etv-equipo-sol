@@ -23,9 +23,10 @@ class TokenMiddleware
                 return response()->json(["Error" => "Acces no autoritzat"], 401); // token incorrecta
             }
 
-            $usuari = Usuari::where("Token", $token)->first();
+            $usuari = Usuari::where("Token", "$token")->first();
 
             if(!empty($usuari)){
+                $request->DadesUsuari = $usuari;
                 return $next($request); // Usuari trobat. Token correcta. Continuam am la petició
             } else {
                 return response()->json(["Error" => "Acces no autoritzat"], 401); // token incorrecta

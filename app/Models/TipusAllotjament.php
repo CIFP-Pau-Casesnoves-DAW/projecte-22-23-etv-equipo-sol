@@ -12,4 +12,10 @@ class TipusAllotjament extends Model
     protected $table = 'TipusAllotjaments';
     protected $primaryKey = 'ID';
     public $timestamps = false;
+    protected $with = ["traduccions"];
+
+    public function traduccions()
+    {
+        return $this->hasMany(Traduccio::class,"TipusAllotjamentsID", "ID");
+    }
 }

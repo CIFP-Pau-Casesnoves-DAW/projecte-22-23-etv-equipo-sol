@@ -81,7 +81,6 @@ class AllotjamentController extends Controller
      *           @OA\Property(property="NumeroPersones", type="number", format="number", example="3"),
      *           @OA\Property(property="NumeroHabitacions", type="number", format="number", example="7"),
      *           @OA\Property(property="NumeroBanys", type="number", format="number", example="2"),
-     *           @OA\Property(property="UsuarisID", type="number", format="number", example="1"),
      *           @OA\Property(property="MunicipisID", type="number", format="number", example="7"),
      *           @OA\Property(property="TipusVacancesID", type="number", format="number", example="9"),
      *           @OA\Property(property="TipusAllotjamentsID", type="number", format="number", example="2")
@@ -106,6 +105,7 @@ class AllotjamentController extends Controller
      *  )
      */
     public function insertAllotjament(Request $request){
+
         $allotjament = new Allotjament();
 
         $validator = $this->createValidator();
@@ -125,7 +125,7 @@ class AllotjamentController extends Controller
         $allotjament->NumeroPersones = $request->NumeroPersones;
         $allotjament->NumeroHabitacions = $request->NumeroHabitacions;
         $allotjament->NumeroBanys = $request->NumeroBanys;
-        $allotjament->UsuarisID = $request->UsuarisID;
+        $allotjament->UsuarisID = $request->DadesUsuari->ID;
         $allotjament->MunicipisID = $request->MunicipisID;
         $allotjament->TipusVacancesID = $request->TipusVacancesID;
         $allotjament->TipusAllotjamentsID = $request->TipusAllotjamentsID;
@@ -159,7 +159,6 @@ class AllotjamentController extends Controller
      *           @OA\Property(property="NumeroPersones", type="number", format="number", example="3"),
      *           @OA\Property(property="NumeroHabitacions", type="number", format="number", example="7"),
      *           @OA\Property(property="NumeroBanys", type="number", format="number", example="2"),
-     *           @OA\Property(property="UsuarisID", type="number", format="number", example="1"),
      *           @OA\Property(property="MunicipisID", type="number", format="number", example="7"),
      *           @OA\Property(property="TipusVacancesID", type="number", format="number", example="9"),
      *           @OA\Property(property="TipusAllotjamentsID", type="number", format="number", example="2")
@@ -189,6 +188,11 @@ class AllotjamentController extends Controller
         }
 
         $allotjament=Allotjament::findOrFail($request->ID);
+
+        if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $allotjament->UsuarisID) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+        }
+
         $validator = $this->createValidator();
         $messages = ControllersHelper::createValidatorMessages();
 
@@ -207,7 +211,6 @@ class AllotjamentController extends Controller
         $allotjament->NumeroPersones = $request->NumeroPersones;
         $allotjament->NumeroHabitacions = $request->NumeroHabitacions;
         $allotjament->NumeroBanys = $request->NumeroBanys;
-        $allotjament->UsuarisID = $request->UsuarisID;
         $allotjament->MunicipisID = $request->MunicipisID;
         $allotjament->TipusVacancesID = $request->TipusVacancesID;
         $allotjament->TipusAllotjamentsID = $request->TipusAllotjamentsID;
@@ -261,6 +264,11 @@ class AllotjamentController extends Controller
 
         $allotjament=Allotjament::findOrFail($request->ID);
 
+        if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $allotjament->UsuarisID) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+        }
+
+
         if ($isDeleted = $allotjament->delete()) {
             return response()->json(['Status' => 'Success','Result' => $isDeleted], 200);
         } else {
@@ -278,7 +286,6 @@ class AllotjamentController extends Controller
             "NumeroPersones" => ["required"],
             "NumeroHabitacions" => ["required"],
             "NumeroBanys" => ["required"],
-            "UsuarisID" => ["required"],
             "MunicipisID" => ["required"],
             "TipusVacancesID" => ["required"],
             "TipusAllotjamentsID" => ["required"]];

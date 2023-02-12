@@ -12,4 +12,10 @@ class Idioma extends Model
     protected $table = 'Idiomes';
     protected $primaryKey = 'ID';
     public $timestamps = false;
+    protected $with = ["traduccions"];
+
+    public function traduccions()
+    {
+        return $this->hasMany(Traduccio::class,"IdiomesID", "ID");
+    }
 }
