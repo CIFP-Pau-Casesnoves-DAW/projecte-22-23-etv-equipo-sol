@@ -11,7 +11,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost:81/allotjamentssol/public/"
+            "url": "http://www.allotjamentsol.com/public/"
         }
     ],
     "paths": {

@@ -164,8 +164,10 @@ class ImatgeController extends Controller
         $uploadFolder = "images";
         $imatgeFile = $request->file("Imatge");
         $image_uploaded_path = $imatgeFile->store($uploadFolder, 'public');
+        $url = Storage::disk('public')->url($image_uploaded_path);
+        $url = str_replace("/storage/images/","/storage/app/public/images/",$url);
 
-        $imatge->URL = Storage::disk('public')->url($image_uploaded_path);
+        $imatge->URL = $url;
         $imatge->EsPrincipal = ($request->EsPrincipal)?1:0;
         $imatge->Descripcio = $request->Descripcio;
         $imatge->AllotjamentsID = $request->AllotjamentID;
