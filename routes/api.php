@@ -5,6 +5,7 @@ use App\Http\Controllers\ComentariController;
 use App\Http\Controllers\IdiomaController;
 use App\Http\Controllers\ImatgeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MunicipiController;
 use App\Http\Controllers\ServeisAllotjamentController;
 use App\Http\Controllers\TipusServeiController;
@@ -99,6 +100,10 @@ Route::group(["prefix"=>"reserva"], function() {
 
 Route::group(["prefix"=>"login"], function() {
     Route::post('', [LoginController::class, "login"]);
+});
+
+Route::group(["prefix"=>"logout"], function() {
+    Route::post('', [LogoutController::class, "logout"])->middleware('token');
 });
 
 Route::group(["prefix"=>"estatsreserva"], function() {

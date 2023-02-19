@@ -1292,6 +1292,26 @@
                 }
             }
         },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Logout"
+                ],
+                "summary": "Logout",
+                "description": "Fa logout del actual usuari, eliminant el seu token de la base de dades",
+                "operationId": "1f0bcdac4489ca103140e98fd3ab1063",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/municipi": {
             "get": {
                 "tags": [
