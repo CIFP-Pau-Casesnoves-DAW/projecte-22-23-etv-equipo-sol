@@ -165,7 +165,7 @@ class ComentariController extends Controller
         $comentari=Comentari::findOrFail($request->ID);
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $comentari->UsuarisID) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
         $validator = $this->createUpdateValidator();
@@ -228,7 +228,7 @@ class ComentariController extends Controller
         $comentari=Comentari::findOrFail($request->ID);
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $comentari->UsuarisID) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
         if ($isDeleted = $comentari->delete()) {

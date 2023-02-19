@@ -31,7 +31,7 @@ class ReservaController extends Controller
     public function getReserves(Request $request)
     {
         if ($request->DadesUsuari->RolsID != 3) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
         $reserves = Reserva::all();
@@ -82,7 +82,7 @@ class ReservaController extends Controller
         $reserva = Reserva::findOrFail($id);
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $reserva->UsuarisID) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
         return response()->json(["Status" => "Success", "Result" => $reserva], 200);
@@ -202,7 +202,7 @@ class ReservaController extends Controller
         $reserva = Reserva::findOrFail($request->ID);
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $reserva->UsuarisID) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
         $validator = $this->updateValidator();
@@ -271,7 +271,7 @@ class ReservaController extends Controller
         $reserva = Reserva::findOrFail($request->ID);
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $reserva->UsuarisID) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
         if ($isDeleted = $reserva->delete()) {

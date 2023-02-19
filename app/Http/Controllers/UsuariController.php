@@ -30,7 +30,7 @@ class UsuariController extends Controller
     public function getUsuaris(Request $request)
     {
         if ($request->DadesUsuari->RolsID != 3) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
         $usuaris = Usuari::all();
@@ -79,7 +79,7 @@ class UsuariController extends Controller
     public function getUsuari($id, Request $request)
     {
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $id) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
         $usuari = Usuari::findOrFail($id);
@@ -202,7 +202,7 @@ class UsuariController extends Controller
         }
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $request->ID) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
         $usuari = Usuari::findOrFail($request->ID);
@@ -271,7 +271,7 @@ class UsuariController extends Controller
         }
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $request->ID) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
         $usuari = Usuari::findOrFail($request->ID);

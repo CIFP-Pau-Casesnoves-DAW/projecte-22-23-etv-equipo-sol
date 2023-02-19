@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\ControllersHelper;
+use App\Models\Allotjament;
 use App\Models\Imatge;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ImatgeController extends Controller
@@ -30,6 +32,37 @@ class ImatgeController extends Controller
     }
 
     /**
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/api/imatge/allotjament/{idAllotjament}",
+     *     tags={"Imatges"},
+     *     summary="Mostrar totes les imatges de un allotjament",
+     *     @OA\Parameter(
+     *         description="id allotjament",
+     *         in="path",
+     *         name="idAllotjament",
+     *         required=true,
+     *         @OA\Schema(type="number"),
+     *
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="Status", type="string", example="Success"),
+     *              @OA\Property(property="Result",type="object")
+     *          )
+     *     ),
+     * )
+     */
+    public function getImatgesAllotjament($idAllotjament){
+        $imatges = Imatge::where("AllotjamentsID","=",$idAllotjament)->get();
+        return response()->json(["Status" => "Success","Result" => $imatges], 200);
+    }
+
+    /**
     *
      *
      * @param  int  $id
@@ -43,7 +76,7 @@ class ImatgeController extends Controller
      *         in="path",
      *         name="id",
      *         required=true,
-     *         @OA\Schema(type="string"),
+     *         @OA\Schema(type="number"),
      *
      *     ),
      *     @OA\Response(
@@ -82,12 +115,15 @@ class ImatgeController extends Controller
      *    security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *        required=true,
-     *        @OA\JsonContent(
-     *           @OA\Property(property="URL", type="varchar", example="https://rutaimatge/"),
-     *           @OA\Property(property="EsPrincipal", type="boolean", example="false"),
-     *           @OA\Property(property="Descripcio", type="varchar", example="casa rural amb vistea a muntanya"),
-     *
-     *        ),
+     *        @OA\MediaType(
+     *           mediaType="multipart/form-data",
+     *           @OA\Schema(
+     *              @OA\Property(property="Imatge", type="string", format="binary"),
+     *              @OA\Property(property="EsPrincipal", type="boolean", example="false"),
+     *              @OA\Property(property="Descripcio", type="varchar", example="casa rural amb vistea a muntanya"),
+     *              @OA\Property(property="AllotjamentID", type="integer", example="2"),
+     *           )
+     *        )
      *     ),
      *    @OA\Response(
      *         response=200,
@@ -119,9 +155,20 @@ class ImatgeController extends Controller
             return response()->json(["Status" => "Error","Result"=>$isValid->errors()], 400);
         }
 
-        $imatge->URL = $request->URL;
-        $imatge->EsPrincipal = $request->EsPrincipal;
+        $allotjament=Allotjament::findOrFail($request->AllotjamentID);
+
+        if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $allotjament->UsuarisID) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
+        }
+
+        $uploadFolder = "images";
+        $imatgeFile = $request->file("Imatge");
+        $image_uploaded_path = $imatgeFile->store($uploadFolder, 'public');
+
+        $imatge->URL = Storage::disk('public')->url($image_uploaded_path);
+        $imatge->EsPrincipal = ($request->EsPrincipal)?1:0;
         $imatge->Descripcio = $request->Descripcio;
+        $imatge->AllotjamentsID = $request->AllotjamentID;
 
         if ($imatge->save()) {
             return response()->json(['Status' => 'Success','Result' => $imatge], 200);
@@ -144,7 +191,6 @@ class ImatgeController extends Controller
      *        required=true,
      *        @OA\JsonContent(
      *           @OA\Property(property="ID", type="number", format="number", example="2"),
-     *           @OA\Property(property="URL", type="varchar", example="https://rutaimatge/"),
      *           @OA\Property(property="EsPrincipal", type="boolean", example="false"),
      *           @OA\Property(property="Descripcio", type="varchar", example="casa rural amb vistea a muntanya"),
      *        ),
@@ -182,8 +228,13 @@ class ImatgeController extends Controller
             return response()->json(["Status" => "Error","Result"=>$isValid->errors()], 400);
         }
 
-        $imatge->URL = $request->URL;
-        $imatge->EsPrincipal = $request->EsPrincipal;
+        $allotjament=Allotjament::findOrFail($imatge->AllotjamentsID);
+
+        if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $allotjament->UsuarisID) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
+        }
+
+        $imatge->EsPrincipal = ($request->EsPrincipal)?1:0;;
         $imatge->Descripcio = $request->Descripcio;
 
         if ($imatge->save()) {
@@ -233,6 +284,11 @@ class ImatgeController extends Controller
         }
 
         $imatge=Imatge::findOrFail($request->ID);
+        $allotjament=Allotjament::findOrFail($imatge->AllotjamentsID);
+
+        if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $allotjament->UsuarisID) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
+        }
 
         if ($isDeleted = $imatge->delete()) {
             return response()->json(['Status' => 'Success','Result' => $isDeleted], 200);
@@ -244,15 +300,15 @@ class ImatgeController extends Controller
     public function createValidator(): array
     {
         return [
-            "URL" => ["required"],
+            "Imatge" => ["required"],
             "EsPrincipal" => ["required"],
-            "Descripcio" => ["required"]];
+            "Descripcio" => ["required"],
+            "AllotjamentID" => ["required"]];
     }
 
     public function createValidatorUpdate(): array
     {
         return [
-            "URL" => ["required"],
             "EsPrincipal" => ["required"],
             "Descripcio" => ["required"]];
     }

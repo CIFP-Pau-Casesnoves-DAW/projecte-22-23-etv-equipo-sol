@@ -11,7 +11,7 @@
     },
     "servers": [
         {
-            "url": "http://www.allotjamentsol.com/public/"
+            "url": "http://localhost:81/allotjamentssol/public/"
         }
     ],
     "paths": {
@@ -901,10 +901,6 @@
                                         "format": "number",
                                         "example": "2"
                                     },
-                                    "URL": {
-                                        "type": "varchar",
-                                        "example": "https://rutaimatge/"
-                                    },
                                     "EsPrincipal": {
                                         "type": "boolean",
                                         "example": "false"
@@ -976,12 +972,12 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "properties": {
-                                    "URL": {
-                                        "type": "varchar",
-                                        "example": "https://rutaimatge/"
+                                    "Imatge": {
+                                        "type": "string",
+                                        "format": "binary"
                                     },
                                     "EsPrincipal": {
                                         "type": "boolean",
@@ -990,6 +986,10 @@
                                     "Descripcio": {
                                         "type": "varchar",
                                         "example": "casa rural amb vistea a muntanya"
+                                    },
+                                    "AllotjamentID": {
+                                        "type": "integer",
+                                        "example": "2"
                                     }
                                 },
                                 "type": "object"
@@ -1116,6 +1116,47 @@
                 ]
             }
         },
+        "/api/imatge/allotjament/{idAllotjament}": {
+            "get": {
+                "tags": [
+                    "Imatges"
+                ],
+                "summary": "Mostrar totes les imatges de un allotjament",
+                "operationId": "19de501cde86d52b4b50bdf168d41c9d",
+                "parameters": [
+                    {
+                        "name": "idAllotjament",
+                        "in": "path",
+                        "description": "id allotjament",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/imatge/{id}": {
             "get": {
                 "tags": [
@@ -1130,7 +1171,7 @@
                         "description": "Id de la imatge",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "number"
                         }
                     }
                 ],

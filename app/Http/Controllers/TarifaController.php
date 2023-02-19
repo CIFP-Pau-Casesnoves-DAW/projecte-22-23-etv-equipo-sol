@@ -111,7 +111,7 @@ class TarifaController extends Controller
     public function insertTarifa(Request $request){
 
         if ($request->DadesUsuari->RolsID != 3) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
         $tarifa = new Tarifa();
@@ -179,7 +179,7 @@ class TarifaController extends Controller
      */
     public function updateTarifa(Request $request){
         if ($request->DadesUsuari->RolsID != 3) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
         if ($request->ID == null || $request->ID < 1) {
@@ -243,7 +243,7 @@ class TarifaController extends Controller
      */
     public function deleteTarifa(Request $request){
         if ($request->DadesUsuari->RolsID != 3) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
         if ($request->ID == null || $request->ID < 0) {

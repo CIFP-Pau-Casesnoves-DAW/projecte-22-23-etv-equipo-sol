@@ -16,7 +16,7 @@ use Illuminate\Routing\Controller as BaseController;
  * @OA\Contact( name="Equip Sol",email="jaumefullana@paucasesnovescifp.cat")
  * )
  *
- * @OA\Server(url="http://www.allotjamentsol.com/public/")
+ * @OA\Server(url="http://localhost:81/allotjamentssol/public/")
  *
  * @OA\SecurityScheme(
  * securityScheme="bearerAuth",

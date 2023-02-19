@@ -177,7 +177,7 @@ class TraduccioController extends Controller
      */
     public function updateTraduccio(Request $request){
         if ($request->DadesUsuari->RolsID != 3) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
         if ($request->ID == null || $request->ID < 1) {
@@ -239,7 +239,7 @@ class TraduccioController extends Controller
      */
     public function deleteTraduccio(Request $request){
         if ($request->DadesUsuari->RolsID != 3) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
         if ($request->ID == null || $request->ID < 1) {

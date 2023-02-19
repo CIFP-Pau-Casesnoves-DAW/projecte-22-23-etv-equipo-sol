@@ -121,6 +121,7 @@ Route::group(["prefix"=>"usuari"], function() {
 
 Route::group(["prefix"=>"imatge"], function() {
     Route::get("/", [ImatgeController::class, "getImatges"]);
+    Route::get("/allotjament/{idAllotjament}", [ImatgeController::class, "getImatgesAllotjament"]);
     Route::get("/{id}", [ImatgeController::class, "getImatge"]);
     Route::post("/", [ImatgeController::class, "insertImatge"])->middleware('token');
     Route::put("/", [ImatgeController::class, "updateImatge"])->middleware('token');

@@ -120,7 +120,7 @@ class AllotjamentController extends Controller
         $allotjament->NumeroRegistre = $request->NumeroRegistre;
         $allotjament->NomComercial = $request->NomComercial;
         $allotjament->Direccio = $request->Direccio;
-        $allotjament->Destacat = false;
+        $allotjament->Destacat = 0;
         $allotjament->NumeroLlits = $request->NumeroLlits;
         $allotjament->NumeroPersones = $request->NumeroPersones;
         $allotjament->NumeroHabitacions = $request->NumeroHabitacions;
@@ -190,7 +190,7 @@ class AllotjamentController extends Controller
         $allotjament=Allotjament::findOrFail($request->ID);
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $allotjament->UsuarisID) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
         $validator = $this->createValidator();
@@ -205,7 +205,6 @@ class AllotjamentController extends Controller
         $allotjament->NumeroRegistre = $request->NumeroRegistre;
         $allotjament->NomComercial = $request->NomComercial;
         $allotjament->Direccio = $request->Direccio;
-        $allotjament->Destacat = false;
         $allotjament->Valoracio = $request->Valoracio;
         $allotjament->NumeroLlits = $request->NumeroLlits;
         $allotjament->NumeroPersones = $request->NumeroPersones;
@@ -265,7 +264,7 @@ class AllotjamentController extends Controller
         $allotjament=Allotjament::findOrFail($request->ID);
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $allotjament->UsuarisID) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
 

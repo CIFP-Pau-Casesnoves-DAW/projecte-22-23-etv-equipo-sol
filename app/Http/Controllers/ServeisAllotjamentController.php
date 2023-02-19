@@ -113,7 +113,7 @@ class ServeisAllotjamentController extends Controller
         $allotjament=Allotjament::findOrFail($request->AllotjamentsID);
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $allotjament->UsuarisID) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
         $serveiAllotjament->TipusServeisID = $request->TipusServeisID;
@@ -170,7 +170,7 @@ class ServeisAllotjamentController extends Controller
         $allotjament=Allotjament::findOrFail($serveiAllotjament->AllotjamentsID);
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $allotjament->UsuarisID) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 400);
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
         if ($isDeleted = $serveiAllotjament->delete()) {
