@@ -169,6 +169,7 @@ class UsuariController extends Controller
      *    @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(
+     *           @OA\Property(property="ID", type="number", format="number", example="7657"),
      *           @OA\Property(property="Nom", type="string", format="string", example="Pedro"),
      *           @OA\Property(property="Llinatges", type="string", format="string", example="Gimenez Santos"),
      *           @OA\Property(property="Contrasenya", type="string", format="string", example="abcd1234"),
