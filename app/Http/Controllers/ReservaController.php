@@ -103,8 +103,8 @@ class ReservaController extends Controller
      *     @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(
-     *           @OA\Property(property="DataCheckIn", type="date", format="date", example="05/01/23"),
-     *           @OA\Property(property="DataCheckOut", type="date", format="date", example="10/01/23"),
+     *           @OA\Property(property="DataCheckIn", type="date", format="date", example="2023-10-17"),
+     *           @OA\Property(property="DataCheckOut", type="date", format="date", example="2023-10-20"),
      *           @OA\Property(property="Preu", type="number", format="number", example="20"),
      *           @OA\Property(property="AllotjamentsID", type="number", format="number", example="3"),
      *        ),
@@ -164,13 +164,13 @@ class ReservaController extends Controller
      *    path="/api/reserva",
      *    tags={"Reserves"},
      *    summary="Modifica una reserva",
-     *    description="Modifica una reserva.",
+     *    description="Modifica una reserva. Format de la data: Y-m-d.",
      *    security={{"bearerAuth":{}}},
      *    @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(
-     *           @OA\Property(property="DataCheckIn", type="date", format="date", example="05/01/23"),
-     *           @OA\Property(property="DataCheckOut", type="date", format="date", example="10/01/23"),
+     *           @OA\Property(property="DataCheckIn", type="date", format="date", example="2023-12-23"),
+     *           @OA\Property(property="DataCheckOut", type="date", format="date", example="2023-12-27"),
      *           @OA\Property(property="Preu", type="number", format="number", example="20"),
      *           @OA\Property(property="EstatsReservesID", type="number", format="number", example="2"),
      *        ),
