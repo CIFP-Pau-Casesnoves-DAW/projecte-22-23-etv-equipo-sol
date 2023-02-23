@@ -83,7 +83,7 @@ class UsuariController extends Controller
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
-        $usuari = Usuari::findOrFail($id);
+        $usuari = Usuari::find($id);
         return response()->json(["Status" => "Success", "Result" => $usuari], 200);
     }
 
@@ -133,6 +133,19 @@ class UsuariController extends Controller
 
         $validator = $this->createValidator();
         $messages = ControllersHelper::createValidatorMessages();
+        
+        // $checkNom = Usuari::find($request->Nom);
+
+        // if ($checkNom != null){
+        //     return response()->json(["Status" => "Error", "Result" => "Nom ja utilitzat"], 400);
+        // }
+
+        $checkId = Usuari::find($request->ID);
+
+        if ($checkId != null){
+            return response()->json(["Status" => "Error", "Result" => "Id ja utilitzada"], 400);
+        }
+        
 
         $isValid = Validator::make($request->all(), $validator, $messages);
 
@@ -207,7 +220,11 @@ class UsuariController extends Controller
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
-        $usuari = Usuari::findOrFail($request->ID);
+        $usuari = Usuari::find($request->ID);
+        if ($usuari == null){
+            return response()->json(["Status" => "Error", "Result" => "No existeix aquest usuari"], 400);
+        }
+
         $validator = $this->updateValidator();
         $messages = ControllersHelper::createValidatorMessages();
 
@@ -276,7 +293,7 @@ class UsuariController extends Controller
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
-        $usuari = Usuari::findOrFail($request->ID);
+        $usuari = Usuari::find($request->ID);
 
         if ($isDeleted = $usuari->delete()) {
             return response()->json(['Status' => 'Success', 'Result' => $isDeleted], 200);

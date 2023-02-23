@@ -79,7 +79,7 @@ class ReservaController extends Controller
      */
     public function getReserva($id, Request $request)
     {
-        $reserva = Reserva::findOrFail($id);
+        $reserva = Reserva::find($id);
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $reserva->UsuarisID) {
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
@@ -134,7 +134,13 @@ class ReservaController extends Controller
         $validator = $this->createValidator();
         $messages = ControllersHelper::createValidatorMessages();
 
+        $checkId = Reserva::find($request->ID);
+        if ($checkId != null){
+            return response()->json(["Status" => "Error", "Result" => "Id ja utilitzada"], 400);
+        }
+
         $isValid = Validator::make($request->all(), $validator, $messages);
+
 
         if ($isValid->fails()) {
             return response()->json(["Status" => "Error", "Result" => $isValid->errors()], 400);
@@ -195,11 +201,17 @@ class ReservaController extends Controller
      */
     public function updateReserva(Request $request)
     {
+
+        $checkId = Reserva::find($request->ID);
+        if ($checkId == null){
+            return response()->json(["Status" => "Error", "Result" => "No existeix cap reserva amb aquesta id"], 400);
+        }
+
         if ($request->ID == null || $request->ID < 1) {
             return response()->json(["Status" => "Error", "Result" => "Incorrect ID"], 400);
         }
 
-        $reserva = Reserva::findOrFail($request->ID);
+        $reserva = Reserva::find($request->ID);
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $reserva->UsuarisID) {
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
@@ -268,7 +280,7 @@ class ReservaController extends Controller
             return response()->json(["Status" => "Error", "Result" => "Incorrect ID"], 400);
         }
 
-        $reserva = Reserva::findOrFail($request->ID);
+        $reserva = Reserva::find($request->ID);
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $reserva->UsuarisID) {
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
