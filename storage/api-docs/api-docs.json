@@ -811,6 +811,230 @@
                         }
                     }
                 }
+            },
+            "put": {
+                "tags": [
+                    "Idiomes"
+                ],
+                "summary": "Crea un nou idioma",
+                "description": "Crea un nou idioma.",
+                "operationId": "25b8339da849f0de96cbdd5792efd04a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "4"
+                                    },
+                                    "CodiISO": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "FR"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Idiomes"
+                ],
+                "summary": "Crea un nou idioma",
+                "description": "Crea un nou idioma.",
+                "operationId": "b2d6b1ae2e53fc39c6b0a1bf1b355d8b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "4"
+                                    },
+                                    "CodiISO": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "FR"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Idiomas"
+                ],
+                "summary": "Esborra un idioma",
+                "description": "Esborra un idioma.",
+                "operationId": "489db9b5e7483e9fee1a4dd59ffaf1a1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "3"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/idioma/{id}": {
@@ -2549,6 +2773,230 @@
                         }
                     }
                 }
+            },
+            "put": {
+                "tags": [
+                    "Tipus Servei"
+                ],
+                "summary": "Crea un nou tipusServei",
+                "description": "Crea un nou tipusServei.",
+                "operationId": "2aaa614a6858094fd1c3d9eccab1494f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "45"
+                                    },
+                                    "NomIdentificatiu": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Hamacas"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Tipus Servei"
+                ],
+                "summary": "Crea un nou tipusServei",
+                "description": "Crea un nou tipusServei.",
+                "operationId": "c38505684ef512ae312189ef10e7ffd4",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "45"
+                                    },
+                                    "NomIdentificatiu": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Hamacas"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "TipusServeis"
+                ],
+                "summary": "Esborra un tipusServei",
+                "description": "Esborra un tipusServei.",
+                "operationId": "c4e2ff5af102e620212b33833179f122",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "3"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/tipusservei/{id}": {
@@ -3022,6 +3470,11 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "7657"
+                                    },
                                     "Nom": {
                                         "type": "string",
                                         "format": "string",

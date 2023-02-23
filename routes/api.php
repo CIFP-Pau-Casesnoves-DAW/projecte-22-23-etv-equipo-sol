@@ -65,11 +65,17 @@ Route::group(["prefix"=>"comentari"], function() {
 Route::group(["prefix"=>"tipusservei"], function() {
     Route::get("/", [TipusServeiController::class, "getTipusServeis"]);
     Route::get("/{id}", [TipusServeiController::class, "getTipusServei"]);
+    Route::post("/", [TipusServeiController::class, "insertTipusServei"])->middleware('token');
+    Route::put("/", [TipusServeiController::class, "updateTipusServei"])->middleware('token');
+    Route::delete("/", [TipusServeiController::class, "deleteTipusServei"])->middleware('token');
 });
 
 Route::group(["prefix"=>"idioma"], function() {
     Route::get("/", [IdiomaController::class, "getIdiomes"]);
     Route::get("/{id}", [IdiomaController::class, "getIdioma"]);
+    Route::post("/", [IdiomaController::class, "insertIdioma"])->middleware('token');
+    Route::put("/", [IdiomaController::class, "updateIdioma"])->middleware('token');
+    Route::delete("/", [IdiomaController::class, "deleteIdioma"])->middleware('token');
 });
 
 Route::group(["prefix"=>"tarifa"], function() {

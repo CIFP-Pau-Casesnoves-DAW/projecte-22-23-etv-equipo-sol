@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\ControllersHelper;
+use App\Models\Allotjament;
 use App\Models\ServeisAllotjament;
+use App\Models\TipusServei;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -35,7 +37,7 @@ class ServeisAllotjamentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      * @OA\Get(
-     *     path="/api/serveisallotjament/{id}",
+     *     path="/api/serveisallotjament/{idAllotjament}",
      *     tags={"Serveis Allotjament"},
      *     summary="Mostrar els serveis d'un allotjament",
      *     @OA\Parameter(
@@ -56,8 +58,8 @@ class ServeisAllotjamentController extends Controller
      *      ),
      * )
      */
-    public function getServeiAllotjament($id){
-        $serveisAllotjament = ServeisAllotjament::where("AllotjamentsID","=",$id)->get();
+    public function getServeiAllotjament($idAllotjament){
+        $serveisAllotjament = ServeisAllotjament::where("AllotjamentsID","=",$idAllotjament)->get();
         return response()->json(["Status" => "Success","Result" => $serveisAllotjament], 200);
     }
 
@@ -110,10 +112,20 @@ class ServeisAllotjamentController extends Controller
             return response()->json(["Status" => "Error","Result"=>$isValid->errors()], 400);
         }
 
-        $allotjament=Allotjament::findOrFail($request->AllotjamentsID);
+        $allotjament=Allotjament::find($request->AllotjamentsID);
+
+        if ($allotjament == null){
+            return response()->json(["Status" => "Error","No hi ha cap allotjamen amb aqueixa id"], 400);
+        }
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $allotjament->UsuarisID) {
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
+        }
+
+        $tipusServei=TipusServei::find($request->ID);
+
+        if ($tipusServei == null){
+            return response()->json(["Status" => "Error","Result"=> "No existeix cap tipusServei amb aquesta id"], 400);
         }
 
         $serveiAllotjament->TipusServeisID = $request->TipusServeisID;
@@ -166,7 +178,12 @@ class ServeisAllotjamentController extends Controller
             return response()->json(["Status" => "Error","Result"=>"Incorrect ID"], 400);
         }
 
-        $serveiAllotjament=ServeisAllotjament::findOrFail($request->ID);
+        $serveiAllotjament=ServeisAllotjament::find($request->ID);
+
+        if ($serveiAllotjament == null){
+            return response()->json(["Status" => "Error","Result"=>"No existeix cap serveiAllotjament amb aquesta id"], 400);
+        }
+
         $allotjament=Allotjament::findOrFail($serveiAllotjament->AllotjamentsID);
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $allotjament->UsuarisID) {
