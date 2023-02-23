@@ -6,6 +6,7 @@ use App\Http\Helpers\ControllersHelper;
 use App\Models\Usuari;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UsuariController extends Controller
 {
@@ -169,13 +170,13 @@ class UsuariController extends Controller
      *    @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(
-     *           @OA\Property(property="ID", type="number", format="number", example="7657"),
+     *           @OA\Property(property="ID", type="number", format="number", example="10"),
      *           @OA\Property(property="Nom", type="string", format="string", example="Pedro"),
      *           @OA\Property(property="Llinatges", type="string", format="string", example="Gimenez Santos"),
      *           @OA\Property(property="Contrasenya", type="string", format="string", example="abcd1234"),
      *           @OA\Property(property="CorreuElectronic", type="string", format="string", example="pedro@gmail.com"),
      *           @OA\Property(property="DNI", type="string", format="string", example="12341234Q"),
-     *           @OA\Property(property="Telefon", type="string", format="string", example="971123123"),
+     *           @OA\Property(property="Telefon", type="string", format="string", example="971123133"),
      *        ),
      *     ),
      *    @OA\Response(
@@ -207,7 +208,7 @@ class UsuariController extends Controller
         }
 
         $usuari = Usuari::findOrFail($request->ID);
-        $validator = $this->createValidator();
+        $validator = $this->updateValidator();
         $messages = ControllersHelper::createValidatorMessages();
 
         $isValid = Validator::make($request->all(), $validator, $messages);
@@ -287,6 +288,17 @@ class UsuariController extends Controller
     //VALIDADOR
 
     public function createValidator(): array
+    {
+        return [
+            "Nom" => ["required", Rule::unique('posts', 'Nom')],
+            "Llinatges" => ["required"],
+            "Contrasenya" => ["required"],
+            "CorreuElectronic" => ["required"],
+            "DNI" => ["required"],
+            "Telefon" => ["required"]
+        ];
+    }
+    public function updateValidator(): array
     {
         return [
             "Nom" => ["required"],
