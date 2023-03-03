@@ -230,7 +230,7 @@ class UsuariController extends Controller
         $usuari->Contrasenya = $request->Contrasenya;
         $usuari->CorreuElectronic = $request->CorreuElectronic;
         $usuari->Telefon = $request->Telefon;
-        //ALGO RARISSIM PASA QUE SE CANVIEN TOTS ELS ATRIBUTS I TMB TE DEMANA TOTS ES ATRIBUTS A SWAGGER
+        
         if ($usuari->save()) {
             return response()->json(['Status' => 'Success', 'Result' => $usuari], 200);
         } else {
