@@ -171,8 +171,8 @@ class ReservaController extends Controller
      *        required=true,
      *        @OA\JsonContent(
      *           @OA\Property(property="ID", type="number", format="number", example="1"),
-     *           @OA\Property(property="DataCheckIn", type="date", format="date", example="2023-12-23"),
-     *           @OA\Property(property="DataCheckOut", type="date", format="date", example="2023-12-27"),
+     *           @OA\Property(property="DataCheckIn", type="date", format="date", example="2024-12-23"),
+     *           @OA\Property(property="DataCheckOut", type="date", format="date", example="2025-12-27"),
      *           @OA\Property(property="Preu", type="number", format="number", example="20"),
      *           @OA\Property(property="EstatsReservesID", type="number", format="number", example="2"),
      *        ),
@@ -307,7 +307,6 @@ class ReservaController extends Controller
             "DataCheckIn" => ["required", "date", "after_or_equal:$avui"],
             "DataCheckOut" => ["required", "date", "after_or_equal:DataCheckIn"],
             "Preu" => ["required", "min:0"],
-            "AllotjamentsID" => ["required"]
         ];
     }
 }
