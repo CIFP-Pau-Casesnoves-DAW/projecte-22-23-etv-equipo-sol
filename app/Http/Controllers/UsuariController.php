@@ -285,6 +285,10 @@ class UsuariController extends Controller
 
         $usuari = Usuari::find($request->ID);
 
+        if ($usuari == null){
+            return response()->json(["Status" => "Error", "Result" => "No existeix cap usuari amb aquesta ID"]);
+        }
+
         if ($isDeleted = $usuari->delete()) {
             return response()->json(['Status' => 'Success', 'Result' => $isDeleted], 200);
         } else {

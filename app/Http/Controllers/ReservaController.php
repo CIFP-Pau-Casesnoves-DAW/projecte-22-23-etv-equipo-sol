@@ -274,11 +274,14 @@ class ReservaController extends Controller
         }
 
         $reserva = Reserva::find($request->ID);
+        if ($reserva == null){
+            return response()->json(["Status" => "Error", "Result" => "No existeix cap reserva amb aquesta ID"]);
+        }
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $reserva->UsuarisID) {
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
-
+        
         if ($isDeleted = $reserva->delete()) {
             return response()->json(['Status' => 'Success', 'Result' => $isDeleted], 200);
         } else {
