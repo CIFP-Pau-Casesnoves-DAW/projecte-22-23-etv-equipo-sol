@@ -89,11 +89,19 @@ Route::group(["prefix"=>"tarifa"], function() {
 Route::group(["prefix"=>"tipuscategoria"], function() {
     Route::get("/", [TipusCategoriaController::class, "getTipusCategories"]);
     Route::get("/{id}", [TipusCategoriaController::class, "getTipusCategoria"]);
+    Route::post("/", [TipusCategoriaController::class, "insertTipusCategoria"])->middleware('token');
+    Route::put("/", [TipusCategoriaController::class, "updateTipusCategoria"])->middleware('token');
+    Route::delete("/", [TipusCategoriaController::class, "deleteTipusCategoria"])->middleware('token');
 });
 
 Route::group(["prefix"=>"tipusallotjament"], function() {
     Route::get("/", [TipusAllotjamentController::class, "getTipusAllotjaments"]);
     Route::get("/{id}", [TipusAllotjamentController::class, "getTipusAllotjament"]);
+    Route::post("/{id}", [TipusAllotjamentController::class, "insertTipusAllotjament"])->middleware('token');
+    Route::put("/{id}", [TipusAllotjamentController::class, "updateTipusAllotjament"])->middleware('token');
+    Route::delete("/{id}", [TipusAllotjamentController::class, "deleteTipusAllotjament"])->middleware('token');
+
+
 });
 
 Route::group(["prefix"=>"reserva"], function() {

@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Projecte Allotjaments Sol",
-        "description": "REST API. Projecte Allotjaments Sol. DAW Client i servidor. Per utilitzar les cridades que necesiten token primer\n  s'haura de fer login amb un usuari per obtenir el token i despres utilitzar aquest token a la part on posa Authorize. Per\n  mes informacio, obtenir un usuari o altres peticions utilitzar el link de Contact Equip Sol o mandar un mail a jaumefullana@paucasesnovescifp.cat",
+        "description": "REST API. Projecte Allotjaments Sol. DAW Client i servidor. Per utilitzar les cridades que necesiten token primer\r\n  s'haura de fer login amb un usuari per obtenir el token i despres utilitzar aquest token a la part on posa Authorize. Per\r\n  mes informacio, obtenir un usuari o altres peticions utilitzar el link de Contact Equip Sol o mandar un mail a jaumefullana@paucasesnovescifp.cat",
         "contact": {
             "name": "Equip Sol",
             "email": "jaumefullana@paucasesnovescifp.cat"
@@ -11,7 +11,7 @@
     },
     "servers": [
         {
-            "url": "http://www.allotjamentsol.com/public/"
+            "url": "http://127.0.0.1/Laravel_Biel/projecte-22-23-etv-equipo-sol/public/"
         }
     ],
     "paths": {
@@ -1653,7 +1653,7 @@
                     "Reserves"
                 ],
                 "summary": "Modifica una reserva",
-                "description": "Modifica una reserva.",
+                "description": "Modifica una reserva. Format de la data: Y-m-d.",
                 "operationId": "c6ab45d80cf20b6145dc35f93e7bad4e",
                 "requestBody": {
                     "required": true,
@@ -1664,12 +1664,12 @@
                                     "DataCheckIn": {
                                         "type": "string",
                                         "format": "date",
-                                        "example": "05/01/23"
+                                        "example": "2023-12-23"
                                     },
                                     "DataCheckOut": {
                                         "type": "string",
                                         "format": "date",
-                                        "example": "10/01/23"
+                                        "example": "2023-12-27"
                                     },
                                     "Preu": {
                                         "type": "number",
@@ -1750,12 +1750,12 @@
                                     "DataCheckIn": {
                                         "type": "string",
                                         "format": "date",
-                                        "example": "05/01/23"
+                                        "example": "2023-10-17"
                                     },
                                     "DataCheckOut": {
                                         "type": "string",
                                         "format": "date",
-                                        "example": "10/01/23"
+                                        "example": "2023-10-20"
                                     },
                                     "Preu": {
                                         "type": "number",
@@ -2212,13 +2212,13 @@
                 ]
             }
         },
-        "/api/serveisallotjament/{id}": {
+        "/api/serveisallotjament/{idAllotjament}": {
             "get": {
                 "tags": [
                     "Serveis Allotjament"
                 ],
                 "summary": "Mostrar els serveis d'un allotjament",
-                "operationId": "06bef5255ed56a7f953502891f8c0768",
+                "operationId": "3ae756ccc1757d0f454d27b932621667",
                 "parameters": [
                     {
                         "name": "id",
@@ -2667,6 +2667,232 @@
                 }
             }
         },
+        "/api/tipusAllotjaments": {
+            "put": {
+                "tags": [
+                    "Tipus Categoria"
+                ],
+                "summary": "Modifica un tipus de categoria",
+                "description": "Modifica un tipus de categoria.",
+                "operationId": "9a894fe25886d4676257985c71f6ee76",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "4"
+                                    },
+                                    "Nom": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Basura"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Atribut categoria requerit"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Tipus Categoria"
+                ],
+                "summary": "Crea un tipus de categoria",
+                "description": "Crea un tipus de categoria.",
+                "operationId": "b3287dc32b9cc293df9a2d482cdaa34d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "4"
+                                    },
+                                    "Nom": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Basura"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Atribut categoria requerit"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Tipus Categoria"
+                ],
+                "summary": "Esborra un tipus de categoria",
+                "description": "Esborra un tipus de categoria.",
+                "operationId": "21da814200585700d5cbc8d6414a22dd",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "4"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/tipuscategoria": {
             "get": {
                 "tags": [
@@ -2682,6 +2908,230 @@
                         "description": "Hi ha un error."
                     }
                 }
+            },
+            "put": {
+                "tags": [
+                    "Tipus Categoria"
+                ],
+                "summary": "Modifica un tipus de categoria",
+                "description": "Modifica un tipus de categoria.",
+                "operationId": "5444193d9f8b2a3333b3a6d5670db98c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "4"
+                                    },
+                                    "Nom": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Basura"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Atribut categoria requerit"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Tipus Categoria"
+                ],
+                "summary": "Crea un tipus de categoria",
+                "description": "Crea un tipus de categoria.",
+                "operationId": "ebe23c8d6e2794bf9e3189fd60462759",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "4"
+                                    },
+                                    "Nom": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Basura"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Atribut categoria requerit"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Tipus Categoria"
+                ],
+                "summary": "Esborra un tipus de categoria",
+                "description": "Esborra un tipus de categoria.",
+                "operationId": "6d255ddac882288b15b0e112aa8b45dc",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "4"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/tipuscategoria/{id}": {
@@ -3473,7 +3923,7 @@
                                     "ID": {
                                         "type": "number",
                                         "format": "number",
-                                        "example": "7657"
+                                        "example": "10"
                                     },
                                     "Nom": {
                                         "type": "string",
@@ -3503,7 +3953,7 @@
                                     "Telefon": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "971123123"
+                                        "example": "971123133"
                                     }
                                 },
                                 "type": "object"
