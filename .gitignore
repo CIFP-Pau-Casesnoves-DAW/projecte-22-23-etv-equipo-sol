@@ -26,3 +26,4 @@ public/.htaccess
 /resources/views/vendor/l5-swagger/index.blade.php
 /storage/api-docs/api-docs.json
 >>>>>>> 58b58f11be6608c8f76594131ddb13c0e9e099fa
+storage/api-docs/api-docs.json

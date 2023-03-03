@@ -7,6 +7,7 @@ use App\Models\Usuari;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use OpenApi\Annotations\Get;
 
 class UsuariController extends Controller
 {
@@ -133,19 +134,6 @@ class UsuariController extends Controller
 
         $validator = $this->createValidator();
         $messages = ControllersHelper::createValidatorMessages();
-        
-        // $checkNom = Usuari::find($request->Nom);
-
-        // if ($checkNom != null){
-        //     return response()->json(["Status" => "Error", "Result" => "Nom ja utilitzat"], 400);
-        // }
-
-        $checkId = Usuari::find($request->ID);
-
-        if ($checkId != null){
-            return response()->json(["Status" => "Error", "Result" => "Id ja utilitzada"], 400);
-        }
-        
 
         $isValid = Validator::make($request->all(), $validator, $messages);
 
@@ -183,13 +171,10 @@ class UsuariController extends Controller
      *    @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(
-     *           @OA\Property(property="ID", type="number", format="number", example="10"),
-     *           @OA\Property(property="Nom", type="string", format="string", example="Pedro"),
-     *           @OA\Property(property="Llinatges", type="string", format="string", example="Gimenez Santos"),
-     *           @OA\Property(property="Contrasenya", type="string", format="string", example="abcd1234"),
-     *           @OA\Property(property="CorreuElectronic", type="string", format="string", example="pedro@gmail.com"),
-     *           @OA\Property(property="DNI", type="string", format="string", example="12341234Q"),
-     *           @OA\Property(property="Telefon", type="string", format="string", example="971123133"),
+     *           @OA\Property(property="ID", type="number", format="number", example="24"),
+     *           @OA\Property(property="Contrasenya", type="string", format="string", example="1234"),
+     *           @OA\Property(property="CorreuElectronic", type="string", format="string", example="prova@gmail.com"),
+     *           @OA\Property(property="Telefon", type="string", format="string", example="971234567"),
      *        ),
      *     ),
      *    @OA\Response(
@@ -205,7 +190,7 @@ class UsuariController extends Controller
      *         description="Error",
      *         @OA\JsonContent(
      *         @OA\Property(property="status", type="integer", example="error"),
-     *         @OA\Property(property="data",type="string", example="Atribut DNI requerit")
+     *         @OA\Property(property="data",type="string", example="Atribut CorreuElectronic requerit")
      *         ),
      *      )
      *  )
@@ -215,14 +200,22 @@ class UsuariController extends Controller
         if ($request->ID == null || $request->ID < 1) {
             return response()->json(["Status" => "Error", "Result" => "Incorrect ID"], 400);
         }
-
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $request->ID) {
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
-
         $usuari = Usuari::find($request->ID);
-        if ($usuari == null){
+        if ($usuari == null) {
             return response()->json(["Status" => "Error", "Result" => "No existeix aquest usuari"], 400);
+        }
+
+        $checkEmail = Usuari::where("CorreuElectronic", "=", $request->CorreuElectronic)->get();
+        $checkTlf = Usuari::where("Telefon", "=", $request->Telefon)->get();
+
+        if (count($checkEmail) > 0 && $checkEmail[0]->ID != $request->ID) {
+            return response()->json(["Status" => "Error", "Result" => "Email ja utilitzat"], 400);
+        }
+        if (count($checkTlf) > 0 && $checkTlf[0]->ID != $request->ID) {
+            return response()->json(["Status" => "Error", "Result" => "Telefon ja utilitzat"], 400);
         }
 
         $validator = $this->updateValidator();
@@ -234,13 +227,10 @@ class UsuariController extends Controller
             return response()->json(["Status" => "Error", "Result" => $isValid->errors()], 400);
         }
 
-        $usuari->Nom = $request->Nom;
-        $usuari->Llinatges = $request->Llinatges;
         $usuari->Contrasenya = $request->Contrasenya;
         $usuari->CorreuElectronic = $request->CorreuElectronic;
-        $usuari->DNI = $request->DNI;
         $usuari->Telefon = $request->Telefon;
-
+        //ALGO RARISSIM PASA QUE SE CANVIEN TOTS ELS ATRIBUTS I TMB TE DEMANA TOTS ES ATRIBUTS A SWAGGER
         if ($usuari->save()) {
             return response()->json(['Status' => 'Success', 'Result' => $usuari], 200);
         } else {
@@ -307,22 +297,20 @@ class UsuariController extends Controller
     public function createValidator(): array
     {
         return [
-            "Nom" => ["required", Rule::unique('posts', 'Nom')],
+            "Nom" => ["required"],
             "Llinatges" => ["required"],
             "Contrasenya" => ["required"],
-            "CorreuElectronic" => ["required"],
-            "DNI" => ["required"],
-            "Telefon" => ["required"]
+            "CorreuElectronic" => ["required", Rule::unique('Usuaris', 'CorreuElectronic')],
+            "DNI" => ["required", Rule::unique('Usuaris', 'DNI')],
+            "Telefon" => ["required", Rule::unique('Usuaris', 'Telefon')]
         ];
     }
     public function updateValidator(): array
     {
         return [
-            "Nom" => ["required"],
-            "Llinatges" => ["required"],
+            "ID"=> ["required"],
             "Contrasenya" => ["required"],
             "CorreuElectronic" => ["required"],
-            "DNI" => ["required"],
             "Telefon" => ["required"]
         ];
     }

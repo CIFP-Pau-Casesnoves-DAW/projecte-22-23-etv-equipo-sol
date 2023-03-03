@@ -134,11 +134,6 @@ class ReservaController extends Controller
         $validator = $this->createValidator();
         $messages = ControllersHelper::createValidatorMessages();
 
-        $checkId = Reserva::find($request->ID);
-        if ($checkId != null){
-            return response()->json(["Status" => "Error", "Result" => "Id ja utilitzada"], 400);
-        }
-
         $isValid = Validator::make($request->all(), $validator, $messages);
 
 
@@ -201,20 +196,17 @@ class ReservaController extends Controller
      */
     public function updateReserva(Request $request)
     {
-
-        $checkId = Reserva::find($request->ID);
-        if ($checkId == null){
-            return response()->json(["Status" => "Error", "Result" => "No existeix cap reserva amb aquesta id"], 400);
-        }
-
         if ($request->ID == null || $request->ID < 1) {
             return response()->json(["Status" => "Error", "Result" => "Incorrect ID"], 400);
         }
 
         $reserva = Reserva::find($request->ID);
-
+        
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $reserva->UsuarisID) {
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
+        }
+        if ($reserva == null){
+            return response()->json(["Status" => "Error", "Result" => "No existeix cap reserva amb aquesta id"], 400);
         }
 
         $validator = $this->updateValidator();
