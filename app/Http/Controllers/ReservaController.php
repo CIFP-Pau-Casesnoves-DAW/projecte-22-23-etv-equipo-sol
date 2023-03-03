@@ -103,8 +103,8 @@ class ReservaController extends Controller
      *     @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(
-     *           @OA\Property(property="DataCheckIn", type="date", format="date", example="2023-10-17"),
-     *           @OA\Property(property="DataCheckOut", type="date", format="date", example="2023-10-20"),
+     *           @OA\Property(property="DataCheckIn", type="date", format="date", example="2024-10-17"),
+     *           @OA\Property(property="DataCheckOut", type="date", format="date", example="2025-10-20"),
      *           @OA\Property(property="Preu", type="number", format="number", example="20"),
      *           @OA\Property(property="AllotjamentsID", type="number", format="number", example="3"),
      *        ),
@@ -170,6 +170,7 @@ class ReservaController extends Controller
      *    @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(
+     *           @OA\Property(property="ID", type="number", format="number", example="1"),
      *           @OA\Property(property="DataCheckIn", type="date", format="date", example="2023-12-23"),
      *           @OA\Property(property="DataCheckOut", type="date", format="date", example="2023-12-27"),
      *           @OA\Property(property="Preu", type="number", format="number", example="20"),
@@ -302,9 +303,11 @@ class ReservaController extends Controller
     {
         $avui = date("Y-m-d");
         return [
+            "ID" => ["required"],
             "DataCheckIn" => ["required", "date", "after_or_equal:$avui"],
             "DataCheckOut" => ["required", "date", "after_or_equal:DataCheckIn"],
-            "Preu" => ["required", "min:0"]
+            "Preu" => ["required", "min:0"],
+            "AllotjamentsID" => ["required"]
         ];
     }
 }
