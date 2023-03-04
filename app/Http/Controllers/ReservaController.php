@@ -79,7 +79,7 @@ class ReservaController extends Controller
      */
     public function getReserva($id, Request $request)
     {
-        $reserva = Reserva::findOrFail($id);
+        $reserva = Reserva::find($id);
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $reserva->UsuarisID) {
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
@@ -103,8 +103,8 @@ class ReservaController extends Controller
      *     @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(
-     *           @OA\Property(property="DataCheckIn", type="date", format="date", example="2023-10-17"),
-     *           @OA\Property(property="DataCheckOut", type="date", format="date", example="2023-10-20"),
+     *           @OA\Property(property="DataCheckIn", type="date", format="date", example="2024-10-17"),
+     *           @OA\Property(property="DataCheckOut", type="date", format="date", example="2025-10-20"),
      *           @OA\Property(property="Preu", type="number", format="number", example="20"),
      *           @OA\Property(property="AllotjamentsID", type="number", format="number", example="3"),
      *        ),
@@ -135,6 +135,7 @@ class ReservaController extends Controller
         $messages = ControllersHelper::createValidatorMessages();
 
         $isValid = Validator::make($request->all(), $validator, $messages);
+
 
         if ($isValid->fails()) {
             return response()->json(["Status" => "Error", "Result" => $isValid->errors()], 400);
@@ -169,8 +170,9 @@ class ReservaController extends Controller
      *    @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(
-     *           @OA\Property(property="DataCheckIn", type="date", format="date", example="2023-12-23"),
-     *           @OA\Property(property="DataCheckOut", type="date", format="date", example="2023-12-27"),
+     *           @OA\Property(property="ID", type="number", format="number", example="1"),
+     *           @OA\Property(property="DataCheckIn", type="date", format="date", example="2024-12-23"),
+     *           @OA\Property(property="DataCheckOut", type="date", format="date", example="2025-12-27"),
      *           @OA\Property(property="Preu", type="number", format="number", example="20"),
      *           @OA\Property(property="EstatsReservesID", type="number", format="number", example="2"),
      *        ),
@@ -199,10 +201,13 @@ class ReservaController extends Controller
             return response()->json(["Status" => "Error", "Result" => "Incorrect ID"], 400);
         }
 
-        $reserva = Reserva::findOrFail($request->ID);
-
+        $reserva = Reserva::find($request->ID);
+        
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $reserva->UsuarisID) {
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
+        }
+        if ($reserva == null){
+            return response()->json(["Status" => "Error", "Result" => "No existeix cap reserva amb aquesta id"], 400);
         }
 
         $validator = $this->updateValidator();
@@ -268,12 +273,15 @@ class ReservaController extends Controller
             return response()->json(["Status" => "Error", "Result" => "Incorrect ID"], 400);
         }
 
-        $reserva = Reserva::findOrFail($request->ID);
+        $reserva = Reserva::find($request->ID);
+        if ($reserva == null){
+            return response()->json(["Status" => "Error", "Result" => "No existeix cap reserva amb aquesta ID"]);
+        }
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $reserva->UsuarisID) {
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
-
+        
         if ($isDeleted = $reserva->delete()) {
             return response()->json(['Status' => 'Success', 'Result' => $isDeleted], 200);
         } else {
@@ -298,9 +306,10 @@ class ReservaController extends Controller
     {
         $avui = date("Y-m-d");
         return [
+            "ID" => ["required"],
             "DataCheckIn" => ["required", "date", "after_or_equal:$avui"],
             "DataCheckOut" => ["required", "date", "after_or_equal:DataCheckIn"],
-            "Preu" => ["required", "min:0"]
+            "Preu" => ["required", "min:0"],
         ];
     }
 }
