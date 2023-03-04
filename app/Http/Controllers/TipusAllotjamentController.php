@@ -74,16 +74,16 @@ class TipusAllotjamentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      * @OA\Post(
-     *    path="/api/tipusAllotjaments",
+     *    path="/api/tipusallotjament",
      *    tags={"Tipus Allotjament"},
-     *    summary="Crea un tipus de categoria",
-     *    description="Crea un tipus de categoria.",
+     *    summary="Crea un tipus de allotjament",
+     *    description="Crea un tipus de allotjament.",
      *    security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(
-     *           @OA\Property(property="ID", type="number", format="number", example="4"),
-     *           @OA\Property(property="Nom", type="string", format="string", example="Basura"),
+     *           @OA\Property(property="ID", type="number", format="number", example="8"),
+     *           @OA\Property(property="NomIdentificatiu", type="string", format="string", example="Exemple"),
      *
      *        ),
      *     ),
@@ -100,12 +100,12 @@ class TipusAllotjamentController extends Controller
      *         description="Error",
      *         @OA\JsonContent(
      *         @OA\Property(property="status", type="integer", example="error"),
-     *         @OA\Property(property="data",type="string", example="Atribut categoria requerit")
+     *         @OA\Property(property="data",type="string", example="Atribut requerit")
      *          ),
      *       )
      *  )
      */
-    public function inserttipusAllotjaments(Request $request){
+    public function insertTipusAllotjament(Request $request){
 
         if ($request->DadesUsuari->RolsID != 3) {
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
@@ -114,7 +114,7 @@ class TipusAllotjamentController extends Controller
         $tipusAllotjaments = new TipusAllotjament();
         $tipusAllotjamentsExistent=TipusAllotjament::find($request->ID);
         if ($tipusAllotjamentsExistent != null){
-            return response()->json(["Status" => "Error","Result"=> "No existeix cap tipus de categoria amb aquesta id"], 400);
+            return response()->json(["Status" => "Error","Result"=> "No existeix cap tipus de allotjament amb aquesta id"], 400);
         }
 
 
@@ -132,7 +132,7 @@ class TipusAllotjamentController extends Controller
         }
 
         $tipusAllotjaments->ID = $request->ID;
-        $tipusAllotjaments->Nom = $request->Nom;
+        $tipusAllotjaments->NomIdentificatiu = $request->NomIdentificatiu;
 
         if ($tipusAllotjaments->save()) {
             return response()->json(['Status' => 'Success','Result' => $tipusAllotjaments], 200);
@@ -146,16 +146,16 @@ class TipusAllotjamentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      * @OA\Put(
-     *    path="/api/tipusAllotjaments",
+     *    path="/api/tipusallotjament",
      *    tags={"Tipus Allotjament"},
-     *    summary="Modifica un tipus de categoria",
-     *    description="Modifica un tipus de categoria.",
+     *    summary="Modifica un tipus de allotjament",
+     *    description="Modifica un tipus de allotjament.",
      *    security={{"bearerAuth":{}}},
      *    @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(
-     *           @OA\Property(property="ID", type="number", format="number", example="4"),
-     *           @OA\Property(property="Nom", type="string", format="string", example="Basura"),
+     *           @OA\Property(property="ID", type="number", format="number", example="8"),
+     *           @OA\Property(property="NomIdentificatiu", type="string", format="string", example="ExempleModificat"),
      *        ),
      *     ),
      *    @OA\Response(
@@ -171,12 +171,12 @@ class TipusAllotjamentController extends Controller
      *         description="Error",
      *         @OA\JsonContent(
      *         @OA\Property(property="status", type="integer", example="error"),
-     *         @OA\Property(property="data",type="string", example="Atribut categoria requerit")
+     *         @OA\Property(property="data",type="string", example="Atribut requerit")
      *         ),
      *      )
      *  )
      */
-    public function updatetipusAllotjaments(Request $request){
+    public function updateTipusAllotjament(Request $request){
         if ($request->DadesUsuari->RolsID != 3) {
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
@@ -184,7 +184,7 @@ class TipusAllotjamentController extends Controller
         $tipusAllotjaments=TipusAllotjament::find($request->ID);
 
         if ($tipusAllotjaments == null){
-            return response()->json(["Status" => "Error","Result"=> "No existeix cap tipus de categoria amb aquesta id"], 400);
+            return response()->json(["Status" => "Error","Result"=> "No existeix cap tipus de allotjament amb aquesta id"], 400);
         }
 
         if ($request->ID == null || $request->ID < 1) {
@@ -200,7 +200,7 @@ class TipusAllotjamentController extends Controller
             return response()->json(["Status" => "Error","Result"=>$isValid->errors()], 400);
         }
         $tipusAllotjaments->ID = $request->ID;
-        $tipusAllotjaments->Nom = $request->Nom;
+        $tipusAllotjaments->NomIdentificatiu = $request->NomIdentificatiu;
 
         if ($tipusAllotjaments->save()) {
             return response()->json(['Status' => 'Success','Result' => $tipusAllotjaments], 200);
@@ -213,15 +213,15 @@ class TipusAllotjamentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      * @OA\Delete(
-     *    path="/api/tipusAllotjaments",
+     *    path="/api/tipusallotjament",
      *    tags={"Tipus Allotjament"},
-     *    summary="Esborra un tipus de categoria",
-     *    description="Esborra un tipus de categoria.",
+     *    summary="Esborra un tipus d'allotjament",
+     *    description="Esborra un tipus d'allotjament.",
      *    security={{"bearerAuth":{}}},
      *    @OA\RequestBody(
      *        required=true,
      *        @OA\JsonContent(
-     *           @OA\Property(property="ID", type="number", format="number", example="4"),
+     *           @OA\Property(property="ID", type="number", format="number", example="8"),
      *        ),
      *     ),
      *    @OA\Response(
@@ -242,7 +242,7 @@ class TipusAllotjamentController extends Controller
      *    )
      *  )
      */
-    public function deletetipusAllotjaments(Request $request){
+    public function deleteTipusAllotjament(Request $request){
         if ($request->ID == null || $request->ID < 1) {
             return response()->json(["Status" => "Error","Result"=>"Incorrect ID"], 400);
         }
@@ -250,7 +250,7 @@ class TipusAllotjamentController extends Controller
         $tipusAllotjaments=TipusAllotjament::find($request->ID);
 
         if ($tipusAllotjaments == null){
-            return response()->json(["Status" => "Error","Result"=> "No existeix cap tipus de categoria amb aquesta id"], 400);
+            return response()->json(["Status" => "Error","Result"=> "No existeix cap tipus d'allotjament amb aquesta id"], 400);
         }
 
         if ($request->DadesUsuari->RolsID != 3) {
@@ -262,6 +262,13 @@ class TipusAllotjamentController extends Controller
         } else {
             return response()->json(['Status' => 'Error','Result' => 'Error borrant'], 400);
         }
+    }
+
+    public function createValidator(): array
+    {
+        return [
+            "ID" => ["required"],
+            "NomIdentificatiu" => ["required"]];
     }
 
 }

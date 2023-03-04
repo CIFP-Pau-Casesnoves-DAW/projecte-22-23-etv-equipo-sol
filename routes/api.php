@@ -97,9 +97,9 @@ Route::group(["prefix"=>"tipuscategoria"], function() {
 Route::group(["prefix"=>"tipusallotjament"], function() {
     Route::get("/", [TipusAllotjamentController::class, "getTipusAllotjaments"]);
     Route::get("/{id}", [TipusAllotjamentController::class, "getTipusAllotjament"]);
-    Route::post("/{id}", [TipusAllotjamentController::class, "insertTipusAllotjament"])->middleware('token');
-    Route::put("/{id}", [TipusAllotjamentController::class, "updateTipusAllotjament"])->middleware('token');
-    Route::delete("/{id}", [TipusAllotjamentController::class, "deleteTipusAllotjament"])->middleware('token');
+    Route::post("/", [TipusAllotjamentController::class, "insertTipusAllotjament"])->middleware('token');
+    Route::put("/", [TipusAllotjamentController::class, "updateTipusAllotjament"])->middleware('token');
+    Route::delete("/", [TipusAllotjamentController::class, "deleteTipusAllotjament"])->middleware('token');
 
 
 });

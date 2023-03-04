@@ -2604,77 +2604,14 @@
                         "description": "Hi ha un error."
                     }
                 }
-            }
-        },
-        "/api/tipusallotjament/{id}": {
-            "get": {
+            },
+            "put": {
                 "tags": [
                     "Tipus Allotjament"
                 ],
-                "summary": "Mostrar un tipus d'allotjament",
-                "operationId": "a4c6d84ed4645792cb03b573beab374f",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Id del tipus d'allotjament",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Informació del tipus d'allotjament.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "example": "200"
-                                        },
-                                        "data": {
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Hi ha un error.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "status": {
-                                            "type": "string",
-                                            "example": "Error"
-                                        },
-                                        "data": {
-                                            "type": "string",
-                                            "example": "tipus d'allotjament no trobada"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/tipusAllotjaments": {
-            "put": {
-                "tags": [
-                    "Tipus Categoria"
-                ],
-                "summary": "Modifica un tipus de categoria",
-                "description": "Modifica un tipus de categoria.",
-                "operationId": "9a894fe25886d4676257985c71f6ee76",
+                "summary": "Modifica un tipus de allotjament",
+                "description": "Modifica un tipus de allotjament.",
+                "operationId": "0a5db3afbbe6725b8de57a3c8c191022",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -2684,12 +2621,12 @@
                                     "ID": {
                                         "type": "number",
                                         "format": "number",
-                                        "example": "4"
+                                        "example": "8"
                                     },
-                                    "Nom": {
+                                    "NomIdentificatiu": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "Basura"
+                                        "example": "ExempleModificat"
                                     }
                                 },
                                 "type": "object"
@@ -2729,7 +2666,7 @@
                                         },
                                         "data": {
                                             "type": "string",
-                                            "example": "Atribut categoria requerit"
+                                            "example": "Atribut requerit"
                                         }
                                     },
                                     "type": "object"
@@ -2746,11 +2683,11 @@
             },
             "post": {
                 "tags": [
-                    "Tipus Categoria"
+                    "Tipus Allotjament"
                 ],
-                "summary": "Crea un tipus de categoria",
-                "description": "Crea un tipus de categoria.",
-                "operationId": "b3287dc32b9cc293df9a2d482cdaa34d",
+                "summary": "Crea un tipus de allotjament",
+                "description": "Crea un tipus de allotjament.",
+                "operationId": "19d1a768c66ad7827a92b8f826d27954",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -2760,12 +2697,12 @@
                                     "ID": {
                                         "type": "number",
                                         "format": "number",
-                                        "example": "4"
+                                        "example": "8"
                                     },
-                                    "Nom": {
+                                    "NomIdentificatiu": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "Basura"
+                                        "example": "Exemple"
                                     }
                                 },
                                 "type": "object"
@@ -2805,7 +2742,7 @@
                                         },
                                         "data": {
                                             "type": "string",
-                                            "example": "Atribut categoria requerit"
+                                            "example": "Atribut requerit"
                                         }
                                     },
                                     "type": "object"
@@ -2822,11 +2759,11 @@
             },
             "delete": {
                 "tags": [
-                    "Tipus Categoria"
+                    "Tipus Allotjament"
                 ],
-                "summary": "Esborra un tipus de categoria",
-                "description": "Esborra un tipus de categoria.",
-                "operationId": "21da814200585700d5cbc8d6414a22dd",
+                "summary": "Esborra un tipus d'allotjament",
+                "description": "Esborra un tipus d'allotjament.",
+                "operationId": "daea3e465ccc6f52a73f3fb9dc6d3bf8",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -2891,6 +2828,67 @@
                         "bearerAuth": []
                     }
                 ]
+            }
+        },
+        "/api/tipusallotjament/{id}": {
+            "get": {
+                "tags": [
+                    "Tipus Allotjament"
+                ],
+                "summary": "Mostrar un tipus d'allotjament",
+                "operationId": "a4c6d84ed4645792cb03b573beab374f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id del tipus d'allotjament",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informació del tipus d'allotjament.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hi ha un error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "tipus d'allotjament no trobada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/api/tipuscategoria": {
