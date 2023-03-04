@@ -120,6 +120,7 @@ class TipusServeiController extends Controller
         $tipusServei->NomIdentificatiu = $request->NomIdentificatiu;;
 
         if ($tipusServei->save()) {
+            $tipusServei->ID = $request->ID;
             return response()->json(['Status' => 'Success','Result' => $tipusServei], 200);
         } else {
             return response()->json(['Status' => 'Error','Result' => 'Error guardant'], 400);
@@ -134,8 +135,8 @@ class TipusServeiController extends Controller
      * @OA\Put(
      *    path="/api/tipusservei",
      *    tags={"Tipus Servei"},
-     *    summary="Crea un nou tipusServei",
-     *    description="Crea un nou tipusServei.",
+     *    summary="Actualitza un tipusServei",
+     *    description="Actualitza un tipusServei.",
      *    security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *        required=true,
@@ -163,8 +164,6 @@ class TipusServeiController extends Controller
      *  )
      */
     public function updateTipusServei(Request $request){
-        $tipusServei = new TipusServei();
-
         if ($request->DadesUsuari->RolsID != 3) {
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
@@ -178,9 +177,9 @@ class TipusServeiController extends Controller
             return response()->json(["Status" => "Error","Result"=>$isValid->errors()], 400);
         }
 
-        $tipusServeiExistent=TipusServei::find($request->ID);
+        $tipusServei=TipusServei::find($request->ID);
 
-        if ($tipusServeiExistent == null){
+        if ($tipusServei == null){
             return response()->json(["Status" => "Error","Result"=> "No existeix cap tipusServei amb aquesta id"], 400);
         }
 
@@ -198,7 +197,7 @@ class TipusServeiController extends Controller
      * @return \Illuminate\Http\Response
      * @OA\Delete(
      *    path="/api/tipusservei",
-     *    tags={"TipusServeis"},
+     *    tags={"Tipus Servei"},
      *    summary="Esborra un tipusServei",
      *    description="Esborra un tipusServei.",
      *    security={{"bearerAuth":{}}},

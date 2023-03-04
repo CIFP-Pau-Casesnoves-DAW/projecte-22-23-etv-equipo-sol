@@ -89,11 +89,19 @@ Route::group(["prefix"=>"tarifa"], function() {
 Route::group(["prefix"=>"tipuscategoria"], function() {
     Route::get("/", [TipusCategoriaController::class, "getTipusCategories"]);
     Route::get("/{id}", [TipusCategoriaController::class, "getTipusCategoria"]);
+    Route::post("/", [TipusCategoriaController::class, "insertTipusCategoria"])->middleware('token');
+    Route::put("/", [TipusCategoriaController::class, "updateTipusCategoria"])->middleware('token');
+    Route::delete("/", [TipusCategoriaController::class, "deleteTipusCategoria"])->middleware('token');
 });
 
 Route::group(["prefix"=>"tipusallotjament"], function() {
     Route::get("/", [TipusAllotjamentController::class, "getTipusAllotjaments"]);
     Route::get("/{id}", [TipusAllotjamentController::class, "getTipusAllotjament"]);
+    Route::post("/", [TipusAllotjamentController::class, "insertTipusAllotjament"])->middleware('token');
+    Route::put("/", [TipusAllotjamentController::class, "updateTipusAllotjament"])->middleware('token');
+    Route::delete("/", [TipusAllotjamentController::class, "deleteTipusAllotjament"])->middleware('token');
+
+
 });
 
 Route::group(["prefix"=>"reserva"], function() {
@@ -142,11 +150,17 @@ Route::group(["prefix"=>"imatge"], function() {
 Route::group(["prefix"=>"municipi"], function() {
     Route::get("/", [MunicipiController::class, "getMunicipis"]);
     Route::get("/{id}", [MunicipiController::class, "getMunicipi"]);
+    Route::post("/", [MunicipiController::class, "insertMunicipi"])->middleware('token');
+    Route::put("/", [MunicipiController::class, "updateMunicipi"])->middleware('token');
+    Route::delete("/", [MunicipiController::class, "deleteMunicipi"])->middleware('token');
 });
 
 Route::group(["prefix"=>"tipusvacances"], function() {
     Route::get("/", [TipusVacancesController::class, "getTipusVacances"]);
     Route::get("/{id}", [TipusVacancesController::class, "getTipusVacance"]);
+    Route::post("/", [TipusVacancesController::class, "insertTipusVacance"])->middleware('token');
+    Route::put("/", [TipusVacancesController::class, "updateTipusVacance"])->middleware('token');
+    Route::delete("/", [TipusVacancesController::class, "deleteTipusVacance"])->middleware('token');
 });
 
 Route::group(["prefix"=>"serveisallotjament"], function() {

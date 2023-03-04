@@ -43,9 +43,9 @@ class ServeisAllotjamentController extends Controller
      *     @OA\Parameter(
      *         description="Id de l'allotjament",
      *         in="path",
-     *         name="id",
+     *         name="idAllotjament",
      *         required=true,
-     *         @OA\Schema(type="string"),
+     *         @OA\Schema(type="number"),
      *
      *     ),
      *     @OA\Response(
@@ -59,7 +59,7 @@ class ServeisAllotjamentController extends Controller
      * )
      */
     public function getServeiAllotjament($idAllotjament){
-        $serveisAllotjament = ServeisAllotjament::where("AllotjamentsID","=",$idAllotjament)->get();
+        $serveisAllotjament = ServeisAllotjament::where("AllotjamentsID",$idAllotjament)->get();
         return response()->json(["Status" => "Success","Result" => $serveisAllotjament], 200);
     }
 
@@ -78,7 +78,7 @@ class ServeisAllotjamentController extends Controller
      *        required=true,
      *        @OA\JsonContent(
      *           @OA\Property(property="TipusServeisID", type="number", format="number", example="1234"),
-     *           @OA\Property(property="AllotjamentsID", type="varchar", example="Nom del servei"),
+     *           @OA\Property(property="AllotjamentsID", type="number", format="number", example="1"),
      *
      *        ),
      *     ),
@@ -122,7 +122,7 @@ class ServeisAllotjamentController extends Controller
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
-        $tipusServei=TipusServei::find($request->ID);
+        $tipusServei=TipusServei::find($request->TipusServeisID);
 
         if ($tipusServei == null){
             return response()->json(["Status" => "Error","Result"=> "No existeix cap tipusServei amb aquesta id"], 400);

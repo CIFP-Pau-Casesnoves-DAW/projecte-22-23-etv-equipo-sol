@@ -12,20 +12,28 @@ use Illuminate\Support\Facades\Validator;
 class ImatgeController extends Controller
 {
     /**
-    * @OA\Get(
-    * path="/api/imatge",
-    * tags={"Imatges"},
-    * summary="Mostrar totes les imatges.",
-    * @OA\Response(
-    * response=200,
-    * description="Mostrar totes les imatges.",
-    *          @OA\JsonContent(
-    *          @OA\Property(property="Status", type="string", example="200"),
-    *          @OA\Property(property="Result",type="object")
-    *  ),
-    *  ),
-    * )
-    */
+     * @OA\Get(
+     * path="/api/imatge",
+     * tags={"Imatges"},
+     * summary="Mostrar totes les imatges.",
+     * @OA\Response(
+     * response=200,
+     * description="Mostrar totes les imatges.",
+     *          @OA\JsonContent(
+     *          @OA\Property(property="Status", type="string", example="200"),
+     *          @OA\Property(property="Result",type="object")
+     *  ),
+     *  ),
+     *   @OA\Response(
+     *         response=400,
+     *         description="Hi ha un error.",
+     *         @OA\JsonContent(
+     *          @OA\Property(property="Status", type="string", example="Error"),
+     *          @OA\Property(property="Result",type="string", example="imatges no trobades")
+     *         ),
+     *   )
+     * )
+     */
     public function getImatges(){
         $Imatges = Imatge::all();
         return response()->json(["Status" => "Success","Result" => $Imatges], 200);
@@ -55,6 +63,14 @@ class ImatgeController extends Controller
      *              @OA\Property(property="Result",type="object")
      *          )
      *     ),
+     *      @OA\Response(
+     *         response=400,
+     *         description="Hi ha un error.",
+     *         @OA\JsonContent(
+     *          @OA\Property(property="Status", type="string", example="Error"),
+     *          @OA\Property(property="Result",type="string", example="imatges no trobades")
+     *           ),
+     *     )
      * )
      */
     public function getImatgesAllotjament($idAllotjament){
@@ -63,7 +79,7 @@ class ImatgeController extends Controller
     }
 
     /**
-    *
+     *
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -137,7 +153,7 @@ class ImatgeController extends Controller
      *         response=400,
      *         description="Error",
      *         @OA\JsonContent(
-     *         @OA\Property(property="Status", type="integer", example="Error"),
+     *         @OA\Property(property="Status", type="string", example="Error"),
      *         @OA\Property(property="Result",type="string", example="Atribut URL requerit")
      *          ),
      *       )
@@ -246,7 +262,7 @@ class ImatgeController extends Controller
         }
     }
 
-     /**
+    /**
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      * @OA\Delete(

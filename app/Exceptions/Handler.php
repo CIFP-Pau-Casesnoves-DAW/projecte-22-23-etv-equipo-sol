@@ -54,6 +54,7 @@ class Handler extends ExceptionHandler
         if ($exception instanceof ModelNotFoundException) {
             return response()->json(["Status"=>"Error", "Result"=>"No existeix cap fila amb aquesta ID"], 400);
         }
-        return parent::render($request, $exception);
+
+        return response()->json(["Status"=>"Error", "Result"=>"Ha ocurrit un error, comprova que la request ha estat formada correctament"], 400);
     }
 }

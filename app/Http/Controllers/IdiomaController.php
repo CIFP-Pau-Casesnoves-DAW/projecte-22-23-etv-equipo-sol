@@ -120,6 +120,7 @@ class IdiomaController extends Controller
         $idioma->CodiISO = $request->CodiISO;;
 
         if ($idioma->save()) {
+            $idioma->ID = $request->ID;
             return response()->json(['Status' => 'Success','Result' => $idioma], 200);
         } else {
             return response()->json(['Status' => 'Error','Result' => 'Error guardant'], 400);
@@ -163,8 +164,6 @@ class IdiomaController extends Controller
      *  )
      */
     public function updateIdioma(Request $request){
-        $idioma = new Idioma();
-
         if ($request->DadesUsuari->RolsID != 3) {
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
@@ -178,9 +177,9 @@ class IdiomaController extends Controller
             return response()->json(["Status" => "Error","Result"=>$isValid->errors()], 400);
         }
 
-        $idiomaExistent=Idioma::find($request->ID);
+        $idioma=Idioma::find($request->ID);
 
-        if ($idiomaExistent == null){
+        if ($idioma == null){
             return response()->json(["Status" => "Error","Result"=> "No existeix cap idioma amb aquesta id"], 400);
         }
 
@@ -198,7 +197,7 @@ class IdiomaController extends Controller
      * @return \Illuminate\Http\Response
      * @OA\Delete(
      *    path="/api/idioma",
-     *    tags={"Idiomas"},
+     *    tags={"Idiomes"},
      *    summary="Esborra un idioma",
      *    description="Esborra un idioma.",
      *    security={{"bearerAuth":{}}},
