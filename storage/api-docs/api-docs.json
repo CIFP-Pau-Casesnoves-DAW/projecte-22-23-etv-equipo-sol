@@ -966,7 +966,7 @@
             },
             "delete": {
                 "tags": [
-                    "Idiomas"
+                    "Idiomes"
                 ],
                 "summary": "Esborra un idioma",
                 "description": "Esborra un idioma.",
@@ -1098,6 +1098,26 @@
                                         },
                                         "Result": {
                                             "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hi ha un error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "imatges no trobades"
                                         }
                                     },
                                     "type": "object"
@@ -1248,7 +1268,7 @@
                                 "schema": {
                                     "properties": {
                                         "Status": {
-                                            "type": "integer",
+                                            "type": "string",
                                             "example": "Error"
                                         },
                                         "Result": {
@@ -1371,6 +1391,26 @@
                                         },
                                         "Result": {
                                             "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hi ha un error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "imatges no trobades"
                                         }
                                     },
                                     "type": "object"
@@ -1562,8 +1602,249 @@
                                 }
                             }
                         }
+                    },
+                    "400": {
+                        "description": "Hi ha un error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Municipis no trobats"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
+            },
+            "put": {
+                "tags": [
+                    "Municipis"
+                ],
+                "summary": "Modifica un municipi",
+                "description": "Modifica un municipi.",
+                "operationId": "e787c603c1f3fae5455039272c4804f1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "2"
+                                    },
+                                    "Nom": {
+                                        "type": "varchar",
+                                        "example": "Palma"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "integer",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Atribut Nom requerid"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Municipis"
+                ],
+                "summary": "Crea un municicpi",
+                "description": "Crea un municicpi.",
+                "operationId": "39023e0ab6c453fa41fc946027960952",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "2"
+                                    },
+                                    "Nom": {
+                                        "type": "varchar",
+                                        "example": "Palma"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "integer",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "No sa pogut insertar el municipi"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Municipis"
+                ],
+                "summary": "Esborra un municipi",
+                "description": "Esborra un municipi.",
+                "operationId": "5f4b89417c17fcb03875c84efb7d91e3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "5"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "integer",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "integer",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Tupla no trobada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/municipi/{id}": {
@@ -1653,7 +1934,7 @@
                     "Reserves"
                 ],
                 "summary": "Modifica una reserva",
-                "description": "Modifica una reserva.",
+                "description": "Modifica una reserva. Format de la data: Y-m-d.",
                 "operationId": "c6ab45d80cf20b6145dc35f93e7bad4e",
                 "requestBody": {
                     "required": true,
@@ -1664,12 +1945,12 @@
                                     "DataCheckIn": {
                                         "type": "string",
                                         "format": "date",
-                                        "example": "05/01/23"
+                                        "example": "2023-12-23"
                                     },
                                     "DataCheckOut": {
                                         "type": "string",
                                         "format": "date",
-                                        "example": "10/01/23"
+                                        "example": "2023-12-27"
                                     },
                                     "Preu": {
                                         "type": "number",
@@ -1750,12 +2031,12 @@
                                     "DataCheckIn": {
                                         "type": "string",
                                         "format": "date",
-                                        "example": "05/01/23"
+                                        "example": "2023-10-17"
                                     },
                                     "DataCheckOut": {
                                         "type": "string",
                                         "format": "date",
-                                        "example": "10/01/23"
+                                        "example": "2023-10-20"
                                     },
                                     "Preu": {
                                         "type": "number",
@@ -2084,8 +2365,9 @@
                                         "example": "1234"
                                     },
                                     "AllotjamentsID": {
-                                        "type": "varchar",
-                                        "example": "Nom del servei"
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "1"
                                     }
                                 },
                                 "type": "object"
@@ -2212,21 +2494,21 @@
                 ]
             }
         },
-        "/api/serveisallotjament/{id}": {
+        "/api/serveisallotjament/{idAllotjament}": {
             "get": {
                 "tags": [
                     "Serveis Allotjament"
                 ],
                 "summary": "Mostrar els serveis d'un allotjament",
-                "operationId": "06bef5255ed56a7f953502891f8c0768",
+                "operationId": "3ae756ccc1757d0f454d27b932621667",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "idAllotjament",
                         "in": "path",
                         "description": "Id de l'allotjament",
                         "required": true,
                         "schema": {
-                            "type": "string"
+                            "type": "number"
                         }
                     }
                 ],
@@ -2778,8 +3060,8 @@
                 "tags": [
                     "Tipus Servei"
                 ],
-                "summary": "Crea un nou tipusServei",
-                "description": "Crea un nou tipusServei.",
+                "summary": "Actualitza un tipusServei",
+                "description": "Actualitza un tipusServei.",
                 "operationId": "2aaa614a6858094fd1c3d9eccab1494f",
                 "requestBody": {
                     "required": true,
@@ -2928,7 +3210,7 @@
             },
             "delete": {
                 "tags": [
-                    "TipusServeis"
+                    "Tipus Servei"
                 ],
                 "summary": "Esborra un tipusServei",
                 "description": "Esborra un tipusServei.",
@@ -3066,8 +3348,249 @@
                                 }
                             }
                         }
+                    },
+                    "400": {
+                        "description": "Hi ha un error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Tipus de vacances no trobades"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
+            },
+            "put": {
+                "tags": [
+                    "Tipus Vacances"
+                ],
+                "summary": "Modifica un tipus de vacances",
+                "description": "Modifica un tipus de vacances.",
+                "operationId": "3a26888a39630e96c25411e3e00b8cd2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "2"
+                                    },
+                                    "NomIdentificatiu": {
+                                        "type": "varchar",
+                                        "example": "Muntanya"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "integer",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Atribut NomIdentificatiu requerid"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Tipus Vacances"
+                ],
+                "summary": "Crea un tipus de vacances",
+                "description": "Crea un nou tipus de vacances.",
+                "operationId": "3994eb9b711897f845c209417bfa649d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "2"
+                                    },
+                                    "NomIdentificatiu": {
+                                        "type": "varchar",
+                                        "example": "Muntanya"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "integer",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "No sa pogut insertar el nou tipus vacances"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Tipus Vacances"
+                ],
+                "summary": "Esborra un tipues de vacances",
+                "description": "Esborra un tipues de vacances.",
+                "operationId": "7424ec1f03b2d7766b724cb0fbfb7f00",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "ID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "5"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "integer",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "integer",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Tupla no trobada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/tipusvacances/{id}": {
@@ -3473,7 +3996,7 @@
                                     "ID": {
                                         "type": "number",
                                         "format": "number",
-                                        "example": "7657"
+                                        "example": "10"
                                     },
                                     "Nom": {
                                         "type": "string",
@@ -3503,7 +4026,7 @@
                                     "Telefon": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "971123123"
+                                        "example": "971123133"
                                     }
                                 },
                                 "type": "object"
