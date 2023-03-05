@@ -14,21 +14,21 @@ class TipusVacancesController extends Controller
      * path="/api/tipusvacances",
      * tags={"Tipus Vacances"},
      * summary="Mostrar tots els tipus de vacances.",
-     * @OA\Response(
-     * response=200,
-     * description="Mostrar tots els tipus de vacances.",
-     * @OA\JsonContent(
-     * @OA\Property(property="Status", type="string", example="Success"),
-     * @OA\Property(property="Result",type="object")
-     * ),
-     * ),
      *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="Status", type="string", example="Success"),
+     *              @OA\Property(property="Result",type="object")
+     *          )
+     *     ),
+     *    @OA\Response(
      *         response=400,
-     *         description="Hi ha un error.",
+     *         description="Error",
      *         @OA\JsonContent(
-     *          @OA\Property(property="Status", type="string", example="Error"),
-     *          @OA\Property(property="Result",type="string", example="Tipus de vacances no trobades")
-     *           ),
+     *              @OA\Property(property="Status", type="string", example="Error"),
+     *              @OA\Property(property="Result",type="string", example="Informacio de l'error")
+     *         ),
      *     )
      * )
      */

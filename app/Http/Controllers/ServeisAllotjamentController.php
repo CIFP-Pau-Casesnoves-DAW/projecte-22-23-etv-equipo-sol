@@ -16,14 +16,22 @@ class ServeisAllotjamentController extends Controller
     * path="/api/serveisallotjament",
     * tags={"Serveis Allotjament"},
     * summary="Mostrar tots els serveis d'allotjament.",
-    * @OA\Response(
-    * response=200,
-    * description="Success",
-    *          @OA\JsonContent(
-    *              @OA\Property(property="Status", type="string", example="Success"),
-    *              @OA\Property(property="Result",type="object")
-    *         )
-    * )
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="Status", type="string", example="Success"),
+     *              @OA\Property(property="Result",type="object")
+     *          )
+     *     ),
+     *    @OA\Response(
+     *         response=400,
+     *         description="Error",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="Status", type="string", example="Error"),
+     *              @OA\Property(property="Result",type="string", example="Informacio de l'error")
+     *         ),
+     *     )
     * )
     */
     public function getServeisAllotjament(){
@@ -50,12 +58,20 @@ class ServeisAllotjamentController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="Tots els serveis d'un allotjament.",
+     *         description="Success",
      *          @OA\JsonContent(
-     *          @OA\Property(property="Status", type="string", example="200"),
-     *          @OA\Property(property="Result",type="object")
-     *           ),
-     *      ),
+     *              @OA\Property(property="Status", type="string", example="Success"),
+     *              @OA\Property(property="Result",type="object")
+     *          )
+     *     ),
+     *    @OA\Response(
+     *         response=400,
+     *         description="Error",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="Status", type="string", example="Error"),
+     *              @OA\Property(property="Result",type="string", example="Informacio de l'error")
+     *         ),
+     *     )
      * )
      */
     public function getServeiAllotjament($idAllotjament){

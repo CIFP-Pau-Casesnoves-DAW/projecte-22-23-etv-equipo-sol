@@ -21,7 +21,15 @@ class AllotjamentController extends Controller
      *              @OA\Property(property="Status", type="string", example="Success"),
      *              @OA\Property(property="Result",type="object")
      *          )
-     *      )
+     *      ),
+     *    @OA\Response(
+     *         response=400,
+     *         description="Error",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="Status", type="string", example="Error"),
+     *              @OA\Property(property="Result",type="string", example="Informacio de l'error")
+     *         ),
+     *     )
      * )
      */
     public function getAllotjaments(){
@@ -54,6 +62,14 @@ class AllotjamentController extends Controller
      *              @OA\Property(property="Result",type="object")
      *          )
      *     ),
+     *    @OA\Response(
+     *         response=400,
+     *         description="Error",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="Status", type="string", example="Error"),
+     *              @OA\Property(property="Result",type="string", example="Informacio de l'error")
+     *         ),
+     *     )
      * )
      */
     public function getAllotjament($id){

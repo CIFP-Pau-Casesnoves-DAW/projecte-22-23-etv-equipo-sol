@@ -29,7 +29,7 @@ class ImatgeController extends Controller
      *         description="Hi ha un error.",
      *         @OA\JsonContent(
      *          @OA\Property(property="Status", type="string", example="Error"),
-     *          @OA\Property(property="Result",type="string", example="imatges no trobades")
+     *          @OA\Property(property="Result",type="string", example="Informacio de l'error")
      *         ),
      *   )
      * )
@@ -68,7 +68,7 @@ class ImatgeController extends Controller
      *         description="Hi ha un error.",
      *         @OA\JsonContent(
      *          @OA\Property(property="Status", type="string", example="Error"),
-     *          @OA\Property(property="Result",type="string", example="imatges no trobades")
+     *          @OA\Property(property="Result",type="string", example="Informacio de l'error")
      *           ),
      *     )
      * )
@@ -103,12 +103,12 @@ class ImatgeController extends Controller
      *          @OA\Property(property="Result",type="object")
      *           ),
      *      ),
-     *     @OA\Response(
+     *      @OA\Response(
      *         response=400,
      *         description="Hi ha un error.",
      *         @OA\JsonContent(
      *          @OA\Property(property="Status", type="string", example="Error"),
-     *          @OA\Property(property="Result",type="string", example="imatge no trobada")
+     *          @OA\Property(property="Result",type="string", example="Informacio de l'error")
      *           ),
      *     )
      * )
@@ -149,14 +149,14 @@ class ImatgeController extends Controller
      *         @OA\Property(property="Result",type="object")
      *          ),
      *       ),
-     *    @OA\Response(
+     *      @OA\Response(
      *         response=400,
-     *         description="Error",
+     *         description="Hi ha un error.",
      *         @OA\JsonContent(
-     *         @OA\Property(property="Status", type="string", example="Error"),
-     *         @OA\Property(property="Result",type="string", example="Atribut URL requerit")
-     *          ),
-     *       )
+     *          @OA\Property(property="Status", type="string", example="Error"),
+     *          @OA\Property(property="Result",type="string", example="Informacio de l'error")
+     *           ),
+     *     )
      *  )
      */
     public function insertImatge(Request $request){

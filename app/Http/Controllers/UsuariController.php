@@ -19,14 +19,22 @@ class UsuariController extends Controller
      * tags={"Usuaris"},
      * summary="Mostrar tots els usuaris.",
      * security={{"bearerAuth":{}}},
-     * @OA\Response(
-     * response=200,
-     * description="Mostrar tots els usuari."
-     * ),
-     * @OA\Response(
-     * response=400,
-     * description="Hi ha un error."
-     * ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="Status", type="string", example="Success"),
+     *              @OA\Property(property="Result",type="object")
+     *          )
+     *     ),
+     *    @OA\Response(
+     *         response=400,
+     *         description="Error",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="Status", type="string", example="Error"),
+     *              @OA\Property(property="Result",type="string", example="Informacio de l'error")
+     *         ),
+     *     )
      * )
      */
     public function getUsuaris(Request $request)
@@ -84,7 +92,7 @@ class UsuariController extends Controller
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
-        $usuari = Usuari::find($id);
+        $usuari = Usuari::findOrFail($id);
         return response()->json(["Status" => "Success", "Result" => $usuari], 200);
     }
 
@@ -230,7 +238,7 @@ class UsuariController extends Controller
         $usuari->Contrasenya = $request->Contrasenya;
         $usuari->CorreuElectronic = $request->CorreuElectronic;
         $usuari->Telefon = $request->Telefon;
-        
+
         if ($usuari->save()) {
             return response()->json(['Status' => 'Success', 'Result' => $usuari], 200);
         } else {

@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Projecte Allotjaments Sol",
-        "description": "REST API. Projecte Allotjaments Sol. DAW Client i servidor. Per utilitzar les cridades que necesiten token primer\r\n  s'haura de fer login amb un usuari per obtenir el token i despres utilitzar aquest token a la part on posa Authorize. Per\r\n  mes informacio, obtenir un usuari o altres peticions utilitzar el link de Contact Equip Sol o mandar un mail a jaumefullana@paucasesnovescifp.cat",
+        "description": "REST API. Projecte Allotjaments Sol. DAW Client i servidor. Per utilitzar les cridades que necesiten token primer\n  s'haura de fer login amb un usuari per obtenir el token i despres utilitzar aquest token a la part on posa Authorize. Per\n  mes informacio, obtenir un usuari o altres peticions utilitzar el link de Contact Equip Sol o mandar un mail a jaumefullana@paucasesnovescifp.cat",
         "contact": {
             "name": "Equip Sol",
             "email": "jaumefullana@paucasesnovescifp.cat"
@@ -11,7 +11,7 @@
     },
     "servers": [
         {
-            "url": "http://127.0.0.1/Laravel_Biel/projecte-22-23-etv-equipo-sol/public/"
+            "url": "http://www.allotjamentsol.com/public/"
         }
     ],
     "paths": {
@@ -35,6 +35,26 @@
                                         },
                                         "Result": {
                                             "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
                                         }
                                     },
                                     "type": "object"
@@ -391,6 +411,26 @@
                                 }
                             }
                         }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -415,6 +455,26 @@
                                         },
                                         "Result": {
                                             "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
                                         }
                                     },
                                     "type": "object"
@@ -528,12 +588,7 @@
                                         "format": "number",
                                         "example": "5"
                                     },
-                                    "DataCreacio": {
-                                        "type": "string",
-                                        "format": "date",
-                                        "example": "2022-03-21"
-                                    },
-                                    "AllotjamentsID ": {
+                                    "AllotjamentsID": {
                                         "type": "number",
                                         "format": "number",
                                         "example": "1"
@@ -701,6 +756,26 @@
                                 }
                             }
                         }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -714,10 +789,43 @@
                 "operationId": "edc7c7d298f280005818c07aa44cc5c3",
                 "responses": {
                     "200": {
-                        "description": "Mostrar tots els estats de reserva."
+                        "description": "Informació del estat de la reserva.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "400": {
-                        "description": "Hi ha un error."
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -747,11 +855,11 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "status": {
+                                        "Status": {
                                             "type": "string",
                                             "example": "Success"
                                         },
-                                        "data": {
+                                        "Result": {
                                             "type": "object"
                                         }
                                     },
@@ -761,18 +869,18 @@
                         }
                     },
                     "400": {
-                        "description": "Hi ha un error.",
+                        "description": "Error",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "status": {
+                                        "Status": {
                                             "type": "string",
                                             "example": "Error"
                                         },
-                                        "data": {
+                                        "Result": {
                                             "type": "string",
-                                            "example": "Estat de la reserva no trobat"
+                                            "example": "Informacio de l'error"
                                         }
                                     },
                                     "type": "object"
@@ -803,6 +911,26 @@
                                         },
                                         "Result": {
                                             "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
                                         }
                                     },
                                     "type": "object"
@@ -1074,6 +1202,26 @@
                                 }
                             }
                         }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -1117,7 +1265,7 @@
                                         },
                                         "Result": {
                                             "type": "string",
-                                            "example": "imatges no trobades"
+                                            "example": "Informacio de l'error"
                                         }
                                     },
                                     "type": "object"
@@ -1262,7 +1410,7 @@
                         }
                     },
                     "400": {
-                        "description": "Error",
+                        "description": "Hi ha un error.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1273,7 +1421,7 @@
                                         },
                                         "Result": {
                                             "type": "string",
-                                            "example": "Atribut URL requerit"
+                                            "example": "Informacio de l'error"
                                         }
                                     },
                                     "type": "object"
@@ -1410,7 +1558,7 @@
                                         },
                                         "Result": {
                                             "type": "string",
-                                            "example": "imatges no trobades"
+                                            "example": "Informacio de l'error"
                                         }
                                     },
                                     "type": "object"
@@ -1471,7 +1619,7 @@
                                         },
                                         "Result": {
                                             "type": "string",
-                                            "example": "imatge no trobada"
+                                            "example": "Informacio de l'error"
                                         }
                                     },
                                     "type": "object"
@@ -1566,7 +1714,43 @@
                 "operationId": "1f0bcdac4489ca103140e98fd3ab1063",
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Informació de l'usuari.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hi ha un error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -1917,10 +2101,43 @@
                 "operationId": "ac7c29c354ca87e037fd0cc271a53a14",
                 "responses": {
                     "200": {
-                        "description": "Mostrar totes les reserves."
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "400": {
-                        "description": "Hi ha un error."
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -1942,20 +2159,10 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "DataCheckIn": {
-                                        "type": "string",
-                                        "format": "date",
-                                        "example": "2023-12-23"
-                                    },
-                                    "DataCheckOut": {
-                                        "type": "string",
-                                        "format": "date",
-                                        "example": "2023-12-27"
-                                    },
-                                    "Preu": {
+                                    "ID": {
                                         "type": "number",
                                         "format": "number",
-                                        "example": "20"
+                                        "example": "1"
                                     },
                                     "EstatsReservesID": {
                                         "type": "number",
@@ -2031,17 +2238,12 @@
                                     "DataCheckIn": {
                                         "type": "string",
                                         "format": "date",
-                                        "example": "2023-10-17"
+                                        "example": "2024-10-17"
                                     },
                                     "DataCheckOut": {
                                         "type": "string",
                                         "format": "date",
-                                        "example": "2023-10-20"
-                                    },
-                                    "Preu": {
-                                        "type": "number",
-                                        "format": "number",
-                                        "example": "20"
+                                        "example": "2025-10-20"
                                     },
                                     "AllotjamentsID": {
                                         "type": "number",
@@ -2239,6 +2441,72 @@
                 ]
             }
         },
+        "/api/reserva/allotjament/{allotjamentID}": {
+            "get": {
+                "tags": [
+                    "Reserves"
+                ],
+                "summary": "Mostrar una reserva",
+                "operationId": "ce37030f7dd4f3ccc0c12be746fd1875",
+                "parameters": [
+                    {
+                        "name": "allotjamentID",
+                        "in": "path",
+                        "description": "Id del allotjament",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informació de les reserves.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Hi ha un error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/rol": {
             "get": {
                 "tags": [
@@ -2248,10 +2516,43 @@
                 "operationId": "7ae8b69d954dd0388859b134199f564f",
                 "responses": {
                     "200": {
-                        "description": "Mostrar tots els rols."
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "400": {
-                        "description": "Hi ha un error."
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -2337,6 +2638,26 @@
                                         },
                                         "Result": {
                                             "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
                                         }
                                     },
                                     "type": "object"
@@ -2514,17 +2835,37 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Tots els serveis d'un allotjament.",
+                        "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "Status": {
                                             "type": "string",
-                                            "example": "200"
+                                            "example": "Success"
                                         },
                                         "Result": {
                                             "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
                                         }
                                     },
                                     "type": "object"
@@ -2544,10 +2885,43 @@
                 "operationId": "a146d33343c8fe90accc540a78cce2af",
                 "responses": {
                     "200": {
-                        "description": "Mostrar totes les tarifes."
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "400": {
-                        "description": "Hi ha un error."
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -2880,10 +3254,43 @@
                 "operationId": "5d5490123f113feb0c6ca806d28fcb77",
                 "responses": {
                     "200": {
-                        "description": "Mostrar tots els tipus de allotjaments."
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "400": {
-                        "description": "Hi ha un error."
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -2893,7 +3300,7 @@
                 ],
                 "summary": "Modifica un tipus de allotjament",
                 "description": "Modifica un tipus de allotjament.",
-                "operationId": "0a5db3afbbe6725b8de57a3c8c191022",
+                "operationId": "b8cf57a97eb272a18c7e65a43fb1639b",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -2969,7 +3376,7 @@
                 ],
                 "summary": "Crea un tipus de allotjament",
                 "description": "Crea un tipus de allotjament.",
-                "operationId": "19d1a768c66ad7827a92b8f826d27954",
+                "operationId": "a919226b79fa546dabadd45ece4a237a",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -3045,7 +3452,7 @@
                 ],
                 "summary": "Esborra un tipus d'allotjament",
                 "description": "Esborra un tipus d'allotjament.",
-                "operationId": "daea3e465ccc6f52a73f3fb9dc6d3bf8",
+                "operationId": "df8645613c45484952f2f5de19aa2961",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -3055,7 +3462,7 @@
                                     "ID": {
                                         "type": "number",
                                         "format": "number",
-                                        "example": "4"
+                                        "example": "8"
                                     }
                                 },
                                 "type": "object"
@@ -3182,10 +3589,43 @@
                 "operationId": "59026e3577696e643a290d6c4e2a6ef3",
                 "responses": {
                     "200": {
-                        "description": "Mostrar tots els tipus de categoria."
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "400": {
-                        "description": "Hi ha un error."
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -3501,6 +3941,26 @@
                                 }
                             }
                         }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -3766,6 +4226,26 @@
                                 }
                             }
                         }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -3779,7 +4259,7 @@
                 "operationId": "810d7fc446c5b494824b77652ed7fd63",
                 "responses": {
                     "200": {
-                        "description": "Mostrar tots els tipus de vacances.",
+                        "description": "Success",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -3798,7 +4278,7 @@
                         }
                     },
                     "400": {
-                        "description": "Hi ha un error.",
+                        "description": "Error",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -3809,7 +4289,7 @@
                                         },
                                         "Result": {
                                             "type": "string",
-                                            "example": "Tipus de vacances no trobades"
+                                            "example": "Informacio de l'error"
                                         }
                                     },
                                     "type": "object"
@@ -4128,6 +4608,26 @@
                                 }
                             }
                         }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -4211,8 +4711,8 @@
                 "tags": [
                     "Traduccions"
                 ],
-                "summary": "Crea una nova traduccio per als 3 idiomes",
-                "description": "Crea una nova traduccio per als 3 idiomes",
+                "summary": "Crea una nova traduccio per als 3 idiomes identificada per el nom",
+                "description": "Crea una nova traduccio per als 3 idiomes identificada per el nom",
                 "operationId": "2b3a17a0efaa21de50e2bcf0b8ff279f",
                 "requestBody": {
                     "required": true,
@@ -4297,8 +4797,8 @@
                 "tags": [
                     "Traduccions"
                 ],
-                "summary": "Esborra una traduccio",
-                "description": "Esborra una traduccio.",
+                "summary": "Esborra totes les traduccions amb el nom identificatiu especificat",
+                "description": "Esborra totes les traduccions amb el nom identificatiu especificat",
                 "operationId": "b10536491e6f299e6515e9e60af78c2e",
                 "requestBody": {
                     "required": true,
@@ -4306,10 +4806,10 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "ID": {
-                                        "type": "number",
-                                        "format": "number",
-                                        "example": "3"
+                                    "NomIdentificatiu": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Nom identificatiu"
                                     }
                                 },
                                 "type": "object"
@@ -4403,8 +4903,136 @@
                                 }
                             }
                         }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
+            }
+        },
+        "/api/traduccio/taula": {
+            "post": {
+                "tags": [
+                    "Traduccions"
+                ],
+                "summary": "Crea una nova traduccio per als 3 idiomes fent referenci al valor de una altra taula, nomes pot fe referenci a una taula",
+                "description": "Crea una nova traduccio per als 3 idiomes fent referenci al valor de una altra taula, nomes pot fe referenci a una taula",
+                "operationId": "aa305101646c92d4a43d23a280839124",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "TraduccioEspanyol": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Lista de alojamientos"
+                                    },
+                                    "TraduccioCatala": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Llista d'allotjaments"
+                                    },
+                                    "TraduccioAngles": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Accommodations list"
+                                    },
+                                    "TipusServeisID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": "7"
+                                    },
+                                    "AllotjamentsID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": ""
+                                    },
+                                    "TipusVacancesID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": ""
+                                    },
+                                    "TipusAllotjamentsID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": ""
+                                    },
+                                    "IdiomesID": {
+                                        "type": "number",
+                                        "format": "number",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/usuari": {
@@ -4416,10 +5044,43 @@
                 "operationId": "ba97209ecb91dec36b7f480f4dfdd524",
                 "responses": {
                     "200": {
-                        "description": "Mostrar tots els usuari."
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        },
+                                        "Result": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "400": {
-                        "description": "Hi ha un error."
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "Result": {
+                                            "type": "string",
+                                            "example": "Informacio de l'error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -4444,37 +5105,22 @@
                                     "ID": {
                                         "type": "number",
                                         "format": "number",
-                                        "example": "10"
-                                    },
-                                    "Nom": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "Pedro"
-                                    },
-                                    "Llinatges": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "Gimenez Santos"
+                                        "example": "24"
                                     },
                                     "Contrasenya": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "abcd1234"
+                                        "example": "1234"
                                     },
                                     "CorreuElectronic": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "pedro@gmail.com"
-                                    },
-                                    "DNI": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "12341234Q"
+                                        "example": "prova@gmail.com"
                                     },
                                     "Telefon": {
                                         "type": "string",
                                         "format": "string",
-                                        "example": "971123133"
+                                        "example": "971234567"
                                     }
                                 },
                                 "type": "object"
@@ -4514,7 +5160,7 @@
                                         },
                                         "data": {
                                             "type": "string",
-                                            "example": "Atribut DNI requerit"
+                                            "example": "Atribut CorreuElectronic requerit"
                                         }
                                     },
                                     "type": "object"

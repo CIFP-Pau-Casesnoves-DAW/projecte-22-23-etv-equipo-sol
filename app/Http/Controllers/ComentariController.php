@@ -21,7 +21,15 @@ class ComentariController extends Controller
      *              @OA\Property(property="Status", type="string", example="Success"),
      *              @OA\Property(property="Result",type="object")
      *          )
-     *      )
+     *      ),
+     *    @OA\Response(
+     *         response=400,
+     *         description="Error",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="Status", type="string", example="Error"),
+     *              @OA\Property(property="Result",type="string", example="Informacio de l'error")
+     *         ),
+     *     )
      * )
      */
     public function getComentaris(){
@@ -52,6 +60,14 @@ class ComentariController extends Controller
      *              @OA\Property(property="Result",type="object")
      *          )
      *     ),
+     *    @OA\Response(
+     *         response=400,
+     *         description="Error",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="Status", type="string", example="Error"),
+     *              @OA\Property(property="Result",type="string", example="Informacio de l'error")
+     *         ),
+     *     )
      * )
      */
     public function getComentari($id){
@@ -74,8 +90,7 @@ class ComentariController extends Controller
      *        @OA\JsonContent(
      *           @OA\Property(property="Comentari", type="string", format="string", example="Aquest allotjament es un 10"),
      *           @OA\Property(property="Valoracio", type="number", format="number", example="5"),
-     *           @OA\Property(property="DataCreacio", type="date", format="date", example="2022-03-21"),
-     *           @OA\Property(property="AllotjamentsID ", type="number", format="number", example="1")
+     *           @OA\Property(property="AllotjamentsID", type="number", format="number", example="1")
      *        ),
      *     ),
      *    @OA\Response(
@@ -110,7 +125,7 @@ class ComentariController extends Controller
 
         $comentari->Comentari = $request->Comentari;
         $comentari->Valoracio = $request->Valoracio;
-        $comentari->DataCreacio = $request->DataCreacio;
+        $comentari->DataCreacio = date("Y-m-d");
         $comentari->AllotjamentsID = $request->AllotjamentsID;
         $comentari->UsuarisID = $request->DadesUsuari->ID;
 
@@ -243,7 +258,6 @@ class ComentariController extends Controller
         return [
             "Comentari" => ["required", "max:500"],
             "Valoracio" => ["required"],
-            "DataCreacio" => ["required"],
             "AllotjamentsID" => ["required"]];
     }
 
