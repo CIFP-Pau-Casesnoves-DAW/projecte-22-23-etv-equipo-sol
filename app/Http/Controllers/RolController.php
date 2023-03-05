@@ -13,14 +13,22 @@ class RolController extends Controller
      * path="/api/rol",
      * tags={"Rols"},
      * summary="Mostrar tots els rols",
-     * @OA\Response(
-     * response=200,
-     * description="Mostrar tots els rols."
-     * ),
-     * @OA\Response(
-     * response=400,
-     * description="Hi ha un error."
-     * ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="Status", type="string", example="Success"),
+     *              @OA\Property(property="Result",type="object")
+     *          )
+     *     ),
+     *    @OA\Response(
+     *         response=400,
+     *         description="Error",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="Status", type="string", example="Error"),
+     *              @OA\Property(property="Result",type="string", example="Informacio de l'error")
+     *         ),
+     *     )
      * )
      */
     public function getRols()

@@ -16,14 +16,22 @@ class TipusCategoriaController extends Controller
     * path="/api/tipuscategoria",
     * tags={"Tipus Categoria"},
     * summary="Mostrar tots els tipus de categoria.",
-    * @OA\Response(
-    * response=200,
-    * description="Mostrar tots els tipus de categoria."
-    * ),
-    * @OA\Response(
-    * response=400,
-    * description="Hi ha un error."
-    * ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="Status", type="string", example="Success"),
+     *              @OA\Property(property="Result",type="object")
+     *          )
+     *     ),
+     *    @OA\Response(
+     *         response=400,
+     *         description="Error",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="Status", type="string", example="Error"),
+     *              @OA\Property(property="Result",type="string", example="Informacio de l'error")
+     *         ),
+     *     )
     * )
     */
     public function getTipusCategories(){
@@ -46,7 +54,7 @@ class TipusCategoriaController extends Controller
      *         name="id",
      *         required=true,
      *         @OA\Schema(type="string"),
-     *         
+     *
      *     ),
      *     @OA\Response(
      *         response=200,
@@ -54,7 +62,7 @@ class TipusCategoriaController extends Controller
      *          @OA\JsonContent(
      *          @OA\Property(property="status", type="string", example="200"),
      *          @OA\Property(property="data",type="object")
-     *           ),    
+     *           ),
      *      ),
      *     @OA\Response(
      *         response=400,
@@ -137,6 +145,7 @@ class TipusCategoriaController extends Controller
         $tipusCategoria->Nom = $request->Nom;
 
         if ($tipusCategoria->save()) {
+            $tipusCategoria->ID = $request->ID;
             return response()->json(['Status' => 'Success','Result' => $tipusCategoria], 200);
         } else {
             return response()->json(['Status' => 'Error','Result' => 'Error guardant'], 400);

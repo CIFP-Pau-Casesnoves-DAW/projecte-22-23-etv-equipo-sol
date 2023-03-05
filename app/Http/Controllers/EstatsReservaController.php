@@ -15,14 +15,22 @@ class EstatsReservaController extends Controller
      * path="/api/estatsreserva",
      * tags={"EstatsReserva"},
      * summary="Mostrar tots els estats de reserva.",
-     * @OA\Response(
-     * response=200,
-     * description="Mostrar tots els estats de reserva."
-     * ),
-     * @OA\Response(
-     * response=400,
-     * description="Hi ha un error."
-     * ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Informació del estat de la reserva.",
+     *          @OA\JsonContent(
+     *          @OA\Property(property="Status", type="string", example="Success"),
+     *          @OA\Property(property="Result",type="object")
+     *           ),
+     *      ),
+     *    @OA\Response(
+     *         response=400,
+     *         description="Error",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="Status", type="string", example="Error"),
+     *              @OA\Property(property="Result",type="string", example="Informacio de l'error")
+     *         ),
+     *     )
      * )
      */
     public function getEstatsReserves()
@@ -53,17 +61,17 @@ class EstatsReservaController extends Controller
      *         response=200,
      *         description="Informació del estat de la reserva.",
      *          @OA\JsonContent(
-     *          @OA\Property(property="status", type="string", example="Success"),
-     *          @OA\Property(property="data",type="object")
+     *          @OA\Property(property="Status", type="string", example="Success"),
+     *          @OA\Property(property="Result",type="object")
      *           ),
      *      ),
-     *     @OA\Response(
+     *    @OA\Response(
      *         response=400,
-     *         description="Hi ha un error.",
+     *         description="Error",
      *         @OA\JsonContent(
-     *          @OA\Property(property="status", type="string", example="Error"),
-     *          @OA\Property(property="data",type="string", example="Estat de la reserva no trobat")
-     *           ),
+     *              @OA\Property(property="Status", type="string", example="Error"),
+     *              @OA\Property(property="Result",type="string", example="Informacio de l'error")
+     *         ),
      *     )
      * )
      */

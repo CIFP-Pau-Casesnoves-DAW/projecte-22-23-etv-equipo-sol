@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\ControllersHelper;
+use App\Models\Allotjament;
 use App\Models\Reserva;
+use App\Models\Tarifa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -18,14 +21,22 @@ class ReservaController extends Controller
      * tags={"Reserves"},
      * summary="Mostrar totes les reserves.",
      * security={{"bearerAuth":{}}},
-     * @OA\Response(
-     * response=200,
-     * description="Mostrar totes les reserves."
-     * ),
-     * @OA\Response(
-     * response=400,
-     * description="Hi ha un error."
-     * ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="Status", type="string", example="Success"),
+     *              @OA\Property(property="Result",type="object")
+     *          )
+     *     ),
+     *    @OA\Response(
+     *         response=400,
+     *         description="Error",
+     *         @OA\JsonContent(
+     *              @OA\Property(property="Status", type="string", example="Error"),
+     *              @OA\Property(property="Result",type="string", example="Informacio de l'error")
+     *         ),
+     *     )
      * )
      */
     public function getReserves(Request $request)
@@ -79,7 +90,7 @@ class ReservaController extends Controller
      */
     public function getReserva($id, Request $request)
     {
-        $reserva = Reserva::find($id);
+        $reserva = Reserva::findOrFail($id);
 
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $reserva->UsuarisID) {
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
@@ -88,7 +99,52 @@ class ReservaController extends Controller
         return response()->json(["Status" => "Success", "Result" => $reserva], 200);
     }
 
-    //INSERT
+    /**
+     *
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     path="/api/reserva/allotjament/{allotjamentID}",
+     *     tags={"Reserves"},
+     *     summary="Mostrar una reserva",
+     *     security={{"bearerAuth":{}}},
+     *     @OA\Parameter(
+     *         description="Id del allotjament",
+     *         in="path",
+     *         name="allotjamentID",
+     *         required=true,
+     *         @OA\Schema(type="string"),
+     *
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Informació de les reserves.",
+     *          @OA\JsonContent(
+     *          @OA\Property(property="status", type="string", example="Success"),
+     *          @OA\Property(property="data",type="object")
+     *           ),
+     *      ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Hi ha un error.",
+     *         @OA\JsonContent(
+     *          @OA\Property(property="status", type="string", example="Error"),
+     *          @OA\Property(property="data",type="string", example="Informacio de l'error")
+     *           ),
+     *     )
+     * )
+     */
+    public function getReservesAllotjament($allotjamentID, Request $request)
+    {
+        $reserves = Reserva::where("AllotjamentsID", "=", $allotjamentID)->get();
+
+        if ($request->DadesUsuari->RolsID != 3) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
+        }
+
+        return response()->json(["Status" => "Success", "Result" => $reserves], 200);
+    }
 
     /**
      *
@@ -105,7 +161,6 @@ class ReservaController extends Controller
      *        @OA\JsonContent(
      *           @OA\Property(property="DataCheckIn", type="date", format="date", example="2024-10-17"),
      *           @OA\Property(property="DataCheckOut", type="date", format="date", example="2025-10-20"),
-     *           @OA\Property(property="Preu", type="number", format="number", example="20"),
      *           @OA\Property(property="AllotjamentsID", type="number", format="number", example="3"),
      *        ),
      *     ),
@@ -136,14 +191,58 @@ class ReservaController extends Controller
 
         $isValid = Validator::make($request->all(), $validator, $messages);
 
-
         if ($isValid->fails()) {
             return response()->json(["Status" => "Error", "Result" => $isValid->errors()], 400);
         }
+
+        $allotjament=Allotjament::find($request->AllotjamentsID);
+
+        if ($allotjament == null){
+            return response()->json(["Status" => "Error", "Result" => "No existeix cap allotjament amb aquesta id"], 400);
+        }
+
+        $tarifa = Tarifa::where("TipusCategoriesID","=",$allotjament->TipusCategoriesID)->first();
+
+        if ($tarifa == null){
+            return response()->json(["Status" => "Error", "Result" => "Encara no existeix cap tarifa per aquest allotjament, " .
+            "espera a que es crei una tarifa per la categoria del allotjament o que se li assigni una categoria a l'allotjament."], 400);
+        }
+
+        if ($tarifa->IniciTemporadaAlta <= $request->DataCheckIn && $tarifa->FiTemporadaAlta >= $request->DataCheckIn){
+            $preu = $tarifa->PreuTemporadaAlta;
+        }
+        else {
+            $preu = $tarifa->PreuTemporadaBaixa;
+        }
+
+        $results = DB::select
+        (
+            DB::raw("
+                        SELECT
+                            *
+                        FROM
+                            Reserves
+                        WHERE
+                            AllotjamentsID = :allotjamentID
+                            AND (:checkIn BETWEEN DataCheckIn AND DataCheckOut
+                            OR :checkOut BETWEEN DataCheckIn AND DataCheckOut)
+                            AND EstatsReservesID = 1;"),
+            array(
+                'allotjamentID' => $request->AllotjamentsID,
+                'checkIn' => $request->DataCheckIn,
+                'checkOut' => $request->DataCheckOut
+            )
+        );
+
+        if (count($results) > 0){
+            return response()->json(['Status' => 'Error', 'Result' => 'No hi ha disponibilitat per aquest allotjament ' .
+            'durant el dies solicitats'], 400);
+        }
+
         $reserva->DataReserva = date("Y-m-d");
         $reserva->DataCheckIn = $request->DataCheckIn;
         $reserva->DataCheckOut = $request->DataCheckOut;
-        $reserva->Preu = $request->Preu;
+        $reserva->Preu = $preu;
         $reserva->EstatsReservesID = 1;
         $reserva->AllotjamentsID = $request->AllotjamentsID;
         $reserva->UsuarisID = $request->DadesUsuari->ID;
@@ -171,9 +270,6 @@ class ReservaController extends Controller
      *        required=true,
      *        @OA\JsonContent(
      *           @OA\Property(property="ID", type="number", format="number", example="1"),
-     *           @OA\Property(property="DataCheckIn", type="date", format="date", example="2024-12-23"),
-     *           @OA\Property(property="DataCheckOut", type="date", format="date", example="2025-12-27"),
-     *           @OA\Property(property="Preu", type="number", format="number", example="20"),
      *           @OA\Property(property="EstatsReservesID", type="number", format="number", example="2"),
      *        ),
      *     ),
@@ -202,12 +298,13 @@ class ReservaController extends Controller
         }
 
         $reserva = Reserva::find($request->ID);
-        
-        if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $reserva->UsuarisID) {
-            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
-        }
+
         if ($reserva == null){
             return response()->json(["Status" => "Error", "Result" => "No existeix cap reserva amb aquesta id"], 400);
+        }
+
+        if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $reserva->UsuarisID) {
+            return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
 
         $validator = $this->updateValidator();
@@ -219,9 +316,6 @@ class ReservaController extends Controller
             return response()->json(["Status" => "Error", "Result" => $isValid->errors()], 400);
         }
 
-        $reserva->DataCheckIn = $request->DataCheckIn;
-        $reserva->DataCheckOut = $request->DataCheckOut;
-        $reserva->Preu = $request->Preu;
         $reserva->EstatsReservesID = $request->EstatsReservesID;
 
         if ($reserva->save()) {
@@ -281,7 +375,7 @@ class ReservaController extends Controller
         if ($request->DadesUsuari->RolsID != 3 && $request->DadesUsuari->ID != $reserva->UsuarisID) {
             return response()->json(["Status" => "Error", "Result" => "Privilegis insuficients."], 401);
         }
-        
+
         if ($isDeleted = $reserva->delete()) {
             return response()->json(['Status' => 'Success', 'Result' => $isDeleted], 200);
         } else {
@@ -297,7 +391,6 @@ class ReservaController extends Controller
         return [
             "DataCheckIn" => ["required", "date", "after_or_equal:$avui"],
             "DataCheckOut" => ["required", "date", "after_or_equal:DataCheckIn"],
-            "Preu" => ["required", "min:0"],
             "AllotjamentsID" => ["required"]
         ];
     }
@@ -307,9 +400,7 @@ class ReservaController extends Controller
         $avui = date("Y-m-d");
         return [
             "ID" => ["required"],
-            "DataCheckIn" => ["required", "date", "after_or_equal:$avui"],
-            "DataCheckOut" => ["required", "date", "after_or_equal:DataCheckIn"],
-            "Preu" => ["required", "min:0"],
+            "EstatsReservesID" => ["required"],
         ];
     }
 }

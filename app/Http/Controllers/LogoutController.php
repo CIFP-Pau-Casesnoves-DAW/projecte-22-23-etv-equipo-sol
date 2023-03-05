@@ -18,10 +18,22 @@ class LogoutController extends Controller
      *    summary="Logout",
      *    description="Fa logout del actual usuari, eliminant el seu token de la base de dades",
      *    security={{"bearerAuth":{}}},
-     *    @OA\Response(
+     *     @OA\Response(
      *         response=200,
-     *         description="Success"
-     *    )
+     *         description="Informació de l'usuari.",
+     *          @OA\JsonContent(
+     *          @OA\Property(property="status", type="string", example="Success"),
+     *          @OA\Property(property="data",type="object")
+     *           ),
+     *      ),
+     *      @OA\Response(
+     *         response=400,
+     *         description="Hi ha un error.",
+     *         @OA\JsonContent(
+     *          @OA\Property(property="Status", type="string", example="Error"),
+     *          @OA\Property(property="Result",type="string", example="Informacio de l'error")
+     *           ),
+     *     )
      *  )
      */
     public function logout(Request $request)

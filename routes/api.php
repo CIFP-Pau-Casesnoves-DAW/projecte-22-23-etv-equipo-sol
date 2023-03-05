@@ -50,6 +50,7 @@ Route::group(["prefix"=>"traduccio"], function() {
     Route::get("/", [TraduccioController::class, "getTraduccions"]);
     Route::get("/{id}", [TraduccioController::class, "getTraduccio"]);
     Route::post("/", [TraduccioController::class, "insertTraduccio"])->middleware('token');
+    Route::post("/taula", [TraduccioController::class, "insertTraduccioTaula"])->middleware('token');
     Route::put("/", [TraduccioController::class, "updateTraduccio"])->middleware('token');
     Route::delete("/", [TraduccioController::class, "deleteTraduccio"])->middleware('token');
 });
@@ -57,7 +58,7 @@ Route::group(["prefix"=>"traduccio"], function() {
 Route::group(["prefix"=>"comentari"], function() {
     Route::get("/", [ComentariController::class, "getComentaris"]);
     Route::get("/{id}", [ComentariController::class, "getComentari"]);
-    Route::post("/", [ComentariController::class, "insertComentari"]);
+    Route::post("/", [ComentariController::class, "insertComentari"])->middleware('token');
     Route::put("/", [ComentariController::class, "updateComentari"])->middleware('token');
     Route::delete("/", [ComentariController::class, "deleteComentari"])->middleware('token');
 });
@@ -107,6 +108,7 @@ Route::group(["prefix"=>"tipusallotjament"], function() {
 Route::group(["prefix"=>"reserva"], function() {
     Route::get("/", [ReservaController::class, "getReserves"])->middleware('token');
     Route::get("/{id}", [ReservaController::class, "getReserva"])->middleware('token');
+    Route::get("/allotjament/{allotjamentID}", [ReservaController::class, "getReservesAllotjament"])->middleware('token');
     Route::post("/", [ReservaController::class, "insertReserva"])->middleware('token');
     Route::put("/", [ReservaController::class, "updateReserva"])->middleware('token');
     Route::delete("/", [ReservaController::class, "deleteReserva"])->middleware('token');
